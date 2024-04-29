@@ -45,8 +45,34 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        max_profit = 0
-        for i in range(1, len(prices)):
-            max_profit += max(0, prices[i] - prices[i - 1])
-        return max_profit
+        # 动态规划
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+
+        n = len(prices)
+        # dp[i][0]第i天持有股票手上所有的最大现金 dp[i][1]第i天不持有股票手上所有的最大现金
+        dp = [[0, 0] for _ in range(n)]
+
+        # 初始化
+        dp[0][0] = -prices[0]
+        dp[0][1] = 0
+
+        # 递推，循环
+        for i in range(1, n):
+            # 第i天持有股票
+            dp[i][0] = max(dp[i - 1][1] - prices[i], dp[i - 1][0])
+
+            # 第i天不持有股票
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i])
+        return dp[n - 1][1]
+
+        # # 贪心
+        # # 时间复杂度：O(n)
+        # # 空间复杂度：O(1)
+        # n = len(prices)
+        # res_max = 0
+        # for i in range(n-1):
+        #     if prices[i+1] > prices[i]:
+        #         res_max += (prices[i+1] - prices[i])
+        # return res_max
 # leetcode submit region end(Prohibit modification and deletion)

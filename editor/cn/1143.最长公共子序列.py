@@ -49,4 +49,21 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        # 动态规划
+        # 时间复杂度：O(text1_len*text2_len)
+        # 空间复杂度：O(text1_len*text2_len)
+
+        text1_len = len(text1)
+        text2_len = len(text2)
+        # dp[i][j]:到下标i-1和到下班j-1的最长公共子序列长度
+        dp = [[0 for _ in range(text2_len + 1)] for _ in range(text1_len + 1)]
+
+        # 递推 遍历
+        for i in range(1, text1_len + 1):
+            for j in range(1, text2_len + 1):
+                if text1[i - 1] == text2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+        return dp[text1_len][text2_len]
 # leetcode submit region end(Prohibit modification and deletion)

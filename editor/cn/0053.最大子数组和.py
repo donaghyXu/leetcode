@@ -45,13 +45,35 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        res = -sys.maxsize
-        count = 0
-        for i in range(len(nums)):
-            count += nums[i]
-            if count > res:
-                res = count
-            if count <= 0:
-                count = 0
-        return res
+        # 动态规划
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+
+        n = len(nums)
+        # dp[i]：下标到i的最大连续子数组和
+        dp = [0 for _ in range(n)]
+
+        # 初始化
+        dp[0] = nums[0]
+
+        result = dp[0]
+        # 递推 遍历
+        for i in range(1, n):
+            dp[i] = max(nums[i] + dp[i - 1], nums[i])
+            result = max(result, dp[i])
+        return result
+
+        # # 贪心
+        # # 时间复杂度：O(n)
+        # # 空间复杂度：O(1)
+        #
+        # res = -sys.maxsize
+        # count = 0
+        # for i in range(len(nums)):
+        #     count += nums[i]
+        #     if count > res:
+        #         res = count
+        #     if count <= 0:
+        #         count = 0
+        # return res
 # leetcode submit region end(Prohibit modification and deletion)
