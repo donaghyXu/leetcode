@@ -60,38 +60,67 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-class LRUCache:
+class DLinkNode:
+    def __init__(self, key = 0, value = 0):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
 
+class LRUCache:
+    # 思路：因为put操作涉及链表删除，而能满足O(1)操作的只有双向链表
     def __init__(self, capacity: int):
-        self.cache = []
-        self.max_size = capacity
+        self.capacity = capacity
+        self.dummy_head = DLinkNode()
+        self.dummy_tail = DLinkNode()
+        self.dummy_head.next = self.dummy_tail
+        self.dummy_tail.prev = self.dummy_head
+        self.size = 0
         self.cache_dict = {}
 
     def get(self, key: int) -> int:
-        if key in self.cache:
-            idx = self.cache.index(key)
-            self.cache.pop(idx)
-            self.cache.append(key)
-            return self.cache_dict.get(key)
+        if key in self.cache_dict:
+            node = self.cache_dict[key]
+            self.move_to_end(node)
+            return node.value
         else:
             return -1
 
     def put(self, key: int, value: int) -> None:
-        if key in self.cache:
-            self.cache_dict[key] = value
-            idx = self.cache.index(key)
-            self.cache.pop(idx)
-            self.cache.append(key)
+        if key in self.cache_dict:
+            node = self.cache_dict[key]
+            node.value = value
+            self.move_to_end(node)
         else:
-            if len(self.cache) == self.max_size:
-                key_first = self.cache[0]
-                self.cache.pop(0)
-                self.cache_dict.pop(key_first)
-            self.cache.append(key)
-            self.cache_dict[key] = value
+            if self.size == self.capacity:
+                node = self.dummy_head.next
+                self.cache_dict.pop(node.key)
+                self.move_node(node)
+                self.size -= 1
+            node = DLinkNode(key, value)
+            self.cache_dict[key] = node
+            self.add_node(node)
+            self.size += 1
 
+    def move_to_end(self, node):
+        self.move_node(node)
+        self.add_node(node)
+
+    def move_node(self, node):
+        prev = node.prev
+        next = node.next
+        prev.next = next
+        next.prev = prev
+
+    def add_node(self, node):
+        prev = self.dummy_tail.prev
+        prev.next = node
+        node.prev = prev
+        node.next = self.dummy_tail
+        self.dummy_tail.prev = node
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
 # leetcode submit region end(Prohibit modification and deletion)
+

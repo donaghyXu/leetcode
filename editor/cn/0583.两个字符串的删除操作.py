@@ -44,7 +44,7 @@ class Solution:
 
         word1_len = len(word1)
         word2_len = len(word2)
-        # dp[i][j]:到i-1下标的子串word1和到j-1下标的子串word2 两者相同所需删除的最小次数
+        # dp[i][j]：到下标i-1的单词word1和到下标j-1的单词word2相同的最小步数
         dp = [[0 for _ in range(word2_len + 1)] for _ in range(word1_len + 1)]
 
         # 初始化
@@ -53,12 +53,12 @@ class Solution:
         for j in range(word2_len + 1):
             dp[0][j] = j
 
-        # 递推 循环
+        # 递推，遍历
         for i in range(1, word1_len + 1):
             for j in range(1, word2_len + 1):
-                if word1[i - 1] == word2[j - 1]:
-                    dp[i][j] = dp[i - 1][j - 1]
+                if word1[i-1] == word2[j-1]:
+                    dp[i][j] = dp[i-1][j-1]
                 else:
-                    dp[i][j] = min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + 2)
+                    dp[i][j] = min(dp[i-1][j] + 1, dp[i][j-1] + 1, dp[i-1][j-1] + 2)
         return dp[word1_len][word2_len]
 # leetcode submit region end(Prohibit modification and deletion)

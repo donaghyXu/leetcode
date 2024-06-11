@@ -38,19 +38,22 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def checkPossibility(self, nums: List[int]) -> bool:
+        # 模拟
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+
         n = len(nums)
         if n <= 2:
             return True
         cnt = 0
         for i in range(1, n):
-            if nums[i] >= nums[i - 1]:
-                continue
-            cnt += 1
-            if i >= 2 and nums[i] < nums[i - 2]:
-                nums[i] = nums[i - 1]
-            else:
-                nums[i - 1] = nums[i]
+            if nums[i] < nums[i - 1]:
+                cnt += 1
+                if i >= 2 and nums[i] < nums[i - 2]:
+                    nums[i] = nums[i - 1]
+                else:
+                    nums[i - 1] = nums[i]
             if cnt >= 2:
-                break
-        return cnt < 2
+                return False
+        return True
 # leetcode submit region end(Prohibit modification and deletion)

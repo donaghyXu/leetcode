@@ -51,9 +51,11 @@ class Solution:
         if n <= 3:
             return max(nums)
 
-        # dp[i]：到编号为i的房间可偷的最高金额
-        dp1 = [0] * (n + 1)
-        dp2 = [0] * (n + 1)
+        # dp[i][j]：第i个房屋所能偷窃到的最高金额
+        # dp1：范围是第0个房屋到第n-2个房屋
+        # dp2：范围是第1个房屋到第n-1个房屋
+        dp1 = [0 for _ in range(n)]
+        dp2 = [0 for _ in range(n)]
 
         # 初始化
         dp1[0] = nums[0]
@@ -61,9 +63,9 @@ class Solution:
         dp2[0] = nums[1]
         dp2[1] = max(nums[1], nums[2])
 
+        # 递推，遍历
         for i in range(2, n - 1):
             dp1[i] = max(dp1[i - 2] + nums[i], dp1[i - 1])
             dp2[i] = max(dp2[i - 2] + nums[i + 1], dp2[i - 1])
-
         return max(dp1[n - 2], dp2[n - 2])
 # leetcode submit region end(Prohibit modification and deletion)

@@ -50,7 +50,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        # 单调栈 优化版 继续优化空间复杂度
+        # 3.单调栈 优化版 继续优化空间复杂度
         # 时间复杂度：O(n)   len(nums1)=m  len(nums2)=n
         # 空间复杂度：O(m)
         res_dict = {}
@@ -61,15 +61,14 @@ class Solution:
 
         for i in range(len(nums2)):
             while stack and nums2[i] > nums2[stack[-1]]:
-                index = stack[-1]
+                index = stack.pop()
                 if nums2[index] in res_dict:
                     result[res_dict[nums2[index]]] = nums2[i]
-                stack.pop()
             stack.append(i)
 
         return result
 
-        # # 单调栈 优化版
+        # # 2.单调栈 优化版
         # # 时间复杂度：O(n)   len(nums1)=m  len(nums2)=n
         # # 空间复杂度：O(n)
         # res_dict = {}
@@ -89,7 +88,7 @@ class Solution:
         #         result.append(-1)
         # return result
 
-        # # 单调栈
+        # # 1.单调栈
         # # 时间复杂度：O(n)   len(nums1)=m  len(nums2)=n
         # # 空间复杂度：O(n)
         # res = [-1] * 10005

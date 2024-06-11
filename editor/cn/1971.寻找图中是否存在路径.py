@@ -50,6 +50,13 @@ class Solution:
     def __init__(self):
         self.father = [i for i in range(200005)]
 
+    def find(self, u):
+        if self.father[u] == u:
+            return u
+        else:
+            self.father[u] = self.find(self.father[u])
+            return self.father[u]
+
     def join(self, u, v):
         u = self.find(u)
         v = self.find(v)
@@ -61,14 +68,10 @@ class Solution:
         v = self.find(v)
         return u == v
 
-    def find(self, u):
-        if u == self.father[u]:
-            return u
-        else:
-            self.father[u] = self.find(self.father[u])
-            return self.father[u]
-
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        # 并查集
+        # 时间复杂度：O(len(edges) * logn)
+        # 空间复杂度：O(1)
         for edge in edges:
             self.join(edge[0], edge[1])
         return self.is_same(source, destination)

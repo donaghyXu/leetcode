@@ -61,24 +61,24 @@ class MyQueue:
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        # 2.队列 会超时
+        # 2.单调队列
         # 时间复杂度：O(n)
         # 空间复杂度：O(k)
-        if len(nums) < k:
+        n = len(nums)
+        if n <= k:
             return [max(nums)]
 
+        result = []
         queue = MyQueue()
-        res = []
         for i in range(k):
             queue.push(nums[i])
-        res.append(queue.front())
+        result.append(queue.front())
 
-        for i in range(k, len(nums)):
+        for i in range(k, n):
             queue.pop(nums[i - k])
             queue.push(nums[i])
-            res.append(queue.front())
-
-        return res
+            result.append(queue.front())
+        return result
 
         # # 1.双指针 会超时
         # # 时间复杂度：O(n*k)

@@ -56,24 +56,59 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
+        # 2.贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+
         n = len(nums)
-        if n == 1 \
-                or (n == 2 and nums[0] != nums[1]):
+        if n == 1 or (n == 2 and nums[0] != nums[1]):
             return n
-        res = [nums[0]]
-        up_flag = ""
+        if n == 2 and nums[0] == nums[1]:
+            return 1
+        result = [nums[0]]
+        flag = ""
         for i in range(1, n):
-            if nums[i] > res[-1]:
-                if up_flag == "up":
-                    res.pop()
+            if nums[i] > result[-1]:
+                if flag == "up":
+                    result.pop()
                 else:
-                    up_flag = "up"
-                res.append(nums[i])
-            elif nums[i] < res[-1]:
-                if up_flag == "down":
-                    res.pop()
+                    flag = "up"
+                result.append(nums[i])
+            elif nums[i] < result[-1]:
+                if flag == "down":
+                    result.pop()
                 else:
-                    up_flag = "down"
-                res.append(nums[i])
-        return len(res)
+                    flag = "down"
+                result.append(nums[i])
+        return len(result)
+
+        # # 1.动态规划
+        # # 时间复杂度：O(n²)
+        # # 空间复杂度：O(n)
+        #
+        # n = len(nums)
+        # if n == 1 or (n == 2 and nums[0] != nums[1]):
+        #     return n
+        # if n == 2 and nums[0] == nums[1]:
+        #     return 1
+        #
+        # # dp[i]：到位置i的最长摆动子序列的长度
+        # dp = [1 for _ in range(n)]
+        #
+        # # state[i]：记录到位置i的最长摆动子序列的位置i状态，大于0，代表大于前一个元素，小于0，代表小于前一个元素
+        # state = [0 for _ in range(n)]
+        #
+        # # 递推，遍历
+        # for i in range(n):
+        #     for j in range(i):
+        #         if dp[j] >= 2:
+        #             if state[j] * (nums[i] - nums[j]) < 0:
+        #                 if dp[j] + 1 > dp[i]:
+        #                     state[i] = (nums[i] - nums[j])
+        #                     dp[i] = dp[j] + 1
+        #         else:
+        #             if nums[i] != nums[j]:
+        #                 state[i] = (nums[i] - nums[j])
+        #                 dp[i] = dp[j] + 1
+        # return dp[n - 1]
 # leetcode submit region end(Prohibit modification and deletion)

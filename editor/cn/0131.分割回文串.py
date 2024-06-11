@@ -37,7 +37,7 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
         # 回溯
         # 时间复杂度：O(n * 2^n)
-        # 空间复杂度：
+        # 空间复杂度：O(n²)
         self.back_tracking(s, 0)
         return self.result
 
@@ -57,11 +57,10 @@ class Solution:
             self.result.append(self.path[:])
             return
 
-        start = start_index
         for i in range(start_index, len(s)):
-            part = s[start:i+1]
-            if self.is_palindrome(part):
-                self.path.append(part)
+            sub_s = s[start_index:i+1]
+            if self.is_palindrome(sub_s):
+                self.path.append(sub_s)
                 self.back_tracking(s, i + 1)
                 self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

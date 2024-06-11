@@ -1,5 +1,9 @@
 class Solution:
     def solve(self, n, v, wi, vi):
+        # 动态规划
+        # 时间复杂度：O(mn)
+        # 空间复杂度：O(n)
+
         # dp[j]:容量为j的背包所能携带的最大价值
         dp = [0] * (v + 1)
         

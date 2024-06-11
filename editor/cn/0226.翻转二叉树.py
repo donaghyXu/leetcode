@@ -48,16 +48,17 @@
 #         self.right = right
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        # 层序遍历 bfs
+        # 遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        self.bfs(root)
+        self.dfs(root)
         return root
 
-    def bfs(self, node):
+    def dfs(self, node):
         if node is None:
             return
+
         node.left, node.right = node.right, node.left
-        self.bfs(node.left)
-        self.bfs(node.right)
+        self.dfs(node.left)
+        self.dfs(node.right)
 # leetcode submit region end(Prohibit modification and deletion)

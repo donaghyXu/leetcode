@@ -53,30 +53,32 @@ import copy
 
 
 class Solution:
+    def __init__(self):
+        self.path = []
+        self.result = []
+
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         # 深度优先
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         if root is None:
             return []
-        path = []
-        res = []
-        self.dfs(root, path, res, targetSum)
-        return res
+        self.dfs(root, targetSum)
+        return self.result
 
-    def dfs(self, node, path, res, target):
-        path.append(node.val)
+    def dfs(self, node, target):
+        self.path.append(node.val)
 
         if node.left is None and node.right is None:
-            if sum(path) == target:
-                res.append(copy.deepcopy(path))
+            if sum(self.path[:]) == target:
+                self.result.append(self.path[:])
             return
 
         if node.left:
-            self.dfs(node.left, path, res, target)
-            path.pop()
-        if node.right:
-            self.dfs(node.right, path, res, target)
-            path.pop()
+            self.dfs(node.left, target)
+            self.path.pop()
 
+        if node.right:
+            self.dfs(node.right, target)
+            self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

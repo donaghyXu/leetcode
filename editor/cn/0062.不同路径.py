@@ -56,22 +56,18 @@ class Solution:
         # 时间复杂度：O(mn)
         # 空间复杂度：O(mn)
 
-        # 定义dp[i][j]为到ij位置的可能路径
+        # dp[i][j]：到达位置(i,j)有多少条路径
         dp = [[0 for _ in range(n)] for _ in range(m)]
 
         # 初始化
-        dp[0][0] = 1
-
-        # 循环遍历
+        for j in range(n):
+            dp[0][j] = 1
         for i in range(m):
-            for j in range(n):
-                if i == 0 and j == 0:
-                    continue
-                if i == 0:
-                    dp[i][j] = dp[i][j - 1]
-                elif j == 0:
-                    dp[i][j] = dp[i - 1][j]
-                else:
-                    dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
+            dp[i][0] = 1
+
+        # 递推，遍历
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
         return dp[m - 1][n - 1]
 # leetcode submit region end(Prohibit modification and deletion)

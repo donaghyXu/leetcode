@@ -50,9 +50,9 @@ class Solution:
         # 二分搜索
         # 时间复杂度：O(h)
         # 空间复杂度：O(1)
-        while root is not None:
+        while root:
             if root.val == val:
-                break
+                return root
             elif root.val < val:
                 root = root.right
             else:

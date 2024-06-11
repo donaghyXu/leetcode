@@ -51,25 +51,28 @@
 #         self.next = next
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # 2.递归
+        # # 2.递归
+        # # 时间复杂度：O(n)
+        # # 空间复杂度：O(n)
+        # if head is None or head.next is None:
+        #     return head
+        # new_head = self.reverseList(head.next)
+        # head.next.next = head
+        # head.next = None
+        # return new_head
+
+        # 1.双指针/迭代
         # 时间复杂度：O(n)
-        # 空间复杂度：O(n)
+        # 空间复杂度：O(1)
         if head is None or head.next is None:
             return head
-        new_head = self.reverseList(head.next)
-        head.next.next = head
-        head.next = None
-        return new_head
 
-        # # 1.双指针/迭代
-        # # 时间复杂度：O(n)
-        # # 空间复杂度：O(1)
-        # pre = None
-        # cur = head
-        # while cur is not None:
-        #     temp = cur.next
-        #     cur.next = pre
-        #     pre = cur
-        #     cur = temp
-        # return pre
+        prev = None
+        cur = head
+        while cur:
+            temp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp
+        return prev
 # leetcode submit region end(Prohibit modification and deletion)

@@ -48,7 +48,7 @@
 #  树的深度不超过 10 
 #  
 # 
-#  Related Topics 树 深度优先搜索 二叉树 👍 732 👎 0
+#  Related Topics 树 深度优先搜索 二叉树 👍 738 👎 0
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
@@ -60,22 +60,30 @@
 #         self.right = right
 class Solution:
     def __init__(self):
-        self.sum_res = 0
-        self.temp = ''
+        self.path = []
+        self.result = []
 
-    def sumNumbers(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        self.temp += str(root.val)
-        if root.left is not None:
-            self.sumNumbers(root.left)
-        if root.right is not None:
-            self.sumNumbers(root.right)
-        if root.left is None and root.right is None:
-            self.sum_res += int(self.temp)
-        self.temp = self.temp[:-1]
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        # 深搜
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        self.dfs(root)
+        return sum(self.result)
 
-        return self.sum_res
+    def dfs(self, node):
+        if node is None:
+            return
+
+        self.path.append(str(node.val))
+        if node.left is None and node.right is None:
+            self.result.append(int("".join(self.path[:])))
+            return
+
+        if node.left:
+            self.dfs(node.left)
+            self.path.pop()
+
+        if node.right:
+            self.dfs(node.right)
+            self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

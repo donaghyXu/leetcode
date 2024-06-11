@@ -48,9 +48,12 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        # 排序，贪心
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(n)
         people.sort(key=lambda x: (-x[0], x[1]))
-        res = []
-        for people_iter in people:
-            res.insert(people_iter[1], people_iter)
-        return res
+        result = []
+        for i in range(len(people)):
+            result.insert(people[i][1], people[i])
+        return result
 # leetcode submit region end(Prohibit modification and deletion)

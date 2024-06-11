@@ -49,63 +49,31 @@ from collections import deque
 from typing import List
 class Solution:
     def __init__(self):
-        self.grid = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+        self.grid = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
     def numIslands(self, grid: List[List[str]]) -> int:
-        # 广搜
+        # 深搜
         # 时间复杂度：O(n²)
         # 空间复杂度：O(1)
+
+        m = len(grid)
+        n = len(grid[0])
         island_num = 0
-        x_end = len(grid)
-        y_end = len(grid[0])
-        for i in range(x_end):
-            for j in range(y_end):
+        for i in range(m):
+            for j in range(n):
                 if grid[i][j] == "1":
-                    self.bfs(grid, i, j)
+                    self.dfs(grid, i, j)
                     island_num += 1
         return island_num
 
-    def bfs(self, grid, x, y):
-        x_end = len(grid)
-        y_end = len(grid[0])
+    def dfs(self, grid, x, y):
+        m = len(grid)
+        n = len(grid[0])
+        # 终止条件
+        if x < 0 or x >= m or y < 0 or y >= n or grid[x][y] == "0":
+            return
 
-        queue = deque()
-        queue.append((x, y))
         grid[x][y] = "0"
-        while queue:
-            cur_x, cur_y = queue.popleft()
-            for x_offset, y_offset in self.grid:
-                next_x = cur_x + x_offset
-                next_y = cur_y + y_offset
-                if next_x < 0 or next_y < 0 or next_x >= x_end \
-                        or next_y >= y_end or grid[next_x][next_y] == "0":
-                    continue
-                else:
-                    queue.append((next_x, next_y))
-                    grid[next_x][next_y] = "0"
-
-    # def numIslands(self, grid: List[List[str]]) -> int:
-    #     # 深搜
-    #     # 时间复杂度：O(n²)
-    #     # 空间复杂度：
-    #     island_num = 0
-    #     x_end = len(grid)
-    #     y_end = len(grid[0])
-    #     for i in range(x_end):
-    #         for j in range(y_end):
-    #             if grid[i][j] == "1":
-    #                 self.dfs(grid, i, j)
-    #                 island_num += 1
-    #     return island_num
-    #
-    # def dfs(self, grid, x, y):
-    #     x_end = len(grid)
-    #     y_end = len(grid[0])
-    #     # 终止条件
-    #     if x < 0 or y < 0 or x >= x_end or y >= y_end or grid[x][y] == "0":
-    #         return
-    #
-    #     grid[x][y] = "0"
-    #     for x_offset, y_offset in self.grid:
-    #         self.dfs(grid, x+x_offset, y+y_offset)
+        for x_offset, y_offset in self.grid:
+            self.dfs(grid, x + x_offset, y + y_offset)
 # leetcode submit region end(Prohibit modification and deletion)

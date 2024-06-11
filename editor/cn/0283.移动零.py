@@ -40,28 +40,18 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        # left = 0
-        # right = 0
-        # while left < len(nums) and right < len(nums):
-        #     while left < len(nums) and nums[left] != 0:
-        #         left += 1
-        #     if left >= len(nums):
-        #         break
-        #     right = left + 1
-        #     while right < len(nums) and nums[right] == 0:
-        #         right += 1
-        #     if right < len(nums):
-        #         nums[left] = nums[right]
-        #         nums[right] = 0
-        #         left += 1
+        # 双指针
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
         left = 0
         right = 0
-        while right < len(nums):
+        n = len(nums)
+        while right < n:
             if nums[right] != 0:
                 nums[left] = nums[right]
                 left += 1
             right += 1
-        while left < len(nums):
+        while left < n:
             nums[left] = 0
             left += 1
 # leetcode submit region end(Prohibit modification and deletion)

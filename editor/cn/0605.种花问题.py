@@ -36,28 +36,23 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        # 贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+        flowerbed_len = len(flowerbed)
         cnt = 0
-        num = len(flowerbed)
-        if num == 1:
-            if flowerbed[0] == 0:
-                cnt += 1
-            return cnt >= n
-        for i in range(len(flowerbed)):
-            if flowerbed[i] == 1:
+
+        for i in range(flowerbed_len):
+            if flowerbed[i]:
                 continue
-            if i == 0:
-                if flowerbed[i + 1] == 0:
-                    cnt += 1
-                    flowerbed[i] = 1
-            elif i == (len(flowerbed) - 1):
-                if flowerbed[i - 1] == 0:
-                    cnt += 1
-                    flowerbed[i] = 1
-            else:
-                if flowerbed[i - 1] == 0 and flowerbed[i + 1] == 0:
-                    cnt += 1
-                    flowerbed[i] = 1
+            pre = i - 1
+            next = i + 1
+            if (0 <= pre < flowerbed_len and flowerbed[pre]) or \
+                    (0 <= next < flowerbed_len and flowerbed[next]):
+                continue
+            flowerbed[i] = 1
+            cnt += 1
             if cnt >= n:
-                break
+                return True
         return cnt >= n
 # leetcode submit region end(Prohibit modification and deletion)

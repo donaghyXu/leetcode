@@ -53,13 +53,13 @@ class Solution:
         # 时间复杂度：O(target*len(nums))
         # 空间复杂度：O(target)
 
-        # dp[j]：目标数j有多少种组合方法
-        dp = [0] * (target + 1)
+        # dp[i]：能组合成target的元素组合的个数
+        dp = [0 for _ in range(target+1)]
 
         # 初始化
         dp[0] = 1
 
-        # 递推，遍历，求排列为先背包再球
+        # 递推，遍历，先遍历背包，再遍历物品
         for i in range(target + 1):
             for j in range(len(nums)):
                 if i >= nums[j]:

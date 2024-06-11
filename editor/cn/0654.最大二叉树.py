@@ -65,16 +65,10 @@ class Solution:
         if len(nums) == 0:
             return None
 
-        root_value = max(nums)
-        root = TreeNode(val=root_value)
-
-        if len(nums) == 1:
-            return root
-
-        root_index = nums.index(root_value)
-        left = nums[:root_index]
-        right = nums[root_index+1:]
-        root.left = self.travel(left)
-        root.right = self.travel(right)
-        return root
+        max_value = max(nums)
+        max_value_index = nums.index(max_value)
+        node = TreeNode(val=max_value)
+        node.left = self.travel(nums[:max_value_index])
+        node.right = self.travel(nums[max_value_index+1:])
+        return node
 # leetcode submit region end(Prohibit modification and deletion)

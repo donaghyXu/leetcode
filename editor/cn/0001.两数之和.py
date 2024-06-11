@@ -48,38 +48,46 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    class Solution:
-        def twoSum(self, nums: List[int], target: int) -> List[int]:
-            # 4.内置函数enumerate遍历数组提升速度，时间复杂度O(n)，空间复杂度O(n)
-            hashMap = {}
-            for i, n in enumerate(nums):
-                v = target - n
-                if v in hashMap:
-                    return [i, hashMap[v]]
-                hashMap[n] = i
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # 4.内置函数enumerate遍历数组提升速度
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        hash_map = {}
+        for i, num in enumerate(nums):
+            other = target - num
+            if other in hash_map:
+                return [i, hash_map[other]]
+            hash_map[num] = i
 
-            # 3.融合法2的两次for循环，边存边比，时间复杂度O(n)，空间复杂度O(n)
-            # d = {}
-            # for i in range(len(nums)):
-            #     v = target - nums[i]
-            #     if v in d.keys():
-            #         return [i, d[v]]
-            #     d[nums[i]] = i
+        # 3.融合法2的两次for循环，边存边比
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        # hash_map = {}
+        # for i in range(len(nums)):
+        #     other = target - nums[i]
+        #     if other in hash_map:
+        #         return [i, hash_map[other]]
+        #     hash_map[nums[i]] = i
 
-            # 2.字典模拟哈希表存储，哈希表查找近似为恒定O(1)，时间复杂度O(n)，空间复杂度O(n)
-            # d = {}
-            # for i in range(len(nums)):
-            #     d[nums[i]] = i
-            # # print(d)
-            # for i in range(len(nums)):
-            #     temp = target - nums[i]
-            #     # print(d.get(temp))
-            #     if temp in d.keys() and d.get(temp) != i:
-            #         return [i, d.get(temp)]
+        # 2.字典模拟哈希表存储，哈希表查找近似为恒定O(1)
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        # n = len(nums)
+        # hash_map = {}
+        # for i in range(n):
+        #     hash_map[nums[i]] = i
+        #
+        # for i in range(n):
+        #     other = target - nums[i]
+        #     if other in hash_map and hash_map.get(other) != i:
+        #         return [i, hash_map.get(other)]
 
-            # 1.双重循环，暴力破解，时间复杂度O(n²)，空间复杂度O(1)
-            # for i in range(len(nums)):
-            #     for j in range((i+1), len(nums)):
-            #         if (nums[i] + nums[j]) == target:
-            #             return [i, j]
+        # 1.双重循环，暴力破解
+        # 时间复杂度：O(n²)
+        # 空间复杂度：O(1)
+        # n = len(nums)
+        # for i in range(n):
+        #     for j in range(i + 1, n):
+        #         if nums[i] + nums[j] == target:
+        #             return [i, j]
 # leetcode submit region end(Prohibit modification and deletion)

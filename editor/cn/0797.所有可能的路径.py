@@ -49,23 +49,23 @@ class Solution:
         self.path = []
 
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        # 深搜
+        # 回溯
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n²)
         self.path.append(0)
-        self.dfs(graph, 0)
+        self.back_tracking(graph, 0)
         return self.res
 
-    def dfs(self, graph, x):
-        # 终止条件
-        if x == (len(graph) - 1):
+    def back_tracking(self, graph, start_index):
+        n = len(graph)
+        if start_index == n - 1:
             # list可变，必须用deepcopy
             self.res.append(self.path[:])
             return
 
-        # 单层递归
-        for i in range(len(graph[x])):
-            self.path.append(graph[x][i])
-            self.dfs(graph, graph[x][i])
+        next_index_list = graph[start_index]
+        for next_index in next_index_list:
+            self.path.append(next_index)
+            self.back_tracking(graph, next_index)
             self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

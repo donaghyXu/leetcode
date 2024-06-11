@@ -48,13 +48,16 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-from typing import List
 class Solution:
     def largestSumAfterKNegations(self, nums: List[int], k: int) -> int:
+        # 贪心
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(1)
         nums.sort(key=lambda x: -abs(x))
-        for i in range(len(nums)):
+        n = len(nums)
+        for i in range(n):
             if nums[i] < 0:
-                nums[i] = -nums[i]
+                nums[i] = - nums[i]
                 k -= 1
             if k == 0:
                 return sum(nums)
@@ -62,8 +65,4 @@ class Solution:
             nums[-1] = -nums[-1]
         return sum(nums)
 # leetcode submit region end(Prohibit modification and deletion)
-# nums = [-2,9,9,8,4]
-# s = Solution()
-# res = s.largestSumAfterKNegations(nums, 5)
-# print(res)
 

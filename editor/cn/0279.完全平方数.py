@@ -40,16 +40,16 @@ class Solution:
         # 时间复杂度：O(sqrt(n) * n)
         # 空间复杂度：O(n)
 
-        # dp[j]:和为j的完全平方数的最少数量
-        dp = [float('inf')] * (n + 1)
+        # dp[i]：和为i的完全平方数的最少数量
+        dp = [10005 for _ in range(n + 1)]
 
         # 初始化
         dp[0] = 0
 
-        # 递推 遍历 组合
-        for i in range(1, int(math.sqrt(n)) + 1):
-            i_new = i * i
-            for j in range(i_new, n + 1):
-                dp[j] = min(dp[j], dp[j - i_new] + 1)
+        # 递推，遍历，先物品后背包，完全背包
+        target = int(math.sqrt(n))
+        for i in range(1, target + 1):
+            for j in range(i ** 2, n + 1):
+                dp[j] = min(dp[j], dp[j - i ** 2] + 1)
         return dp[n]
 # leetcode submit region end(Prohibit modification and deletion)

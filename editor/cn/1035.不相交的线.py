@@ -64,10 +64,10 @@ class Solution:
         nums1_len = len(nums1)
         nums2_len = len(nums2)
 
-        # dp[i][j]:到下标i-1和到下班j-1的最长公共子序列长度
+        # dp[i][j]：到下标i-1和到下标j-1的最长公共子序列长度
         dp = [[0 for _ in range(nums2_len + 1)] for _ in range(nums1_len + 1)]
 
-        # 递推 遍历
+        # 递推，遍历
         for i in range(1, nums1_len + 1):
             for j in range(1, nums2_len + 1):
                 if nums1[i - 1] == nums2[j - 1]:

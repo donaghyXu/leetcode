@@ -49,31 +49,31 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-from typing import List
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        # 贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+        # 思路：确保出发点开始油一直是够的状态，如果不够，说明对后面的行程来说是负担
+        #      从新的节点开始
         if sum(gas) < sum(cost):
             return -1
         n = len(gas)
-        rest = [None] * n
-        for i in range(n):
-            rest[i] = gas[i] - cost[i]
+
+        rest = 0
         start = 0
-        step = 0
-        cur_sum = 0
-        while (start + step) < n:
-            index = start + step
-            cur_sum += rest[index]
-            if cur_sum < 0:
-                start = index + 1
-                step = 0
-                cur_sum = 0
+        flag = False
+        for i in range(n):
+            if gas[i] + rest >= cost[i]:
+                rest = gas[i] + rest - cost[i]
+                flag = True
             else:
-                step += 1
-        return start
+                rest = 0
+                start = i + 1
+                flag = False
+                continue
+        if flag:
+            return start
+        else:
+            return -1
 # leetcode submit region end(Prohibit modification and deletion)
-# gas = [1,2,3,4,5]
-# cost = [3,4,5,1,2]
-# s = Solution()
-# res = s.canCompleteCircuit(gas, cost)
-# print(res)

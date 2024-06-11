@@ -49,8 +49,9 @@ class Solution:
         # 空间复杂度：O(1)
         dummy_head = ListNode()
         dummy_head.next = head
+
         cur = dummy_head
-        while cur.next is not None:
+        while cur.next:
             if cur.next.val == val:
                 cur.next = cur.next.next
             else:

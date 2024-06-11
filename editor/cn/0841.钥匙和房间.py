@@ -53,22 +53,19 @@ class Solution:
         # 深搜
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n)
-        x_end = len(rooms)
-        visited = [False for _ in range(x_end)]
-
-        visited[0] = True
-        for i in range(x_end):
-            if visited[i]:
-                self.dfs(rooms, i, visited)
-
+        n = len(rooms)
+        visited = [False for _ in range(n)]
+        self.dfs(rooms, 0, visited)
         if False in visited:
             return False
         else:
             return True
 
-    def dfs(self, rooms, x, visited):
-        for num in rooms[x]:
-            if not visited[num]:
-                visited[num] = True
-                self.dfs(rooms, num, visited)
+    def dfs(self, rooms, start_index, visited):
+        visited[start_index] = True
+        next_room_list = rooms[start_index]
+        for next_room in next_room_list:
+            if visited[next_room]:
+                continue
+            self.dfs(rooms, next_room, visited)
 # leetcode submit region end(Prohibit modification and deletion)

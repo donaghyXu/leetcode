@@ -47,21 +47,22 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         # 动态规划
-        # 时间复杂度：O(n² * len(wordDict))
+        # 时间复杂度：O(n * len(wordDict)²)
         # 空间复杂度：O(n)
 
         n = len(s)
-        # dp[j]:长度为j的字符串可以拆分成一个或多个在字典中的单词
-        dp = [False] * (n + 1)
+        # dp[i]:以位置i结尾的字符是否可由wordDict中的单词拼出
+        dp = [False for _ in range(n)]
 
-        # 初始化
-        dp[0] = True
-
-        # 递推 遍历
-        for i in range(1, n + 1):
-            for j in range(i + 1):
-                sub_str = s[j:i]
-                if dp[j] and sub_str in wordDict:
-                    dp[i] = True
-        return dp[n]
+        # 递推，遍历，先背包后物品，完全背包
+        for i in range(n):
+            for word in wordDict:
+                if len(word) <= i + 1:
+                    if s[i - len(word) + 1:i + 1] == word:
+                        if i - len(word) + 1 == 0:
+                            dp[i] = True
+                        else:
+                            if dp[i - len(word)]:
+                                dp[i] = True
+        return dp[n - 1]
 # leetcode submit region end(Prohibit modification and deletion)

@@ -66,6 +66,8 @@ class Solution:
         # 双指针法
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
+        # 思路：如果快指针能与慢指针相遇，说明有环，类似跑操套圈
+
         fast = head
         slow = head
         while fast is not None and fast.next is not None:

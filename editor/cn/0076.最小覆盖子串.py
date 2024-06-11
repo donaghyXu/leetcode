@@ -54,48 +54,49 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import collections
+
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        t_dict = {}
+        # 滑动窗口
+        # 时间复杂度：O(s_len*t_len)
+        # 空间复杂度：O(s_len+t_len)
+
+        s_len = len(s)
+        t_len = len(t)
+        if s_len < t_len:
+            return ""
+
+        t_dict = collections.defaultdict(int)
         for element in t:
-            if element in t_dict:
-                t_dict[element] += 1
-            else:
-                t_dict[element] = 1
+            t_dict[element] += 1
+
+        result = ""
+        min_len = s_len + 1
 
         left = 0
         right = 0
-        res_dict = {}
-        res_sub_str = ''
-        min_len = float('inf')
-        while right < len(s):
-            if s[right] in res_dict:
-                res_dict[s[right]] += 1
-            else:
-                res_dict[s[right]] = 1
-            flag = True
-            for key, value in t_dict.items():
-                if key not in res_dict:
-                    flag = False
-                    break
-                if key in res_dict and value > res_dict[key]:
-                    flag = False
-                    break
-            while flag:
-                sub_len = right - left + 1
-                if sub_len < min_len:
-                    min_len = sub_len
-                    res_sub_str = s[left:right + 1]
-
-                res_dict[s[left]] -= 1
+        while right < s_len:
+            if s[right] in t_dict:
+                t_dict[s[right]] -= 1
+            # 符合滑动窗口的要求，计算子串
+            while self.is_contain(t_dict) and left <= right:
+                if right - left + 1 < min_len:
+                    min_len = right - left + 1
+                    result = s[left:right + 1]
+                # 滑动窗口收缩
+                if s[left] in t_dict:
+                    t_dict[s[left]] += 1
                 left += 1
-                for key, value in t_dict.items():
-                    if key not in res_dict:
-                        flag = False
-                        break
-                    if key in res_dict and value > res_dict[key]:
-                        flag = False
-                        break
+            # 滑动窗口扩展
             right += 1
-        return res_sub_str
+        return result
+
+    # 判断子串是否被覆盖
+    def is_contain(self, hash_dict):
+        for key, value in hash_dict.items():
+            if value > 0:
+                return False
+        return True
 # leetcode submit region end(Prohibit modification and deletion)

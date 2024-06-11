@@ -52,20 +52,19 @@ class Solution:
         # 空间复杂度：O(target_new)
 
         n = len(nums)
-        total = sum(nums)
-        target_new = int((total + target) / 2)
-        if (total + target) % 2 or abs(target) > total:
+        # left + right = sum, left - right = target
+        total = sum(nums) + target
+        if total % 2 or total < 0:
             return 0
-        target_new = int(target_new)
+        target_new = int(total / 2)
 
-        # dp[j]：构成j，有dp[j]种方法
-        dp = [0] * (target_new + 1)
+        # dp[i]：构成i，有dp[i]种方法
+        dp = [0 for _ in range(target_new + 1)]
 
         # 初始化
         dp[0] = 1
 
-        # 递归 遍历
-        # left + right = sum  left - right = target  left=(sum+target)/2
+        # 递推，遍历，先物品再背包
         for i in range(n):
             for j in range(target_new, nums[i] - 1, -1):
                 dp[j] += dp[j - nums[i]]

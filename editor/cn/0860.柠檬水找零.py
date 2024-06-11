@@ -48,32 +48,30 @@
 from typing import List
 class Solution:
     def lemonadeChange(self, bills: List[int]) -> bool:
-        rest = 0
-        rest_single = [0] * 3
-        for i in range(len(bills)):
-            pay = bills[i] - 5
-            if pay > rest:
-                return False
-            else:
-                if pay == 15 \
-                        and rest_single[1] >= 1 \
-                        and rest_single[0] >= 1:
-                    rest_single[2] += 1
-                    rest_single[1] -= 1
-                    rest_single[0] -= 1
-                elif pay == 15 \
-                        and rest_single[1] == 0 \
-                        and rest_single[0] >= 3:
-                    rest_single[2] += 1
-                    rest_single[0] -= 3
-                elif pay == 5 and rest_single[0] >= 1:
-                    rest_single[1] += 1
-                    rest_single[0] -= 1
-                elif pay == 0:
-                    rest_single[0] += 1
+        # 数组，贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+        five_count = 0
+        ten_count = 0
+        twenty_count = 0
+        for bill in bills:
+            if bill == 5:
+                five_count += 1
+            elif bill == 10:
+                if five_count:
+                    five_count -= 1
+                    ten_count += 1
                 else:
                     return False
-                rest += 5
+            else:
+                if ten_count and five_count:
+                    ten_count -= 1
+                    five_count -= 1
+                    twenty_count += 1
+                elif five_count >= 3:
+                    five_count -= 3
+                else:
+                    return False
         return True
 # leetcode submit region end(Prohibit modification and deletion)
 # bills = [5,5,10,10,20]

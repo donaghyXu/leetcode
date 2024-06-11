@@ -52,7 +52,7 @@
 #         self.right = right
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
-        # 动态规划 深搜 后序遍历
+        # 2.动态规划 深搜 后序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(1ogn)
         result = self.dfs(root)
@@ -74,7 +74,7 @@ class Solution:
         return [val1, val2]
 
     # def rob(self, root: Optional[TreeNode]) -> int:
-    #     # 动态规划 深搜 后序遍历
+    #     # 1.动态规划 深搜 后序遍历
     #     # 时间复杂度：O(n)
     #     # 空间复杂度：O(1ogn)
     #     _, result, _ = self.dfs(root)

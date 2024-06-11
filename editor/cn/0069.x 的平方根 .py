@@ -35,13 +35,17 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def mySqrt(self, x: int) -> int:
-        start = 0
-        end = x
-        while start <= end:
-            mid = start + (end - start) // 2
+        # 数学，二分查找
+        # 时间复杂度：O(logn)
+        # 空间复杂度：O(1)
+
+        left = 1
+        right = x
+        while left <= right:
+            mid = left + (right - left) // 2
             if mid * mid <= x:
-                start = mid + 1
+                left = mid + 1
             else:
-                end = mid - 1
-        return end
+                right = mid - 1
+        return right
 # leetcode submit region end(Prohibit modification and deletion)

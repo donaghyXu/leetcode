@@ -60,22 +60,19 @@ class Solution:
         # 回溯
         # 时间复杂度：O(n * 2^n)
         # 空间复杂度：O(n)
-        self.back_tracking(n, k, 1)
+        self.back_tracking(1, k, n)
         return self.result
 
-    def back_tracking(self, n, k, start_index):
-        # 剪枝
-        if sum(self.path) > n:
-            return
-
+    def back_tracking(self, start_index, k, n):
         # 终止条件
-        if len(self.path) == k:
-            if sum(self.path) == n:
-                self.result.append(self.path[:])
+        if len(self.path) == k and sum(self.path) == n:
+            self.result.append(self.path[:])
+            return
+        if sum(self.path) > n:
             return
 
         for i in range(start_index, 10 - (k - len(self.path)) + 1):
             self.path.append(i)
-            self.back_tracking(n, k, i + 1)
+            self.back_tracking(i+1, k, n)
             self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

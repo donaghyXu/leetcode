@@ -46,34 +46,39 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def findRadius(self, houses: List[int], heaters: List[int]) -> int:
+        # 双指针
+        # 时间复杂度：O(logn * len(houses) * len(heaters)
+        # 空间复杂度：O(1)
         max_house = max(houses)
         max_heater = max(heaters)
-        n = max_house if max_house > max_heater else max_heater
-        left = 0
-        right = n + 1
         houses.sort()
         heaters.sort()
-        # import pdb
-        # pdb.set_trace()
-        while left < right:
-            middle = left + (right - left) // 2
-            if not self.judge_fugai(houses, heaters, middle):
-                left = middle + 1
+        left = 0
+        right = max(max_house, max_heater)
+        while left <= right:
+            mid = left + (right - left) // 2
+            if self.valid(houses, heaters, mid):
+                right = mid - 1
             else:
-                right = middle
+                left = mid + 1
         return left
 
-    def judge_fugai(self, house_list, heater_list, r):
+    def valid(self, houses, heaters, r):
         cnt = 0
         index = 0
-        total = len(house_list)
-        for heater in heater_list:
-            ll = heater - r
-            rr = heater + r
-            while (cnt < total) and (ll <= house_list[index] <= rr):
+        total = len(houses)
+        for heater in heaters:
+            left_cover = heater - r
+            right_cover = heater + r
+            while cnt < total and \
+                    left_cover <= houses[index] <= right_cover:
                 index += 1
                 cnt += 1
             if cnt == total:
                 return True
         return False
+
+
+
+
 # leetcode submit region end(Prohibit modification and deletion)

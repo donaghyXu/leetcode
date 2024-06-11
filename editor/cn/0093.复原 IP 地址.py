@@ -46,43 +46,35 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def __init__(self):
-        self.result = []
         self.path = []
+        self.result = []
 
     def restoreIpAddresses(self, s: str) -> List[str]:
         # 回溯
-        # 时间复杂度：O(n * 2^n)
-        # 空间复杂度：
+        # 时间复杂度：O(3^4)
+        # 空间复杂度：O(n)
         self.back_tracking(s, 0)
         return self.result
 
-    def is_right(self, s: str):
-        s_len = len(s)
-        if s_len >= 4 or s_len < 1:
-            return False
-        else:
-            if s[0] == "0" and s_len == 1:
-                return True
-            elif s[0] == "0" and s_len > 1:
-                return False
-            elif 0 <= int(s) <= 255:
-                return True
-            else:
-                return False
-
     def back_tracking(self, s, start_index):
         # 终止条件
-        if start_index >= len(s) and len(self.path) == 4:
-            self.result.append('.'.join(self.path[:]))
-            return
+        if len(self.path) == 4 and start_index == len(s):
+            self.result.append(".".join(self.path[:]))
 
         for i in range(start_index, len(s)):
-            part = s[start_index:i+1]
+            sub_s = s[start_index:i+1]
             # 剪枝
             if len(self.path) >= 5:
                 break
-            if self.is_right(part):
-                self.path.append(part)
-                self.back_tracking(s, i+1)
+            if self.is_valid(sub_s):
+                self.path.append(sub_s)
+                self.back_tracking(s, i + 1)
                 self.path.pop()
+
+    def is_valid(self, s):
+        if len(s) >= 2 and s[0] == "0":
+            return False
+        if 0 <= int(s) <= 255:
+            return True
+        return False
 # leetcode submit region end(Prohibit modification and deletion)

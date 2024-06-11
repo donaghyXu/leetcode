@@ -62,28 +62,28 @@
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         # 2.双指针法
-        # 时间: O(n)
-        # 空间: O(1)
-        left = 0
-        right = 0
-        while right < len(nums):
-            if nums[right] != val:
-                nums[left] = nums[right]
-                left += 1
-            right += 1
-        return left
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+        slow = 0
+        fast = 0
+        while fast < len(nums):
+            if nums[fast] != val:
+                nums[slow] = nums[fast]
+                slow += 1
+            fast += 1
+        return slow
 
         # # 1.暴力解法
-        # # 时间: O(n^2)
-        # # 空间: O(1)
-        # size = len(nums)
+        # # 时间复杂度：O(n²)
+        # # 空间复杂度：O(1)
+        # n = len(nums)
         # i = 0
-        # while i < size:
+        # while i < n:
         #     if nums[i] == val:
-        #         for j in range(i + 1, size):
+        #         for j in range(i + 1, n):
         #             nums[j - 1] = nums[j]
-        #         size -= 1
+        #         n -= 1
         #         i -= 1
         #     i += 1
-        # return size
+        # return n
 # leetcode submit region end(Prohibit modification and deletion)

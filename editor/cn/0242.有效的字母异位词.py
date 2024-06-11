@@ -37,29 +37,19 @@
 from collections import Counter
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        # # count
-        # if len(s) != len(t):
-        #     return False
-        # s_count = Counter()
-        # t_count = Counter()
-        # for i in range(len(s)):
-        #     s_count[s[i]] += 1
-        #     t_count[t[i]] += 1
-        # if s_count == t_count:
-        #     return True
-        # else:
-        #     return False
-
-        # 数组
+        # 哈希表
+        # 时间复杂度：O(max(len(s), len(t)))
+        # 空间复杂度：O(1)
         if len(s) != len(t):
             return False
-        cnt = [0] * 26
+
+        hash_dict = [0] * 26
         for element in s:
-            cnt[ord(element) - ord('a')] += 1
+            hash_dict[ord(element) - ord('a')] += 1
         for element in t:
-            cnt[ord(element) - ord('a')] -= 1
+            hash_dict[ord(element) - ord('a')] -= 1
         for i in range(26):
-            if cnt[i] != 0:
+            if hash_dict[i] != 0:
                 return False
         return True
 # leetcode submit region end(Prohibit modification and deletion)

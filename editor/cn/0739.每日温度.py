@@ -41,13 +41,20 @@ class Solution:
         # 单调栈
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+
         n = len(temperatures)
-        res = [0] * n
         stack = []
+        result = [0 for _ in range(n)]
         for i in range(n):
-            while stack and temperatures[i] > temperatures[stack[-1]]:
-                index = stack.pop()
-                res[index] = i - index
-            stack.append(i)
-        return res
+            if stack:
+                if temperatures[i] < temperatures[stack[-1]]:
+                    stack.append(i)
+                else:
+                    while stack and temperatures[i] > temperatures[stack[-1]]:
+                        result[stack[-1]] = i - stack[-1]
+                        stack.pop()
+                    stack.append(i)
+            else:
+                stack.append(i)
+        return result
 # leetcode submit region end(Prohibit modification and deletion)

@@ -57,8 +57,8 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
         # 回溯
-        # 时间复杂度：
-        # 空间复杂度：
+        # 时间复杂度：O(9^(9x9))，较为宽松的一个上界，具体取决于输入数据
+        # 空间复杂度：O(1)
         self.back_tracking(board)
 
     def is_valid(self, board, row, col, k):

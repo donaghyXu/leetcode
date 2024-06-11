@@ -38,42 +38,42 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def climbStairs(self, n: int) -> int:
-        # 动态规划 优化空间复杂度
+        # 2.动态规划 优化空间复杂度
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
 
         if n <= 2:
             return n
 
-        # dp数组定义
+        # dp[i]:爬到第i个阶梯有dp[i]种方法,第三个阶梯后不断覆盖，节省空间
         dp = [0] * 3
 
-        # dp开始项初始化
+        # 初始化
         dp[1] = 1
         dp[2] = 2
 
-        # 循环遍历，后面的状态由前面的状态获得，顺序遍历
+        # 递推，遍历
         for i in range(3, n + 1):
             sum_value = dp[1] + dp[2]
             dp[1] = dp[2]
             dp[2] = sum_value
         return dp[2]
 
-        # # 动态规划
+        # # 1.动态规划
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(n)
         #
         # if n <= 2:
         #     return n
         #
-        # # dp数组定义
+        # # dp[i]:爬到第i个阶梯有dp[i]种方法
         # dp = [0] * (n+1)
         #
-        # # dp开始项初始化
+        # # 初始化
         # dp[1] = 1
         # dp[2] = 2
         #
-        # # 循环遍历，后面的状态由前面的状态获得，顺序遍历
+        # # 递推，遍历
         # for i in range(3, n+1):
         #     dp[i] = dp[i-1] + dp[i-2]
         # return dp[n]

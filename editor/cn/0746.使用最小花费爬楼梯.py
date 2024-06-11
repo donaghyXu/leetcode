@@ -46,7 +46,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        # 动态规划优化空间复杂度
+        # 2.动态规划优化空间复杂度
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
 
@@ -58,14 +58,14 @@ class Solution:
         dp[0] = 0
         dp[1] = 0
 
-        # 遍历
+        # 递推，遍历
         for i in range(2, n + 1):
             min_value = min(dp[1] + cost[i - 1], dp[0] + cost[i - 2])
             dp[0] = dp[1]
             dp[1] = min_value
         return dp[1]
 
-        # # 动态规划
+        # # 1.动态规划
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(n)
         #
@@ -77,7 +77,7 @@ class Solution:
         # dp[0] = 0
         # dp[1] = 0
         #
-        # # 遍历
+        # # 递推，遍历
         # for i in range(2, n+1):
         #     dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2])
         # return dp[n]

@@ -39,5 +39,5 @@ class Solution:
                 stack.pop()
             else:
                 stack.append(element)
-        return ''.join(stack)
+        return "".join(stack)
 # leetcode submit region end(Prohibit modification and deletion)

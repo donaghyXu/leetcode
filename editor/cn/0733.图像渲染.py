@@ -46,25 +46,30 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def __init__(self):
-        self.color = 0
-        self.color_value = 0
+        self.grid = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
-        self.color = color
-        self.color_value = image[sr][sc]
-        self.dfs(image, sr, sc)
-        for i in range(0, len(image)):
-            for j in range(0, len(image[0])):
-                if image[i][j] == -1:
-                    image[i][j] = self.color
+        # 深搜
+        # 时间复杂度：O(mn)
+        # 空间复杂度：O(mn)
+        m = len(image)
+        n = len(image[0])
+
+        visited = [[False for _ in range(n)] for _ in range(m)]
+        src_color = image[sr][sc]
+        self.dfs(image, sr, sc, color, src_color, visited)
         return image
 
-    def dfs(self, image, i, j):
-        if i < 0 or j < 0 or i >= len(image) or j >= len(image[0]) or image[i][j] != self.color_value:
+    def dfs(self, image, x, y, color, src_color, visited):
+        m = len(image)
+        n = len(image[0])
+
+        if x < 0 or x >= m or y < 0 or y >= n or \
+                image[x][y] != src_color or visited[x][y]:
             return
-        image[i][j] = -1
-        self.dfs(image, i - 1, j)
-        self.dfs(image, i + 1, j)
-        self.dfs(image, i, j - 1)
-        self.dfs(image, i, j + 1)
+
+        image[x][y] = color
+        visited[x][y] = True
+        for x_offset, y_offset in self.grid:
+            self.dfs(image, x + x_offset, y + y_offset, color, src_color, visited)
 # leetcode submit region end(Prohibit modification and deletion)

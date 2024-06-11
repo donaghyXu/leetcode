@@ -42,27 +42,17 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
-        # n = len(nums)
-        # left = 0
-        # right = n - 1
-        # while left <= right:
-        #     middle = left + (right - left) // 2
-        #     if nums[middle] < target:
-        #         left = middle + 1
-        #     elif nums[middle] > target:
-        #         right = middle - 1
-        #     else:
-        #         return middle
-        # return right + 1
-        start = 0
-        end = len(nums) - 1
-        while start <= end:
-            mid = start + (end - start) // 2
-            if nums[mid] > target:
-                end = mid - 1
-            elif nums[mid] < target:
-                start = mid + 1
+        # 二分查找
+        # 时间复杂度：O(logn)
+        # 空间复杂度：O(1)
+
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            mid = left + (right - left) // 2
+            if nums[mid] >= target:
+                right = mid - 1
             else:
-                return mid
-        return start
+                left = mid + 1
+        return left
 # leetcode submit region end(Prohibit modification and deletion)

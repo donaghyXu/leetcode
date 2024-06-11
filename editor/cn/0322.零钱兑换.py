@@ -46,17 +46,18 @@ class Solution:
         # 时间复杂度：O(len(coins) * amount)
         # 空间复杂度：O(amount)
 
-        # dp[j]: 组成总金额j的最少硬币个数
-        dp = [float('Inf')] * (amount + 1)
+        n = len(coins)
+        # dp[i]：凑成i所需的最少硬币个数
+        dp = [10005 for _ in range(amount+1)]
 
         # 初始化
         dp[0] = 0
 
-        # 递推，遍历，组合
-        for i in range(len(coins)):
+        # 递推，遍历
+        for i in range(n):
             for j in range(coins[i], amount + 1):
-                dp[j] = min(dp[j], dp[j - coins[i]] + 1)
-        if dp[amount] == float('Inf'):
+                dp[j] = min(dp[j], dp[j-coins[i]] + 1)
+        if dp[amount] == 10005:
             return -1
         return dp[amount]
 # leetcode submit region end(Prohibit modification and deletion)

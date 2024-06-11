@@ -44,22 +44,24 @@ class Solution:
 
     def permute(self, nums: List[int]) -> List[List[int]]:
         # 回溯
-        # 时间复杂度：O(n * 2^n)
-        # 空间复杂度：O(n * n!)
+        # 时间复杂度：O(n!)
+        # 空间复杂度：O(n)
         used = [False] * len(nums)
         self.back_tracking(nums, used)
         return self.result
 
     def back_tracking(self, nums, used):
+        # 终止条件
         if len(self.path) == len(nums):
             self.result.append(self.path[:])
             return
 
         for i in range(len(nums)):
-            if not used[i]:
-                self.path.append(nums[i])
-                used[i] = True
-                self.back_tracking(nums, used)
-                self.path.pop()
-                used[i] = False
+            if used[i]:
+                continue
+            self.path.append(nums[i])
+            used[i] = True
+            self.back_tracking(nums, used)
+            used[i] = False
+            self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

@@ -55,17 +55,16 @@ class Solution:
 
         word1_len = len(word1)
         word2_len = len(word2)
-
-        # dp[i][j]：到下标i-1的word1子串 和 到下标j-1的word2子串 一样的最少操作次数
+        # dp[i][j]：到下标i-1的单词word1和到下标j-1的单词word2相同的最少操作数
         dp = [[0 for _ in range(word2_len + 1)] for _ in range(word1_len + 1)]
 
         # 初始化
         for i in range(word1_len + 1):
             dp[i][0] = i
-        for j in range(1, word2_len + 1):
+        for j in range(word2_len + 1):
             dp[0][j] = j
 
-        # 递推 遍历
+        # 递推，遍历
         for i in range(1, word1_len + 1):
             for j in range(1, word2_len + 1):
                 if word1[i-1] == word2[j-1]:

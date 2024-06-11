@@ -43,73 +43,71 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def __init__(self):
-        self.dir = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+        self.dir = [(0,-1), (0, 1), (-1, 0), (1, 0)]
         self.count = 0
 
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        # 广搜
+        # 2.深搜
         # 时间复杂度：O(n²)
-        # 空间复杂度：O(1)
-        max_island_area = 0
-        x_end = len(grid)
-        y_end = len(grid[0])
-        for i in range(x_end):
-            for j in range(y_end):
+        # 空间复杂度：O(n²)
+        m = len(grid)
+        n = len(grid[0])
+        max_area = 0
+
+        for i in range(m):
+            for j in range(n):
                 if grid[i][j]:
-                    self.bfs(grid, i, j)
-                    max_island_area = max(max_island_area, self.count)
+                    self.dfs(grid, i, j)
+                    max_area = max(max_area, self.count)
                     self.count = 0
-        return max_island_area
+        return max_area
 
-    def bfs(self, grid, x, y):
-        x_end = len(grid)
-        y_end = len(grid[0])
+    def dfs(self, grid, x, y):
+        m = len(grid)
+        n = len(grid[0])
+        if x < 0 or x >= m or y < 0 or y >= n or not grid[x][y]:
+            return
 
-        queue = collections.deque()
-        queue.append((x, y))
         grid[x][y] = 0
         self.count += 1
-        while queue:
-            cur_x, cur_y = queue.popleft()
-            for x_offset, y_offset in self.dir:
-                next_x = cur_x + x_offset
-                next_y = cur_y + y_offset
-                if 0 <= next_x < x_end and 0 <= next_y < y_end and \
-                        grid[next_x][next_y]:
-                    queue.append((next_x, next_y))
-                    grid[next_x][next_y] = 0
-                    self.count += 1
+        for x_offset, y_offset in self.dir:
+            self.dfs(grid, x+x_offset, y+y_offset)
 
     # def __init__(self):
-    #     self.dir = [(0,-1), (0, 1), (-1, 0), (1, 0)]
+    #     self.dir = [(0, -1), (0, 1), (-1, 0), (1, 0)]
     #     self.count = 0
     #
     # def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-    #     # 深搜
+    #     # 1.广搜
     #     # 时间复杂度：O(n²)
-    #     # 空间复杂度：O(n²)
+    #     # 空间复杂度：O(1)
     #     max_island_area = 0
     #     x_end = len(grid)
     #     y_end = len(grid[0])
     #     for i in range(x_end):
     #         for j in range(y_end):
     #             if grid[i][j]:
-    #                 self.dfs(grid, i, j)
+    #                 self.bfs(grid, i, j)
     #                 max_island_area = max(max_island_area, self.count)
     #                 self.count = 0
     #     return max_island_area
     #
-    # def dfs(self, grid, x, y):
+    # def bfs(self, grid, x, y):
     #     x_end = len(grid)
     #     y_end = len(grid[0])
     #
-    #     # 终止条件
-    #     if x < 0 or y < 0 or x >= x_end or y >= y_end or \
-    #         grid[x][y] == 0:
-    #         return 0
-    #
+    #     queue = collections.deque()
+    #     queue.append((x, y))
     #     grid[x][y] = 0
     #     self.count += 1
-    #     for x_offset, y_offset in self.dir:
-    #         self.dfs(grid, x+x_offset, y+y_offset)
+    #     while queue:
+    #         cur_x, cur_y = queue.popleft()
+    #         for x_offset, y_offset in self.dir:
+    #             next_x = cur_x + x_offset
+    #             next_y = cur_y + y_offset
+    #             if 0 <= next_x < x_end and 0 <= next_y < y_end and \
+    #                     grid[next_x][next_y]:
+    #                 queue.append((next_x, next_y))
+    #                 grid[next_x][next_y] = 0
+    #                 self.count += 1
 # leetcode submit region end(Prohibit modification and deletion)

@@ -50,10 +50,14 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
+        # 贪心
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(1)
+        n = len(points)
         points.sort(key=lambda x: x[1])
-        right = points[0][1]
         cnt = 1
-        for i in range(1, len(points)):
+        right = points[0][1]
+        for i in range(1, n):
             if points[i][0] <= right:
                 continue
             else:

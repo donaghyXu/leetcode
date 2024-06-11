@@ -47,16 +47,14 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def reverse(self, x: int) -> int:
-        if x >= 0:
-            x_rev = str(x)[::-1]
-            if int(x_rev) > (math.pow(2, 31) - 1):
-                return 0
-            else:
-                return int(x_rev)
-        else:
-            x_rev = str(-x)[::-1]
-            if int(x_rev) > math.pow(2, 31):
-                return 0
-            else:
-                return -int(x_rev)
+        # 数学模拟
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        str_x = str(abs(x))
+        result = int("".join(list(str_x)[::-1]))
+        if x < 0:
+            result = -result
+        if result >= math.pow(2, 31) or result < -math.pow(2, 31):
+            return 0
+        return result
 # leetcode submit region end(Prohibit modification and deletion)

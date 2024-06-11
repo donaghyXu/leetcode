@@ -37,23 +37,24 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def findLengthOfLCIS(self, nums: List[int]) -> int:
-        # 动态规划
+        # 2.动态规划
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
 
         n = len(nums)
-        # dp[i]:到i及之前的连续递增的子序列长度
+
+        # dp[i]：以下标i结尾的序列的最长连续递增子序列长度
         dp = [1 for _ in range(n)]
 
-        # 递推 循环
         result = 1
+        # 递推，遍历
         for i in range(1, n):
             if nums[i] > nums[i-1]:
-                dp[i] = dp[i - 1] + 1
+                dp[i] = dp[i-1] + 1
                 result = max(result, dp[i])
         return result
 
-        # # 双指针
+        # # 1.双指针
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(1)
         #

@@ -45,7 +45,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        # 动态规划
+        # 2.动态规划
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
 
@@ -66,7 +66,7 @@ class Solution:
             dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i])
         return dp[n - 1][1]
 
-        # # 贪心
+        # # 1.贪心
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(1)
         # n = len(prices)

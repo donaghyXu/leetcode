@@ -55,10 +55,11 @@ class Solution:
 
         text1_len = len(text1)
         text2_len = len(text2)
-        # dp[i][j]:到下标i-1和到下班j-1的最长公共子序列长度
+
+        # dp[i][j]：到下标i-1和下标j-1的最长公共子序列的长度
         dp = [[0 for _ in range(text2_len + 1)] for _ in range(text1_len + 1)]
 
-        # 递推 遍历
+        # 递推，遍历
         for i in range(1, text1_len + 1):
             for j in range(1, text2_len + 1):
                 if text1[i - 1] == text2[j - 1]:

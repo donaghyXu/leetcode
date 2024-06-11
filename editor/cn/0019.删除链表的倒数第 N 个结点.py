@@ -49,38 +49,38 @@
 #         self.next = next
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        # 2.双指针法
+        # 2.双指针法，一次遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
-        pre = ListNode(0, head)
-        slow = pre
-        fast = pre
-        cnt = 0
-        while fast is not None:
-            cnt += 1
+        dummy_head = ListNode(0, head)
+        fast = dummy_head
+        slow = dummy_head
+        for i in range(n):
             fast = fast.next
-            if cnt > (n + 1):
-                slow = slow.next
-        slow.next = slow.next.next
-        return pre.next
 
-        # # 1.模拟法
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return dummy_head.next
+
+        # # 1.模拟法，两次遍历
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(1)
         # cnt = 0
-        # new_head = head
-        # while new_head is not None:
+        # cur = head
+        # while cur is not None:
         #     cnt += 1
-        #     new_head = new_head.next
+        #     cur = cur.next
         #
-        # pre = ListNode(0, head)
-        # new_head = pre
+        # dummy_head = ListNode(0, head)
+        # cur = dummy_head
         # index = 0
-        # while new_head is not None:
+        # while cur is not None:
         #     index += 1
         #     if index == (cnt - n + 1):
-        #         new_head.next = new_head.next.next
+        #         cur.next = cur.next.next
         #         break
-        #     new_head = new_head.next
-        # return pre.next
+        #     cur = cur.next
+        # return dummy_head.next
 # leetcode submit region end(Prohibit modification and deletion)

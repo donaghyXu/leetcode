@@ -43,58 +43,43 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def solveEquation(self, equation: str) -> str:
-        eq_split = equation.split("=")
-        a = eq_split[0]
-        b = eq_split[1]
+        # 模拟
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
 
-        # import pdb
-        # pdb.set_trace()
-        if "+" in a or "-" in a:
-            a_split = a.replace("-", "+-").split("+")
-        else:
-            a_split = [a]
-        x_pre = 0
-        num_pre = 0
-        # import pdb
-        # pdb.set_trace()
-        for item in a_split:
-            if item == "":
-                continue
-            if "x" in item:
-                if len(item) == 1:
-                    x_pre += 1
-                elif len(item) == 2 and "-" in item:
-                    x_pre -= 1
+        left, right = equation.replace("-", "+-").split("=")
+        left_list = left.split("+")
+        right_list = right.split("+")
+        x_pre_suffix = 0
+        num_pre_suffix = 0
+        for element in left_list:
+            if element:
+                if element[-1] == "x":
+                    if len(element) == 1:
+                        x_pre_suffix += 1
+                    elif len(element) == 2 and element[0] == "-":
+                        x_pre_suffix -= 1
+                    else:
+                        x_pre_suffix += int(element[:-1])
                 else:
-                    x_pre += int(item.replace("x", ""))
-            else:
-                num_pre += int(item)
+                    num_pre_suffix += int(element)
 
-        if "+" in b or "-" in b:
-            b_split = b.replace("-", "+-").split("+")
-        else:
-            b_split = [b]
-        x_right_pre = 0
-        num_right_pre = 0
-        for item in b_split:
-            if item == "":
-                continue
-            if "x" in item:
-                if len(item) == 1:
-                    x_right_pre += 1
-                elif len(item) == 2 and "-" in item:
-                    x_right_pre -= 1
+        for element in right_list:
+            if element:
+                if element[-1] == "x":
+                    if len(element) == 1:
+                        x_pre_suffix -= 1
+                    elif len(element) == 2 and element[0] == "-":
+                        x_pre_suffix += 1
+                    else:
+                        x_pre_suffix -= int(element[:-1])
                 else:
-                    x_right_pre += int(item.replace("x", ""))
-            else:
-                num_right_pre += int(item)
+                    num_pre_suffix -= int(element)
 
-        x_final_pre = x_pre - x_right_pre
-        num_final_pre = num_right_pre - num_pre
-        if x_final_pre == 0 and num_final_pre == 0:
+        if x_pre_suffix == 0 and num_pre_suffix == 0:
             return "Infinite solutions"
-        elif x_final_pre == 0 and num_final_pre != 0:
+        elif x_pre_suffix == 0 and num_pre_suffix != 0:
             return "No solution"
         else:
-            return "x=%d" % (num_final_pre // x_final_pre)
+            return "x={}".format(-int(num_pre_suffix / x_pre_suffix))
 # leetcode submit region end(Prohibit modification and deletion)

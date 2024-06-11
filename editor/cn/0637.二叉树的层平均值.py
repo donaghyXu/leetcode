@@ -47,20 +47,20 @@
 #         self.right = right
 class Solution:
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
-        # 广度优先 bfs
+        # 遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         res = []
         depth = 0
-        self.bfs(root, depth, res)
+        self.dfs(root, depth, res)
         return [sum(x) / len(x) for x in res]
 
-    def bfs(self, node, depth, res):
+    def dfs(self, node, depth, res):
         if node is None:
             return
         if len(res) == depth:
             res.append([])
         res[depth].append(node.val)
-        self.bfs(node.left, depth+1, res)
-        self.bfs(node.right, depth+1, res)
+        self.dfs(node.left, depth+1, res)
+        self.dfs(node.right, depth+1, res)
 # leetcode submit region end(Prohibit modification and deletion)

@@ -44,7 +44,7 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # 迭代法
+        # 2.迭代法
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         if p.val > q.val:
@@ -58,7 +58,8 @@ class Solution:
                 return root
         return None
 
-    #     # 深度优先
+    # def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    #     # 1.深度优先
     #     # 时间复杂度：O(n)
     #     # 空间复杂度：O(n)
     #     if p.val < q.val:

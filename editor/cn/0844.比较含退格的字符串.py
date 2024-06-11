@@ -50,28 +50,9 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        # # 栈
-        # s_res = []
-        # t_res = []
-        # for i in range(len(s)):
-        #     if s[i] != '#':
-        #         s_res.append(s[i])
-        #     else:
-        #         if len(s_res) != 0:
-        #             s_res.pop()
-        #
-        # for i in range(len(t)):
-        #     if t[i] != '#':
-        #         t_res.append(t[i])
-        #     else:
-        #         if len(t_res) != 0:
-        #             t_res.pop()
-        # if s_res == t_res:
-        #     return True
-        # else:
-        #     return False
-
-        # 双指针
+        # 2.双指针
+        # 时间复杂度：O(max(len(s), len(t)))
+        # 空间复杂度：O(1) 如果字符串可以原地修改
         s_list = list(s)
         t_list = list(t)
         s_left = 0
@@ -97,4 +78,28 @@ class Solution:
             return True
         else:
             return False
+
+        # # 1.栈
+        # # 时间复杂度：O(max(len(s), len(t)))
+        # # 空间复杂度：O(max(len(s), len(t)))
+        #
+        # s_stack = []
+        # t_stack = []
+        # for element in s:
+        #     if element != "#":
+        #         s_stack.append(element)
+        #     else:
+        #         if s_stack:
+        #             s_stack.pop()
+        # for element in t:
+        #     if element != "#":
+        #         t_stack.append(element)
+        #     else:
+        #         if t_stack:
+        #             t_stack.pop()
+        # if s_stack == t_stack:
+        #     return True
+        # else:
+        #     return False
+
 # leetcode submit region end(Prohibit modification and deletion)

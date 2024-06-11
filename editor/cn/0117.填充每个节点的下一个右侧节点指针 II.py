@@ -64,15 +64,15 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        # 层序遍历 bfs
+        # 遍历 bfs
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         res = []
         depth = 0
-        self.bfs(root, depth, res)
+        self.dfs(root, depth, res)
         return root
 
-    def bfs(self, node, depth, res):
+    def dfs(self, node, depth, res):
         if node is None:
             return
         if len(res) == depth:
@@ -80,6 +80,6 @@ class Solution:
         if len(res[depth]) != 0:
             res[depth][-1].next = node
         res[depth].append(node)
-        self.bfs(node.left, depth + 1, res)
-        self.bfs(node.right, depth + 1, res)
+        self.dfs(node.left, depth + 1, res)
+        self.dfs(node.right, depth + 1, res)
 # leetcode submit region end(Prohibit modification and deletion)

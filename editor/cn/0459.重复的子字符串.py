@@ -66,12 +66,13 @@ class Solution:
             return True
         return False
 
-        # # 1. 移动匹配
-        # # 时间复杂度：O(n)
-        # # 空间复杂度：O(1)
-        # t = s + s
-        # t = t[1:-1]
-        # if t.find(s) != -1:
-        #     return True
-        # return False
+    # def repeatedSubstringPattern(self, s: str) -> bool:
+    #     # 1. 移动匹配
+    #     # 时间复杂度：O(n)
+    #     # 空间复杂度：O(1)
+    #     t = s + s
+    #     t = t[1:-1]
+    #     if t.find(s) != -1:
+    #         return True
+    #     return False
 # leetcode submit region end(Prohibit modification and deletion)

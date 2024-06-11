@@ -45,12 +45,10 @@ class Solution:
     def maxProfit(self, prices: List[int], fee: int) -> int:
         # 动态规划
         # 时间复杂度：O(n)
-        # 空间复杂度：O(n*2)
+        # 空间复杂度：O(n)
 
         n = len(prices)
-        # dp[i]:第i天持有的最多现金
-        # 状态0：第i天持有股票
-        # 状态1：第i天不持有股票
+        # dp[i]:第i天手中最多持有的现金，j=0代表持有股票，j=1代表不持有股票
         dp = [[0, 0] for _ in range(n)]
 
         # 初始化

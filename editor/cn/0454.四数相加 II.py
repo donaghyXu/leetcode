@@ -46,7 +46,9 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
-        # 2. 哈希表  减少一次循环遍历 时间复杂度 O(n²)，空间复杂度O(n²)
+        # 2. 哈希表  减少一次循环遍历
+        # 时间复杂度：O(n²)
+        # 空间复杂度：O(n²)
         two_sum_dict1 = {}
         for i in range(len(nums1)):
             for j in range(len(nums2)):
@@ -64,7 +66,9 @@ class Solution:
                     res += two_sum_dict1[target]
         return res
 
-        # # 1. 哈希表 时间复杂度 O(n²)+O(n)，空间复杂度O(n²)
+        # # 1.哈希表
+        # # 时间复杂度：O(n²)+O(n)
+        # # 空间复杂度：O(n²)
         # two_sum_dict1 = {}
         # two_sum_dict2 = {}
         # for i in range(len(nums1)):

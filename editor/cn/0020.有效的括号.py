@@ -51,16 +51,16 @@ class Solution:
         # 空间复杂度：O(n)
         stack = []
         for element in s:
-            stack.append(element)
-            if len(stack) >= 2:
-                if element == ')' and stack[-2] == '(':
+            if element in ['(', "{", "["]:
+                stack.append(element)
+            else:
+                if element == ')' and stack and stack[-1] == "(":
                     stack.pop()
+                elif element == '}' and stack and stack[-1] == "{":
                     stack.pop()
-                elif element == ']' and stack[-2] == '[':
+                elif element == ']' and stack and stack[-1] == "[":
                     stack.pop()
-                    stack.pop()
-                elif element == '}' and stack[-2] == '{':
-                    stack.pop()
-                    stack.pop()
+                else:
+                    return False
         return not stack
 # leetcode submit region end(Prohibit modification and deletion)

@@ -33,24 +33,47 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
+    def __init__(self):
+        self.left = 0
+        self.max_length = 0
+
     def longestPalindrome(self, s: str) -> str:
-        # 动态规划
-        # 时间复杂度：O(s_len * s_len)
-        # 空间复杂度：O(s_len * s_len)
+        # 2.双指针
+        # 时间复杂度：O(n²)
+        # 空间复杂度：O(1)
+        for i in range(len(s)):
+            self.extend(s, i, i)
+            self.extend(s, i, i + 1)
+        return s[self.left:self.left + self.max_length]
 
-        s_len = len(s)
-        result = ""
+    def extend(self, s, i, j):
+        n = len(s)
+        while i >= 0 and j < n and s[i] == s[j]:
+            if j - i + 1 > self.max_length:
+                self.left = i
+                self.max_length = j - i + 1
+            i -= 1
+            j += 1
 
-        # dp[i][j]：下标在[i,j]范围内的子串是否是回文子串
-        dp = [[False for _ in range(s_len)] for _ in range(s_len)]
-
-        # 递推 遍历
-        for i in range(s_len - 1, -1, -1):
-            for j in range(i, s_len):
-                if s[i] == s[j]:
-                    if (j - i) <= 1 or ((j - i) > 1 and dp[i+1][j-1]):
-                        dp[i][j] = True
-                        if len(s[i:j+1]) > len(result):
-                            result = s[i:j+1]
-        return result
+    # def longestPalindrome(self, s: str) -> str:
+    #     # 1.动态规划
+    #     # 时间复杂度：O(s_len * s_len)
+    #     # 空间复杂度：O(s_len * s_len)
+    #
+    #     s_len = len(s)
+    #     result = ""
+    #     # dp[i][j]：下标在[i,j]范围的子串是否是回文子串
+    #     dp = [[False for _ in range(s_len)] for _ in range(s_len)]
+    #
+    #     # 递推，遍历
+    #     for i in range(s_len - 1, -1, -1):
+    #         for j in range(i, s_len):
+    #             if s[i] == s[j]:
+    #                 if j - i <= 1:
+    #                     dp[i][j] = True
+    #                 else:
+    #                     dp[i][j] = dp[i+1][j-1]
+    #             if dp[i][j] and j - i + 1 > len(result):
+    #                 result = s[i:j+1]
+    #     return result
 # leetcode submit region end(Prohibit modification and deletion)

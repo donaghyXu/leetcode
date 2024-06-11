@@ -43,9 +43,11 @@ class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         # 回溯
         # 时间复杂度：O(n * 2^n)
-        # 空间复杂度：
+        # 空间复杂度：O(n)
+
+        # 去重需要排序
         nums.sort()
-        self.result.append([])      # 去重需要排序
+        self.result.append([])
         self.back_tracking(nums, 0)
         return self.result
 
@@ -55,6 +57,7 @@ class Solution:
             return
 
         for i in range(start_index, len(nums)):
+            # 同树层去重
             if i > start_index and nums[i] == nums[i-1]:
                 continue
             self.path.append(nums[i])

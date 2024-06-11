@@ -49,27 +49,35 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        # 1.单链表模拟算术加法，时间复杂度O(max(m,n))，空间复杂度o(max(m,n))
-        # carry 模拟进位 0或1
-        # carry大于0的条件是因为结果可能比数字位数多出一位，所以数字位数遍历完后可能还没结束，如99,1-> 99+01=100
-        # 转换成数相加不适用于超长整数情况
+        # 双指针
+        # 时间复杂度：O(max(len(l1), len(l2)))
+        # 空间复杂度：O(max(len(l1), len(l2)))
+        # 思路：单链表模拟算术加法，
+        #      carry 模拟进位 0或1
+        #      carry大于0的条件是因为结果可能比数字位数多出一位
+        #      所以数字位数遍历完后可能还没结束，如99,1-> 99+01=100
+        #      转换成数相加不适用于超长整数情况
         carry = 0
-        head = ListNode(0)
-        cur = head
+        dummy_head = ListNode(0)
+        cur = dummy_head
 
-        while carry > 0 or l1 or l2:
-            sum = carry
-            sum += l1.val if l1 else 0
-            sum += l2.val if l2 else 0
+        while l1 or l2 or carry:
+            sum_value = carry
+            sum_value += l1.val if l1 else 0
+            sum_value += l2.val if l2 else 0
 
-            carry = sum // 10
+            carry = 1 if sum_value > 9 else 0
 
-            cur.next = ListNode(sum % 10)
+            if carry == 1:
+                remain = sum_value - 10
+            else:
+                remain = sum_value
+            cur.next = ListNode(remain)
             cur = cur.next
 
             if l1:
                 l1 = l1.next
             if l2:
                 l2 = l2.next
-        return head.next
+        return dummy_head.next
 # leetcode submit region end(Prohibit modification and deletion)

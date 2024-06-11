@@ -34,6 +34,23 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        nums.sort(reverse=True)
-        return nums[k - 1]
+        # 计数排序
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        # 思路：统计数的范围
+        #      根据计数排序，还需统计数的范围
+        #      设定max-min+1的0值数组长度，且统计数时下标刚好-min来衡量
+        #      本题已明确表明nums[i]范围为-10000-10000 因此可设定数组长度为20001
+
+        count = [0] * 20001
+        # 统计数组中每个值出现的次数
+        for num in nums:
+            count[num + 10000] += 1
+
+        # 因为要找数组中第k个最大的元素，因此从后往前遍历 寻找第k个最大的
+        cnt = 0
+        for i in range(len(count) - 1, -1, -1):
+            cnt += count[i]
+            if cnt >= k:
+                return i - 10000
 # leetcode submit region end(Prohibit modification and deletion)

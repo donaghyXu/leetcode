@@ -41,6 +41,9 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        # 贪心
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(1)
         g.sort()
         s.sort()
         max_num = 0

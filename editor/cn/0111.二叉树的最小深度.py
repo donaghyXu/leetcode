@@ -41,22 +41,19 @@
 #         self.right = right
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        # 层序遍历 bfs
+        # 遍历 dfs
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        res = self.bfs(root)
+        res = self.dfs(root)
         return res
 
-    def bfs(self, node):
+    def dfs(self, node):
         if node is None:
             return 0
-        if node.left is None and node.right is None:
-            return 1
 
-        left = self.bfs(node.left)
-        right = self.bfs(node.right)
-        if node.left is None or node.right is None:
+        left = self.dfs(node.left)
+        right = self.dfs(node.right)
+        if left == 0 or right == 0:
             return max(left, right) + 1
-
         return min(left, right) + 1
 # leetcode submit region end(Prohibit modification and deletion)

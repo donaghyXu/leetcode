@@ -42,20 +42,28 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import heapq
 class MedianFinder:
-
     def __init__(self):
-        self.data = []
+        self.heap_min = []
+        self.heap_max = []
 
     def addNum(self, num: int) -> None:
-        bisect.insort(self.data, num)
+        if not self.heap_min or num <= -self.heap_min[0]:
+            heapq.heappush(self.heap_min, -num)
+            if len(self.heap_max) + 1 < len(self.heap_min):
+                heapq.heappush(self.heap_max, -heapq.heappop(self.heap_min))
+        else:
+            heapq.heappush(self.heap_max, num)
+            if len(self.heap_max) > len(self.heap_min):
+                heapq.heappush(self.heap_min, -heapq.heappop(self.heap_max))
 
     def findMedian(self) -> float:
-        len_data = len(self.data)
-        if len_data % 2 == 0:
-            return (self.data[int(len_data / 2)] + self.data[int(len_data / 2) - 1]) / 2.0
+        if len(self.heap_min) > len(self.heap_max):
+            return -self.heap_min[0]
         else:
-            return self.data[int(len_data / 2)]
+            return (-self.heap_min[0] + self.heap_max[0]) / 2
+
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()

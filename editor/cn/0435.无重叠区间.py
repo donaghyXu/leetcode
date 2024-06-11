@@ -43,13 +43,20 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        cnt = 0
+        # 贪心
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(1)
+        if len(intervals) == 1:
+            return 0
+        n = len(intervals)
         intervals.sort(key=lambda x: x[1])
-        right = intervals[0][1]
-        for i in range(1, len(intervals)):
-            if intervals[i][0] < right:
+
+        cnt = 0
+        end = intervals[0][1]
+        for i in range(1, n):
+            if intervals[i][0] < end:
                 cnt += 1
             else:
-                right = intervals[i][1]
+                end = intervals[i][1]
         return cnt
 # leetcode submit region end(Prohibit modification and deletion)

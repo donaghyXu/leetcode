@@ -32,27 +32,23 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-from typing import List
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        res = []
-        n = len(intervals)
-        if n == 1:
-            return intervals
+        # 贪心
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(n)
+
         intervals.sort(key=lambda x: x[0])
+        result = []
         start = intervals[0][0]
         end = intervals[0][1]
-        for i in range(1, n):
-            if start <= intervals[i][0] <= end:
+        for i in range(1, len(intervals)):
+            if intervals[i][0] <= end:
                 end = max(intervals[i][1], end)
             else:
-                res.append([start, end])
+                result.append([start, end])
                 start = intervals[i][0]
                 end = intervals[i][1]
-        res.append([start, end])
-        return res
+        result.append([start, end])
+        return result
 # leetcode submit region end(Prohibit modification and deletion)
-intervals = [[1,4],[4,5]]
-s = Solution()
-res = s.merge(intervals)
-print(res)

@@ -43,12 +43,23 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def candy(self, ratings: List[int]) -> int:
-        res = [1] * len(ratings)
-        for i in range(1, len(ratings)):
-            if ratings[i] > ratings[i-1]:
-                res[i] = res[i-1] + 1
-        for i in range(len(ratings)-1, 0, -1):
-            if ratings[i] < ratings[i-1] and res[i] >= res[i-1] :
-                res[i-1] = res[i] + 1
-        return sum(res)
+        # 贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+        # 思路：两轮遍历，第一轮从左到右，如果右边的孩子比左高，那就数量+1
+        #      为了不影响第一遍排好的顺序，第二轮从右往左遍历
+        #      如果左边的孩子比右边高，那就在右边的数量上+1
+        #      因为右侧的必然比左侧的高，所以+1后依旧比左侧高，此时又比右侧高
+        #      满足题目条件
+
+        n = len(ratings)
+        result = [1 for _ in range(n)]
+        for i in range(1, n):
+            if ratings[i] > ratings[i - 1]:
+                result[i] = result[i - 1] + 1
+
+        for i in range(n - 2, -1, -1):
+            if ratings[i] > ratings[i + 1] and result[i] <= result[i + 1]:
+                result[i] = result[i + 1] + 1
+        return sum(result)
 # leetcode submit region end(Prohibit modification and deletion)

@@ -43,18 +43,19 @@ class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
         # 二分建树
         # 时间复杂度：O(n)
-        # 空间复杂度：O(n)
+        # 空间复杂度：O(logn)
         return self.build(nums)
 
     def build(self, nums):
         if len(nums) == 0:
             return None
 
-        root_index = int(len(nums) / 2)
-        root_value = nums[root_index]
-        root = TreeNode(val=root_value)
+        mid = int(len(nums) / 2)
+        root = TreeNode(val=nums[mid])
+        if len(nums) == 1:
+            return root
 
-        root.left = self.build(nums[:root_index])
-        root.right = self.build(nums[root_index + 1:])
+        root.left = self.build(nums[:mid])
+        root.right = self.build(nums[mid+1:])
         return root
 # leetcode submit region end(Prohibit modification and deletion)

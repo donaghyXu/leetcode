@@ -39,18 +39,19 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def monotoneIncreasingDigits(self, n: int) -> int:
+        # 贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+
         n_list = list(str(n))
-        start = len(n_list) - 1
-        flag = len(n_list)
-        while start >= 1:
-            if int(n_list[start - 1]) > int(n_list[start]):
-                flag = start
-                n_list[start - 1] = int(n_list[start - 1]) - 1
-            start -= 1
-        for i in range(len(n_list)):
-            if i >= flag:
-                n_list[i] = '9'
-            else:
-                n_list[i] = str(n_list[i])
+        n_len = len(n_list)
+        flag = n_len
+        for i in range(n_len - 1, 0, -1):
+            if n_list[i] < n_list[i - 1]:
+                n_list[i] = str(9)
+                n_list[i - 1] = str(int(n_list[i - 1]) - 1)
+                flag = i
+        for i in range(flag, n_len):
+            n_list[i] = str(9)
         return int("".join(n_list))
 # leetcode submit region end(Prohibit modification and deletion)

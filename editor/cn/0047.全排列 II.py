@@ -39,8 +39,8 @@ class Solution:
 
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         # 回溯
-        # 时间复杂度：
-        # 空间复杂度：
+        # 时间复杂度：O(n!*n)
+        # 空间复杂度：O(n)
         nums.sort()
         used = [False] * len(nums)
         self.back_tracking(nums, used)
@@ -52,15 +52,14 @@ class Solution:
             self.result.append(self.path[:])
             return
 
-        cur_level_num = set()              # n叉数的同层去重
+        level_set = set()
         for i in range(len(nums)):
-            if nums[i] in cur_level_num:
+            if nums[i] in level_set or used[i]:
                 continue
-            if not used[i]:                # 排列去重逻辑
-                used[i] = True
-                cur_level_num.add(nums[i])
-                self.path.append(nums[i])
-                self.back_tracking(nums, used)
-                self.path.pop()
-                used[i] = False
+            level_set.add(nums[i])
+            self.path.append(nums[i])
+            used[i] = True
+            self.back_tracking(nums, used)
+            used[i] = False
+            self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

@@ -44,24 +44,29 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        # # 暴力解法 o(n) + o(nlogn)
+        # 2.双指针
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        n = len(nums)
+        result = [0] * n
+        left = 0
+        right = n - 1
+        index = n - 1
+        while left <= right:
+            if nums[left] ** 2 > nums[right] ** 2:
+                result[index] = nums[left] ** 2
+                left += 1
+            else:
+                result[index] = nums[right] ** 2
+                right -= 1
+            index -= 1
+        return result
+
+        # # 1.暴力解法
+        # # 时间复杂度：O(nlogn)
+        # # 空间复杂度：O(1)
         # for i in range(len(nums)):
         #     nums[i] **= 2
         # nums.sort()
         # return nums
-
-        # 双指针 o(n)
-        res = [None] * len(nums)
-        left = 0
-        right = len(nums) - 1
-        index = len(nums) - 1
-        while left <= right:
-            if nums[left] ** 2 > nums[right] ** 2:
-                res[index] = nums[left] ** 2
-                left += 1
-            else:
-                res[index] = nums[right] ** 2
-                right -= 1
-            index -= 1
-        return res
 # leetcode submit region end(Prohibit modification and deletion)

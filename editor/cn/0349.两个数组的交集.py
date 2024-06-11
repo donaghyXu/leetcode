@@ -32,16 +32,21 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        # # 法1
-        # nums1_set = set(nums1)
-        # res = set()
-        # for element in nums2:
-        #     if element in nums1_set:
-        #         res.add(element)
-        # return list(res)
-        # 法1
+        # 2.set
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
         nums1_set = set(nums1)
-        nums2_set = set(nums2)
-        return list(nums1_set.intersection(nums2_set))
+        res = set()
+        for element in nums2:
+            if element in nums1_set:
+                res.add(element)
+        return list(res)
+
+        # # 1.set，内置函数
+        # # 时间复杂度：O(n)
+        # # 空间复杂度：O(n)
+        # nums1_set = set(nums1)
+        # nums2_set = set(nums2)
+        # return list(nums1_set.intersection(nums2_set))
 
 # leetcode submit region end(Prohibit modification and deletion)

@@ -42,44 +42,48 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+import collections
+
+
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         # 2. 递归
         # 时间复杂度：O(n)
         # 空间复杂度：O(h)
-        res = []
-        depth = 0
-        self.bfs(root, res, depth)
-        return res
+        result = []
+        self.dfs(root, result, 0)
+        return result
 
-    def bfs(self, node, res, depth):
-        if not node:
+    def dfs(self, node, result, depth):
+        if node is None:
             return
-        if len(res) == depth:
-            res.append([])
-        res[depth].append(node.val)
-        self.bfs(node.left, res, depth + 1)
-        self.bfs(node.right, res, depth + 1)
+
+        if len(result) == depth:
+            result.append([])
+        result[depth].append(node.val)
+        self.dfs(node.left, result, depth + 1)
+        self.dfs(node.right, result, depth + 1)
 
         # # 1. 迭代法
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(h)
-        # if root is None:
-        #     return []
+        # result = []
+        # queue = collections.deque()
         #
-        # res = []
-        # q = collections.deque()
-        # q.append(root)
-        # while q:
+        # if root is None:
+        #     return result
+        # queue.append(root)
+        #
+        # while queue:
         #     level = []
-        #     size = len(q)
-        #     for i in range(size):
-        #         node = q.popleft()
+        #     level_len = len(queue)
+        #     for i in range(level_len):
+        #         node = queue.popleft()
         #         level.append(node.val)
-        #         if node.left:
-        #             q.append(node.left)
-        #         if node.right:
-        #             q.append(node.right)
-        #     res.append(level)
-        # return res
+        #         if node.left is not None:
+        #             queue.append(node.left)
+        #         if node.right is not None:
+        #             queue.append(node.right)
+        #     result.append(level)
+        # return result
 # leetcode submit region end(Prohibit modification and deletion)

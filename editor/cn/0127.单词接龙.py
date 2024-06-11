@@ -51,33 +51,40 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 import collections
-from typing import List
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         # 广搜
         # 时间复杂度：O(mn) n=len(beginWord), m=len(wordList)
         # 空间复杂度：O(m)
-        if endWord not in wordList or len(wordList) == 0:
-            return 0
-
-        word_set = set(wordList)
 
         queue = collections.deque()
-        queue.append(beginWord)
-        cnt_map = {beginWord: 1}
+        queue.append([beginWord])
+        cnt = 1
+        hash_dict = {}
+        for word in wordList:
+            hash_dict[word] = 1
+
+        # 剪枝
+        if endWord not in hash_dict:
+            return 0
 
         while queue:
-            word = queue.popleft()
-            cnt = cnt_map[word]
-            for i in range(len(word)):
-                word_list = list(word)
-                for j in range(26):
-                    word_list[i] = chr(ord('a') + j)
-                    word_join = ''.join(word_list)
-                    if word_join == endWord:
-                        return cnt + 1
-                    if word_join not in cnt_map and word_join in word_set:
-                        cnt_map[word_join] = cnt + 1
-                        queue.append(word_join)
+            word_list = queue.popleft()
+            next_queue = []
+            cnt += 1
+            for i in range(len(word_list)):
+                word_len = len(word_list[i])
+                for j in range(word_len):
+                    word = list(word_list[i])
+                    for k in range(26):
+                        word[j] = chr(ord('a') + k)
+                        str_word = "".join(word)
+                        if str_word in hash_dict:
+                            if str_word == endWord:
+                                return cnt
+                            next_queue.append(str_word)
+                            hash_dict.pop(str_word)
+            if next_queue:
+                queue.append(next_queue)
         return 0
 # leetcode submit region end(Prohibit modification and deletion)

@@ -38,15 +38,15 @@ class Solution:
 
         nums1_len = len(nums1)
         nums2_len = len(nums2)
-        # dp[i][j]：以i-1结尾的nums1和以j-1结尾的num2公共的最长子数组长度
-        dp = [[0 for _ in range(nums2_len+1)] for _ in range(nums1_len+1)]
+        # dp[i][j]：到下标i-1的数组1和到下标j-1的数组2的最长公共子数组长度
+        dp = [[0 for _ in range(nums2_len + 1)] for _ in range(nums1_len + 1)]
 
         result = 0
-        # 递推 循环
-        for i in range(1, nums1_len+1):
-            for j in range(1, nums2_len+1):
+        # 递推，遍历
+        for i in range(1, nums1_len + 1):
+            for j in range(1, nums2_len + 1):
                 if nums1[i-1] == nums2[j-1]:
                     dp[i][j] = dp[i-1][j-1] + 1
-                result = max(result, dp[i][j])
+                    result = max(result, dp[i][j])
         return result
 # leetcode submit region end(Prohibit modification and deletion)

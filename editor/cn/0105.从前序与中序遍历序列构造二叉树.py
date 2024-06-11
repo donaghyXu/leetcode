@@ -46,26 +46,22 @@ class Solution:
         # 递归切割
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        return self.travel(preorder, inorder)
+        return self.build(preorder, inorder)
 
-    def travel(self, preorder, inorder):
-        if len(preorder) == 0:
+    def build(self, preorder, inorder):
+        if not preorder:
             return None
 
         root_value = preorder[0]
-        root = TreeNode(val=root_value)
-
-        if len(preorder) == 1:
-            return root
+        root = TreeNode(root_value)
 
         root_index = inorder.index(root_value)
         inorder_left = inorder[:root_index]
         inorder_right = inorder[root_index+1:]
-
         preorder_left = preorder[1:len(inorder_left)+1]
         preorder_right = preorder[len(inorder_left)+1:]
 
-        root.left = self.travel(preorder_left, inorder_left)
-        root.right = self.travel(preorder_right, inorder_right)
+        root.left = self.build(preorder_left, inorder_left)
+        root.right = self.build(preorder_right, inorder_right)
         return root
 # leetcode submit region end(Prohibit modification and deletion)

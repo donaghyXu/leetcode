@@ -45,35 +45,36 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        # 动态规划
+        # 2.动态规划
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
 
         n = len(nums)
-        # dp[i]：下标到i的最大连续子数组和
+        # dp[i]：以下标i结尾的连续子数组的最大和
         dp = [0 for _ in range(n)]
 
         # 初始化
         dp[0] = nums[0]
-
         result = dp[0]
-        # 递推 遍历
+
+        # 递推，遍历
         for i in range(1, n):
-            dp[i] = max(nums[i] + dp[i - 1], nums[i])
+            dp[i] = max(dp[i-1] + nums[i], nums[i])
             result = max(result, dp[i])
         return result
 
-        # # 贪心
+        # # 1.贪心
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(1)
+        # # 思路：计算子数组和，当总和小于0的时候，对于后面的数来说是负贡献
+        # #      因此从下一个新的数开始计算累积和
         #
-        # res = -sys.maxsize
-        # count = 0
+        # result = -float('inf')
+        # total_sum = 0
         # for i in range(len(nums)):
-        #     count += nums[i]
-        #     if count > res:
-        #         res = count
-        #     if count <= 0:
-        #         count = 0
-        # return res
+        #     total_sum += nums[i]
+        #     result = max(result, total_sum)
+        #     if total_sum < 0:
+        #         total_sum = 0
+        # return result
 # leetcode submit region end(Prohibit modification and deletion)

@@ -35,53 +35,56 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def trap(self, height: List[int]) -> int:
-        # 双指针 按照列的方向来计算
+        # 2.单调栈 按照行的方向计算雨水
         # 时间复杂度：O(n)
-        # 空间复杂度：
+        # 空间复杂度：O(n)
+        # 思路：从栈顶到栈底的顺序：从小到大
+        #      通过三个元素来接水：栈顶，栈顶的下一个元素，以及即将入栈的元素
+        #      雨水高度是：min(凹槽左边高度, 凹槽右边高度) - 凹槽底部高度
+        #      雨水的宽度是：凹槽右边的下标 - 凹槽左边的下标 - 1（因为只求中间宽度）
         n = len(height)
-        left_max_height = [0] * n
-        right_max_height = [0] * n
+        stack = []
+        rain_total = 0
+        for i in range(n):
+            if stack:
+                if height[i] < height[stack[-1]]:
+                    stack.append(i)
+                elif height[i] == height[stack[-1]]:
+                    stack.pop()
+                    stack.append(i)
+                else:
+                    while stack and height[i] > height[stack[-1]]:
+                        mid = stack.pop()
+                        if stack:
+                            w = i - stack[-1] - 1
+                            h = min(height[stack[-1]], height[i]) - height[mid]
+                            rain_total += w * h
+                    stack.append(i)
+            else:
+                stack.append(i)
+        return rain_total
 
-        left_max_height[0] = height[0]
-        for i in range(1, n):
-            left_max_height[i] = max(left_max_height[i - 1], height[i])
-        right_max_height[n - 1] = height[n - 1]
-        for i in range(n - 2, -1, -1):
-            right_max_height[i] = max(right_max_height[i + 1], height[i])
-
-        total_rain = 0
-        for i in range(1, n - 1):
-            rain = min(left_max_height[i], right_max_height[i]) - height[i]
-            total_rain += rain
-        return total_rain
-
-        # # 单调栈 按照行的方向计算雨水
-        # # 从栈顶到栈底的顺序：从小到大
-        # # 通过三个元素来接水：栈顶，栈顶的下一个元素，以及即将入栈的元素
-        # # 雨水高度是 min(凹槽左边高度, 凹槽右边高度) - 凹槽底部高度
-        # # 雨水的宽度是 凹槽右边的下标 - 凹槽左边的下标 - 1（因为只求中间宽度）
+        # # 1.双指针 按照列的方向来计算
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(n)
+        # # 思路：找当前列左边的第一个比它高的列，右边的第一个比它高的列，如果没有就是自身
+        # #      雨水高度是：min(当前列左边第一个比它高高度, 当前列右边第一个比它高高度) - 当前列高度
+        # #      雨水宽度是：1
+        # #      计算当前列能接的雨水
         # n = len(height)
-        # if n <= 2:
-        #     return 0
-        # stack = []
+        # left_max_height = [0] * n
+        # right_max_height = [0] * n
         #
-        # rain_total = 0
-        # stack.append(0)
+        # left_max_height[0] = height[0]
         # for i in range(1, n):
-        #     if height[i] < height[stack[-1]]:
-        #         stack.append(i)
-        #     elif height[i] == height[stack[-1]]:
-        #         stack.pop()
-        #         stack.append(i)
-        #     else:
-        #         while stack and height[i] > height[stack[-1]]:
-        #             mid = stack.pop()
-        #             if stack:
-        #                 h = min(height[stack[-1]], height[i]) - height[mid]
-        #                 w = i - stack[-1] - 1
-        #                 rain_total += (h * w)
-        #         stack.append(i)
-        # return rain_total
+        #     left_max_height[i] = max(left_max_height[i - 1], height[i])
+        # right_max_height[n - 1] = height[n - 1]
+        # for i in range(n - 2, -1, -1):
+        #     right_max_height[i] = max(right_max_height[i + 1], height[i])
+        #
+        # total_rain = 0
+        # for i in range(1, n - 1):
+        #     rain = min(left_max_height[i], right_max_height[i]) - height[i]
+        #     total_rain += rain
+        # return total_rain
 # leetcode submit region end(Prohibit modification and deletion)

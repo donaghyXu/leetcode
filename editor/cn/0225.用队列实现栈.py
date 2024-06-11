@@ -56,10 +56,13 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import collections
+
+
 class MyStack:
 
     def __init__(self):
-        self.queue = deque()
+        self.queue = collections.deque()
 
     def push(self, x: int) -> None:
         self.queue.append(x)
@@ -75,7 +78,11 @@ class MyStack:
         return res
 
     def empty(self) -> bool:
-        return not self.queue
+        if len(self.queue) == 0:
+            return True
+        else:
+            return False
+
 
 
 # Your MyStack object will be instantiated and called as such:

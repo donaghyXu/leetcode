@@ -47,7 +47,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def fib(self, n: int) -> int:
-        # 动态规划
+        # 3.动态规划 优化空间复杂度
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
         if n <= 1:
@@ -61,7 +61,7 @@ class Solution:
             dp[1] = sum_value
         return dp[1]
 
-        # # 动态规划
+        # # 2.动态规划
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(n)
         # if n <= 1:
@@ -73,7 +73,7 @@ class Solution:
         #     dp[i] = dp[i-1] + dp[i-2]
         # return dp[n]
 
-        # # 递归
+        # # 1.递归
         # # 时间复杂度：O(2^n)
         # # 空间复杂度：O(n)
         # # 终止条件

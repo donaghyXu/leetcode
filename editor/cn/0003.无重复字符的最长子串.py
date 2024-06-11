@@ -42,72 +42,35 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        # 4.哈希表和滑动窗口，直接从重复字符后一个开始滑动，时间复杂度O(n)
-        # 法一
-        m = 0
-        index = [0] * 128
-        start = 0
-        for i in range(len(s)):
-            if index[ord(s[i])] > start:  # 判断字符是否重复
-                count = i - start
-                if count > m:
-                    m = count
-                start = index[ord(s[i])]
-            index[ord(s[i])] = i + 1
-        count = len(s) - start
-        return count if count > m else m
+        # 2.滑动窗口，哈希表
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        hash_dict = {}
+        max_length = 0
+        n = len(s)
+        left = 0
+        right = 0
+        while right < n:
+            # 扩大窗口
+            if s[right] not in hash_dict:
+                hash_dict[s[right]] = 1
+            else:
+                # 判断结果
+                max_length = max(max_length, right - left)
+                # 缩小窗口
+                while s[left] != s[right]:
+                    hash_dict.pop(s[left])
+                    left += 1
+                left += 1
+            right += 1
 
-        # m = 0
-        # index = [0] * 128
-        # start = 0
-        # for i, c in enumerate(s):
-        #     if index[ord(c)] > start: # 判断字符是否重复
-        #         count = i - start
-        #         if count > m:
-        #             m = count
-        #         start = index[ord(c)]
-        #     index[ord(c)] = i + 1
-        # count = len(s) - start
-        # return count if count > m else m
+            # 剪枝
+            if max_length > n - left:
+                break
+        max_length = max(max_length, right - left)
+        return max_length
 
-        # 3.哈希表和滑动窗口，时间复杂度O(n)
-        # # 哈希集合，记录每个字符是否出现过
-        # occ = set()
-        # n = len(s)
-        # # 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
-        # rk = -1
-        # res = 0
-        # for i in range(n):
-        #     # 扩大窗口
-        #     while (rk + 1) < n and s[rk + 1] not in occ:
-        #         occ.add(s[rk + 1])
-        #         rk += 1
-        #     # 缩小窗口
-        #     if (rk + 1) < n and s[rk + 1] in occ:
-        #         occ.remove(s[i])
-        #     res = max(res, rk - i + 1)
-        #     # if res > (n - i - 1):
-        #     #     break
-        # return res
-
-        # 2.滑动窗口，查找子串，时间复杂度O(n²)
-        # max_cnt = 0
-        # i = 0
-        # n = len(s)
-        # while(i < n):
-        #     cnt = 1
-        #     for j in range(i+1, n):
-        #         if s[j] not in s[i:j]:  # 切片时间复杂度过高
-        #             cnt += 1
-        #             continue
-        #         else:
-        #             i = i + s[i:j].find(s[j]) + 1
-        #             break
-        #     if cnt > max_cnt:
-        #         max_cnt = cnt
-        #     if max_cnt > len(s[(i+1):]):
-        #         break
-        # return max_cnt
-
-        # 1.暴力破解，双重for循环查找所有子串O(n²)，判断是否有不重复子串O(n)，总体时间复杂度O(n³)，空间复杂度O(m)
+        # 1.暴力破解
+        # 时间复杂度：O(n³)，双重for循环查找所有子串O(n²)，判断是否有不重复子串O(n)
+        # 空间复杂度：O(n)
 # leetcode submit region end(Prohibit modification and deletion)

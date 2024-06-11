@@ -54,32 +54,20 @@ class Solution:
         # 滑动窗口法
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
-        # sum = 0
-        # min_len = float('inf')
-        # i = 0
-        # for j in range(len(nums)):
-        #     sum += nums[j]
-        #     while sum >= target:
-        #         sub_len = j - i + 1
-        #         min_len = min(min_len, sub_len)
-        #         sum -= nums[i]
-        #         i += 1
-        # if min_len != float('inf'):
-        #     return min_len
-        # else:
-        #     return 0
-        sum = 0
-        min_len = float('inf')
-        i = 0
-        for j in range(len(nums)):
-            sum += nums[j]
-            while sum >= target:
-                sub_len = j - i + 1
-                min_len = min(min_len, sub_len)
-                sum -= nums[i]
-                i += 1
-        if min_len != float('inf'):
-            return min_len
-        else:
+
+        left = 0
+        right = 0
+        min_length = float('inf')
+        total_sum = 0
+        while right < len(nums):
+            total_sum += nums[right]
+            while total_sum >= target and left <= right:
+                min_length = min(min_length, right - left + 1)
+                total_sum -= nums[left]
+                left += 1
+            right += 1
+        if min_length == float('inf'):
             return 0
+        else:
+            return min_length
 # leetcode submit region end(Prohibit modification and deletion)

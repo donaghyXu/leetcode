@@ -54,18 +54,20 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def pancakeSort(self, arr: List[int]) -> List[int]:
-        res = []
-        for i in range(len(arr)):
-            index = arr.index(max(arr))
-            if index == (len(arr) - 1):
-                arr.pop()
-                continue
-            if index:
-                res.append(index + 1)
-                arr[:(index + 1)] = arr[index::-1]
-            if len(arr) > 1:
-                res.append(len(arr))
-                arr[:] = arr[::-1]
-            arr.pop()
-        return res
+        # 排序
+        # 时间复杂度：O(n²)
+        # 空间复杂度：O(1)
+        result = []
+        n = len(arr)
+        for i in range(n-1):
+            max_index = arr.index(max(arr[:n-i]))
+            if max_index == 0:
+                arr[:n - i] = reversed(arr[:n - i])
+                result.append(n-i)
+            else:
+                arr[:max_index+1] = reversed(arr[:max_index+1])
+                result.append(max_index + 1)
+                arr[:n - i] = reversed(arr[:n - i])
+                result.append(n - i)
+        return result
 # leetcode submit region end(Prohibit modification and deletion)

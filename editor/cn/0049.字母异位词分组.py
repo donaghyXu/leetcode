@@ -40,20 +40,15 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         # 哈希表
-        # 时间复杂度：O(nlogn)
+        # 时间复杂度：O(n*klogk)，n=len(strs)，k=max(len(str))
         # 空间复杂度：O(n)
-        if len(strs) == 1:
-            return [strs]
-
-        hash_list = {}
-        for s in strs:
-            s_key = ''.join(sorted(s))
-            if s_key in hash_list:
-                hash_list[s_key].append(s)
+        hash_dict = {}
+        for word in strs:
+            word_sort = "".join(sorted(word))
+            if word_sort in hash_dict:
+                hash_dict[word_sort].append(word)
             else:
-                hash_list[s_key] = [s]
-        res = []
-        for key, value in hash_list.items():
-            res.append(value)
-        return res
+                hash_dict[word_sort] = [word]
+
+        return list(hash_dict.values())
 # leetcode submit region end(Prohibit modification and deletion)

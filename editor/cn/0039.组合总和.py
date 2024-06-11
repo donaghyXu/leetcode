@@ -53,7 +53,7 @@ class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         # 回溯
         # 时间复杂度：O(n * 2^n)
-        # 空间复杂度：
+        # 空间复杂度：O(target)
         candidates.sort()
         self.back_tracking(target, candidates, 0)
         return self.result
@@ -64,14 +64,11 @@ class Solution:
             self.result.append(self.path[:])
             return
 
-        # # 剪枝
-        # if sum(self.path) > target:
-        #     return
+        # 剪枝
+        if sum(self.path) > target:
+            return
 
         for i in range(start_index, len(candidates)):
-            # 剪枝
-            if sum(self.path) + candidates[i] > target:
-                break
             self.path.append(candidates[i])
             self.back_tracking(target, candidates, i)
             self.path.pop()

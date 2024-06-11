@@ -41,27 +41,32 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         # 递归切割
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+        return self.build(inorder, postorder)
+
+    def build(self, inorder, postorder):
         if len(postorder) == 0:
             return None
 
-        cur_value = postorder[-1]
-        root = TreeNode(val=cur_value)
+        mid = postorder[-1]
+        root = TreeNode(val=mid)
 
         if len(postorder) == 1:
             return root
 
-        cur_index = inorder.index(cur_value)
-        inorder_left = inorder[:cur_index]
-        inorder_right = inorder[cur_index+1:]
+        mid_index = inorder.index(mid)
+        inorder_left = inorder[:mid_index]
+        inorder_right = inorder[mid_index+1:]
+
         postorder_left = postorder[:len(inorder_left)]
         postorder_right = postorder[len(inorder_left):-1]
 
-        root.left = self.buildTree(inorder_left, postorder_left)
-        root.right = self.buildTree(inorder_right, postorder_right)
+        root.left = self.build(inorder_left, postorder_left)
+        root.right = self.build(inorder_right, postorder_right)
         return root
 # leetcode submit region end(Prohibit modification and deletion)

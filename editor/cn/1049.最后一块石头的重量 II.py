@@ -52,14 +52,12 @@ class Solution:
         n = len(stones)
         target = int(sum(stones) / 2)
 
-        # dp[j] 0-i放进背包j的最大值
-        dp = [0] * (target + 1)
+        # dp[i]：装满背包i的最大值
+        dp = [0 for _ in range(target + 1)]
 
-        # 递推 遍历
+        # 递推，遍历，先物品后背包
         for i in range(n):
             for j in range(target, stones[i] - 1, -1):
                 dp[j] = max(dp[j], dp[j - stones[i]] + stones[i])
-
-        other = sum(stones) - dp[target]
-        return abs(other - dp[target])
+        return abs(sum(stones) - dp[target] * 2)
 # leetcode submit region end(Prohibit modification and deletion)

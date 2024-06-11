@@ -39,7 +39,7 @@ class Solution:
     def findSubsequences(self, nums: List[int]) -> List[List[int]]:
         # 回溯
         # 时间复杂度：O(n * 2^n)
-        # 空间复杂度：
+        # 空间复杂度：O(n)
         self.back_tracking(nums, 0)
         return self.result
 
@@ -47,16 +47,13 @@ class Solution:
         if len(self.path) >= 2:
             self.result.append(self.path[:])
 
-        cur_level_num = set()
+        level_set = set()
         for i in range(start_index, len(nums)):
-            if nums[i] in cur_level_num:
-                continue
-            if len(self.path) == 0 or \
-                    (len(self.path) > 0 and nums[i] >= self.path[-1]):
-                cur_level_num.add(nums[i])
-                self.path.append(nums[i])
-                self.back_tracking(nums, i + 1)
-                self.path.pop()
-            else:
-                continue
+            if nums[i] not in level_set:
+                if len(self.path) == 0 or \
+                        (len(self.path) > 0 and nums[i] >= self.path[-1]):
+                    level_set.add(nums[i])
+                    self.path.append(nums[i])
+                    self.back_tracking(nums, i + 1)
+                    self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

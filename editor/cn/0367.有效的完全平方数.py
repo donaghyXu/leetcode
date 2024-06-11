@@ -36,6 +36,9 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
+        # 二分
+        # 时间复杂度：O(logn)
+        # 空间复杂度：O(1)
         start = 0
         end = num
         while start <= end:

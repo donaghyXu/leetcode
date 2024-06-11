@@ -65,11 +65,11 @@ class Solution:
         visited_atlantic = [[False for i in range(y_end)] for j in range(x_end)]
         # 从大西洋出发
         for i in range(x_end):
-            visited_atlantic[i][y_end-1] = True
-            self.dfs(heights, i, y_end-1, visited_atlantic)
+            visited_atlantic[i][y_end - 1] = True
+            self.dfs(heights, i, y_end - 1, visited_atlantic)
         for i in range(y_end):
-            visited_atlantic[x_end-1][i] = True
-            self.dfs(heights, x_end-1, i, visited_atlantic)
+            visited_atlantic[x_end - 1][i] = True
+            self.dfs(heights, x_end - 1, i, visited_atlantic)
 
         for i in range(x_end):
             for j in range(y_end):

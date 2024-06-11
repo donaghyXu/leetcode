@@ -47,40 +47,35 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def __init__(self):
-        self.targets = {}
-        self.result = []
+        self.path = []
 
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         # 回溯
-        # 时间复杂度：
-        # 空间复杂度：
+        # 时间复杂度：O(n*2^n)
+        # 空间复杂度：O(n)
         tickets.sort(key=lambda x: x[1])
-        for ticket in tickets:
-            if ticket[0] in self.targets:
-                if ticket[1] in self.targets[ticket[0]]:
-                    self.targets[ticket[0]][ticket[1]] += 1
-                else:
-                    self.targets[ticket[0]][ticket[1]] = 1
-            else:
-                self.targets[ticket[0]] = {ticket[1]: 1}
-        self.result.append("JFK")
-        self.back_tracking(len(tickets))
-        return self.result
+        n = len(tickets)
+        used = [False for _ in range(n)]
+        self.back_tracking(tickets, used, "JFK", n)
+        return self.path
 
-    def back_tracking(self, ticket_num):
-        if len(self.result) == (ticket_num + 1):
+    def back_tracking(self, tickets, used, start_airport, n):
+        if len(self.path) == n:
+            self.path.append(start_airport)
             return True
 
-        targets_key = self.result[len(self.result) - 1]
-        if targets_key in self.targets:
-            target_dict = self.targets[targets_key]
-            for target_key in target_dict.keys():
-                if target_dict[target_key] > 0:
-                    self.result.append(target_key)
-                    target_dict[target_key] -= 1
-                    if self.back_tracking(ticket_num):
-                        return True
-                    self.result.pop()
-                    target_dict[target_key] += 1
-        return False
+        target_set = set()  # 用于同一树层剪枝
+        for i in range(n):
+            ticket = tickets[i]
+            if ticket[1] in target_set:  # 同一树层剪枝，去除相同机票，如A->B,A->B
+                continue
+            if not used[i] and ticket[0] == start_airport:
+                target_set.add(ticket[1])
+
+                self.path.append(ticket[0])
+                used[i] = True
+                if self.back_tracking(tickets, used, ticket[1], n):
+                    return True
+                used[i] = False
+                self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

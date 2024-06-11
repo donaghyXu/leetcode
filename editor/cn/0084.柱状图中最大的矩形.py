@@ -40,26 +40,32 @@ class Solution:
         # 单调栈
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+        # 思路：栈底到栈顶为递增，遇到下一个比栈顶元素小的时候，计算面积
+        #      先计算栈顶列的面积，再往左拓展，拓展的面积由拓展的那列高度决定
+        #      宽度是栈顶列到拓展列的长度
+
         heights.insert(0, 0)
         heights.append(0)
         n = len(heights)
         stack = []
-        stack.append(0)
         max_area = 0
         for i in range(n):
-            if heights[i] > heights[stack[-1]]:
-                stack.append(i)
-            elif heights[i] == heights[stack[-1]]:
-                stack.pop()
-                stack.append(i)
+            if stack:
+                if heights[i] > heights[stack[-1]]:
+                    stack.append(i)
+                elif heights[i] == heights[stack[-1]]:
+                    stack.pop()
+                    stack.append(i)
+                else:
+                    while stack and heights[i] < heights[stack[-1]]:
+                        mid = stack.pop()
+                        if stack:
+                            w = i - stack[-1] - 1
+                            h = heights[mid]
+                            area = w * h
+                            max_area = max(max_area, area)
+                    stack.append(i)
             else:
-                while stack and heights[i] < heights[stack[-1]]:
-                    mid = stack.pop()
-                    if stack:
-                        h = heights[mid]
-                        w = i - stack[-1] - 1
-                        area = h * w
-                        max_area = max(area, max_area)
                 stack.append(i)
         return max_area
 # leetcode submit region end(Prohibit modification and deletion)

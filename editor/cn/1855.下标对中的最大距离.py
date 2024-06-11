@@ -53,25 +53,24 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxDistance(self, nums1: List[int], nums2: List[int]) -> int:
-        len1 = len(nums1)
-        len2 = len(nums2)
-        res = []
-        for i, item in enumerate(nums2):
-            if nums1[-1] > item:
-                continue
-            l = 0
-            r = len1
-            while l < r:
-                m = l + (r - l) // 2
-                if item < nums1[m]:
-                    l = m + 1
+        # 二分查找
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(1)
+
+        nums1_len = len(nums1)
+        nums2_len = len(nums2)
+        result = 0
+        for i in range(nums1_len):
+            target = nums1[i]
+            left = 0
+            right = nums2_len - 1
+            while left <= right:
+                mid = left + (right - left) // 2
+                if nums2[mid] >= target:
+                    left = mid + 1
                 else:
-                    r = m
-            index = l
-            if i >= index:
-                res.append(i - index)
-        if len(res):
-            return max(res)
-        else:
-            return 0
+                    right = mid - 1
+            if right >= i:
+                result = max(result, right - i)
+        return result
 # leetcode submit region end(Prohibit modification and deletion)

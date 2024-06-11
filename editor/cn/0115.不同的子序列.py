@@ -48,19 +48,19 @@ class Solution:
 
         s_len = len(s)
         t_len = len(t)
-        # dp[i][j]：以i-1下标的s子序列中出现到j-1下标的序列的个数
+        # dp[i][j]：以下标j-1的字符串在以下标i-1的字符串中出现的个数
         dp = [[0 for _ in range(t_len + 1)] for _ in range(s_len + 1)]
 
         # 初始化
         for i in range(s_len):
             dp[i][0] = 1
 
-        # 递推 遍历
+        # 递推，遍历
         for i in range(1, s_len + 1):
             for j in range(1, t_len + 1):
                 if s[i - 1] == t[j - 1]:
-                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
+                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j]
                 else:
-                    dp[i][j] = dp[i - 1][j]
+                    dp[i][j] = dp[i-1][j]
         return dp[s_len][t_len]
 # leetcode submit region end(Prohibit modification and deletion)

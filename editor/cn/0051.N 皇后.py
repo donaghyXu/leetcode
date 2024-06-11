@@ -41,66 +41,51 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import List
 class Solution:
+    def __init__(self):
+        self.result = []
+
     def solveNQueens(self, n: int) -> List[List[str]]:
         # 回溯
-        # 时间复杂度：
-        # 空间复杂度：
-        self.path = [["." for _ in range(n)] for _ in range(n)]  # 重点注意list引用问题，以后二维数组都这么写
-        # self.path = ["." * n] * n   # 不能这么写
-        self.result = []
-        self.back_tracking(n, 0)
+        # 时间复杂度：O(n!)
+        # 空间复杂度：O(n²)
+
+        board = [["." for _ in range(n)] for _ in range(n)]
+        self.back_tracking(board, 0)
         return self.result
 
-    def is_right(self, n, row, col):
-        # 判断同行和同列
-        for i in range(n):
-            if self.path[row][i] == "Q":
-                return False
-            if self.path[i][col] == "Q":
-                return False
-
-        # # 判断斜线
-        # for i in range(n):
-        #     for j in range(n):
-        #         if (i + j) == (row + col) and self.path[i][j] == "Q":
-        #             return False
-        #         if (i - row) == (j - col) and self.path[i][j] == "Q":
-        #             return False
-        # 检查左上方斜线
-        i = row - 1
-        j = col - 1
-        while i >= 0 and j >= 0:
-            if self.path[i][j] == "Q":
-                return False
-            i -= 1
-            j -= 1
-
-        # 检查右上方斜线
-        i = row - 1
-        j = col + 1
-        while i >= 0 and j < n:
-            if self.path[i][j] == "Q":
-                return False
-            i -= 1
-            j += 1
-
-        return True
-
-    def back_tracking(self, n, row):
+    def back_tracking(self, board, row):
         # 终止条件
-        if row == n:
-            res_temp = []
-            for i in range(n):
-                res_temp.append("".join(self.path[i][:]))
-            self.result.append(res_temp)
+        if row == len(board):
+            self.result.append(["".join(x) for x in board])
             return
 
-        for i in range(n):
-            if self.is_right(n, row, i):
-                self.path[row][i] = "Q"
-                self.back_tracking(n, row+1)
-                self.path[row][i] = "."
+        for col in range(len(board)):
+            if board[row][col] == "." and self.is_valid(board, row, col):
+                board[row][col] = "Q"
+                self.back_tracking(board, row + 1)
+                board[row][col] = "."
+
+    def is_valid(self, board, x, y):
+        # 同列
+        for row in range(x):
+            if board[row][y] == "Q":
+                return False
+
+        # 同斜线
+        row = x - 1
+        col = y - 1
+        while row >= 0 and col >= 0:
+            if board[row][col] == "Q":
+                return False
+            row -= 1
+            col -= 1
+
+        row = x - 1
+        col = y + 1
+        while row >= 0 and col < len(board):
+            if board[row][col] == "Q":
+                return False
+            row -= 1
+            col += 1
+        return True
 # leetcode submit region end(Prohibit modification and deletion)
-# s = Solution()
-# res = s.solveNQueens(4)
-# print(res)

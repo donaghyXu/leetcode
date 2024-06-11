@@ -45,7 +45,7 @@
 from collections import deque
 class Solution:
     def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
-        # 深度遍历 递归法 新建节点
+        # 3.深度遍历 递归法 新建节点
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         if not root1:
@@ -59,7 +59,7 @@ class Solution:
 
         return root
 
-        # # 深度遍历 递归法 复用原有节点
+        # # 2.深度遍历 递归法 复用原有节点
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(n)
         # if not root1:
@@ -72,7 +72,7 @@ class Solution:
         #
         # return root1
 
-        # # 层序遍历 迭代法
+        # # 1.层序遍历 迭代法
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(n)
         # if root1 is None:

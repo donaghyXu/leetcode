@@ -47,12 +47,12 @@
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         # 遍历
-        # 时间复杂度：O(n)
-        # 空间复杂度：O(1)
+        # 时间复杂度：O(min(m,n))，m为p的节点数，n为q的节点数
+        # 空间复杂度：O(min(m,n))
         return self.compare(p, q)
 
     def compare(self, left, right):
-        # 判断中止条件
+        # 终止条件
         if left is None and right is not None:
             return False
         elif left is not None and right is None:
@@ -62,7 +62,6 @@ class Solution:
         elif left.val != right.val:
             return False
 
-        # 递归
         l = self.compare(left.left, right.left)
         r = self.compare(left.right, right.right)
         return l and r

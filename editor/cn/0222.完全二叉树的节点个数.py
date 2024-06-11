@@ -55,17 +55,17 @@ class Solution:
         self.count = 0
 
     def countNodes(self, root: Optional[TreeNode]) -> int:
-        # 层序遍历
+        # 遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
-        self.bfs(root)
+        self.dfs(root)
         return self.count
 
-    def bfs(self, node):
+    def dfs(self, node):
         if node is None:
             return
 
         self.count += 1
-        self.bfs(node.left)
-        self.bfs(node.right)
+        self.dfs(node.left)
+        self.dfs(node.right)
 # leetcode submit region end(Prohibit modification and deletion)

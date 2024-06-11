@@ -43,8 +43,8 @@ class Solution:
         self.result = []
 
     def combine(self, n: int, k: int) -> List[List[int]]:
-        # 回溯 剪枝优化
-        # 时间复杂度：O(n * n²)
+        # 2.回溯 剪枝优化
+        # 时间复杂度：O(n * 2^n)
         # 空间复杂度：O(n)
         self.back_track(n, k, 1)
         return self.result
@@ -61,8 +61,8 @@ class Solution:
             self.path.pop()
 
     # def combine(self, n: int, k: int) -> List[List[int]]:
-    #     # 回溯
-    #     # 时间复杂度：O(n * n²)
+    #     # 1.回溯
+    #     # 时间复杂度：O(n * 2^n)
     #     # 空间复杂度：O(n)
     #     self.back_track(n, k, 1)
     #     return self.result

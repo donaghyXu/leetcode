@@ -43,20 +43,20 @@
 #         self.right = right
 class Solution:
     def __init__(self):
-        self.max_depth = -1
+        self.max_depth = 0
 
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        # 层序遍历 bfs
+        # 遍历 dfs
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        depth = 0
-        self.bfs(root, depth)
-        return self.max_depth + 1
+        self.dfs(root, 1)
+        return self.max_depth
 
-    def bfs(self, node, depth):
+    def dfs(self, node, depth):
         if node is None:
             return
-        self.max_depth = max(depth, self.max_depth)
-        self.bfs(node.left, depth+1)
-        self.bfs(node.right, depth+1)
+
+        self.max_depth = max(self.max_depth, depth)
+        self.dfs(node.left, depth + 1)
+        self.dfs(node.right, depth + 1)
 # leetcode submit region end(Prohibit modification and deletion)

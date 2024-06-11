@@ -48,15 +48,15 @@ class Node:
 
 class Solution:
     def __init__(self):
-        self.max_depth = -1
+        self.max_depth = 0
 
     def maxDepth(self, root: 'Node') -> int:
         # 层序遍历 bfs
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        depth = 0
+        depth = 1
         self.bfs(root, depth)
-        return self.max_depth + 1
+        return self.max_depth
 
     def bfs(self, node, depth):
         if node is None:

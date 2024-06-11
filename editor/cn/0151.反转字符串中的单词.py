@@ -67,7 +67,7 @@ class Solution:
 
         return " ".join(s_list)
 
-        # # 模拟
+        # # 1.模拟
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(n)
         # s_list = s.split()

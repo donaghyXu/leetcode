@@ -51,37 +51,36 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import collections
 class TopVotedCandidate:
+    # 二分查找
+    # 时间复杂度：初始化O(n)，查找O(logn)
+    # 空间复杂度：O(n)
 
     def __init__(self, persons: List[int], times: List[int]):
-        self.persons = persons
-        self.times = times
-        self.max_time = len(times)
+        count = collections.Counter()
         self.winner = []
+        self.times = times
         max_cnt = -1
-        persons_dict = {}
-        for i, time in enumerate(self.times):
-            persons_dict[persons[i]] = persons_dict.get(persons[i], 0) + 1
-            cur_cnt = persons_dict[persons[i]]
+        for i, time in enumerate(times):
+            count[persons[i]] += 1
+            cur_cnt = count[persons[i]]
             if cur_cnt >= max_cnt:
                 max_cnt = cur_cnt
                 self.winner.append(persons[i])
             else:
-                cur_win_person = self.winner[-1]
-                self.winner.append(cur_win_person)
+                self.winner.append(self.winner[-1])
 
     def q(self, t: int) -> int:
-        l = 0
-        r = self.max_time
-        while l < r:
-            m = l + (r - l) // 2
-            if t >= self.times[m]:
-                l = m + 1
+        left = 0
+        right = len(self.times) - 1
+        while left <= right:
+            mid = left + (right - left) // 2
+            if self.times[mid] <= t:
+                left = mid + 1
             else:
-                r = m
-
-        return self.winner[l - 1]
-
+                right = mid - 1
+        return self.winner[right]
 # Your TopVotedCandidate object will be instantiated and called as such:
 # obj = TopVotedCandidate(persons, times)
 # param_1 = obj.q(t)

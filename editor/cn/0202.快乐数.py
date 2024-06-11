@@ -45,18 +45,19 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def isHappy(self, n: int) -> bool:
-        happy_flag = set()
-        n_str = str(n)
-        while True:
-            square_sum = 0
-            for s in n_str:
-                square_sum += int(s) ** 2
-            if square_sum == 1:
-                return True
-            else:
-                if square_sum in happy_flag:
-                    return False
-                else:
-                    happy_flag.add(square_sum)
-                    n_str = str(square_sum)
+        # 哈希表
+        # 时间复杂度：O(logn)
+        # 空间复杂度：O(logn)
+        no_happy_list = set()
+
+        while n != 1:
+            no_happy_list.add(n)
+            n_str = str(n)
+            n = 0
+            for num_str in n_str:
+                n += int(num_str) * int(num_str)
+            if n in no_happy_list:
+                return False
+        return True
+
 # leetcode submit region end(Prohibit modification and deletion)

@@ -44,15 +44,25 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
-        res = []
-        for item in asteroids:
-            while res and item < 0 and res[-1] > 0 and -item > res[-1]:
-                res.pop()
-            if res and item < 0 and -item < res[-1]:
-                continue
-            if res and item < 0 and -item == res[-1]:
-                res.pop()
-                continue
-            res.append(item)
-        return res
+        # 栈
+        # 时间复杂度：O(n²)
+        # 空间复杂度：O(n)
+
+        stack = []
+        flag = False
+        for asteroid in asteroids:
+            while stack and asteroid < 0 and stack[-1] > 0:
+                if abs(asteroid) < abs(stack[-1]):
+                    flag = True
+                    break
+                elif abs(asteroid) > abs(stack[-1]):
+                    stack.pop()
+                else:
+                    stack.pop()
+                    flag = True
+                    break
+            if not flag:
+                stack.append(asteroid)
+            flag = False
+        return stack
 # leetcode submit region end(Prohibit modification and deletion)

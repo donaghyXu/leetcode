@@ -72,17 +72,17 @@ class MyLinkedList:
         return cur.val
 
     def addAtHead(self, val: int) -> None:
-        add_node = Node(val)
-        add_node.next = self.dummy_node.next
-        self.dummy_node.next = add_node
+        node = Node(val)
+        node.next = self.dummy_node.next
+        self.dummy_node.next = node
         self.count += 1
 
     def addAtTail(self, val: int) -> None:
-        add_node = Node(val)
+        node = Node(val)
         cur = self.dummy_node
         for i in range(self.count):
             cur = cur.next
-        cur.next = add_node
+        cur.next = node
         self.count += 1
 
     def addAtIndex(self, index: int, val: int) -> None:
@@ -90,12 +90,12 @@ class MyLinkedList:
             if index == self.count:
                 self.addAtTail(val)
             else:
-                add_node = Node(val)
+                node = Node(val)
                 cur = self.dummy_node
                 for i in range(index):
                     cur = cur.next
-                add_node.next = cur.next
-                cur.next = add_node
+                node.next = cur.next
+                cur.next = node
                 self.count += 1
 
     def deleteAtIndex(self, index: int) -> None:

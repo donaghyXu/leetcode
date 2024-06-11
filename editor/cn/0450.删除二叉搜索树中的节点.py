@@ -73,32 +73,24 @@ class Solution:
 
     def dfs(self, node, key):
         if node is None:
-            return node
+            return None
 
         if node.val == key:
-            # 叶子节点
-            if node.left is None and node.right is None:
-                return None
-
-            # 左空右非空
-            elif node.left is None and node.right is not None:
+            if node.left is None and node.right is not None:
                 return node.right
-
-            # 左非空右空
             elif node.left is not None and node.right is None:
                 return node.left
-
-            # 左右都非空
+            elif node.left is None and node.right is None:
+                return None
             else:
                 cur = node.right
-                while cur.left is not None:
+                while cur.left:
                     cur = cur.left
                 cur.left = node.left
                 return node.right
-
-        if node.val < key:
+        elif node.val < key:
             node.right = self.dfs(node.right, key)
-        if node.val > key:
+        else:
             node.left = self.dfs(node.left, key)
         return node
 # leetcode submit region end(Prohibit modification and deletion)

@@ -48,19 +48,22 @@
 class Solution:
     def islandPerimeter(self, grid: List[List[int]]) -> int:
         # 遍历
-        # 时间复杂度：O(n²)
+        # 时间复杂度：O(mn)
         # 空间复杂度：O(1)
-        land_num = 0
-        cover = 0
-        x_end = len(grid)
-        y_end = len(grid[0])
-        for i in range(x_end):
-            for j in range(y_end):
+
+        m = len(grid)
+        n = len(grid[0])
+        island_cnt = 0
+        cover_cnt = 0
+        dir = [(1, 0), (0, 1)]
+        for i in range(m):
+            for j in range(n):
                 if grid[i][j]:
-                    land_num += 1
-                    if i - 1 >= 0 and grid[i - 1][j]:
-                        cover += 1
-                    if j - 1 >= 0 and grid[i][j - 1]:
-                        cover += 1
-        return land_num * 4 - cover * 2
+                    island_cnt += 1
+                    for x_offset, y_offset in dir:
+                        x = i + x_offset
+                        y = j + y_offset
+                        if 0 <= x < m and 0 <= y < n and grid[x][y]:
+                            cover_cnt += 1
+        return 4 * island_cnt - 2 * cover_cnt
 # leetcode submit region end(Prohibit modification and deletion)

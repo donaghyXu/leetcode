@@ -35,26 +35,58 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        n = len(nums)
-        index = 0
+        # 贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+
+        n = len(nums) - 1
         if nums[0] == 0 and n > 1:
             return False
-        while index < n:
-            if 0 not in nums:
+
+        start = 0
+        # 当前能覆盖的最远范围
+        cur_cover = nums[start]
+        # 下一次跳跃能覆盖的最远范围
+        next_cover = 0
+
+        # 在当前步数可以覆盖的范围内不断更新下一次跳跃能覆盖的最远范围
+        while start <= cur_cover:
+            if cur_cover >= n:
                 return True
 
-            index = nums.index(0)
-            if index == (n - 1):
+            # 更新下一次跳跃能覆盖的最远范围
+            next_cover = max(next_cover, start + nums[start])
+
+            if next_cover >= n:
                 return True
 
-            pre_num = 1
-            while pre_num <= index:
-                if nums[index - pre_num] <= pre_num:
-                    pre_num += 1
-                else:
-                    nums[index] = 1
-                    index += 1
-                    break
-            if pre_num > index:
-                return False
+            # 到达当前能覆盖的最远范围，更新当前能覆盖的最远范围
+            if start == cur_cover:
+                cur_cover = next_cover
+
+            start += 1
+        return cur_cover >= n
+
+        # # 动态规划
+        # # 时间复杂度：O(n²)
+        # # 空间复杂度：O(n)
+        #
+        # n = len(nums)
+        # # dp[i]：是否能到达i位置
+        # dp = [False for _ in range(n)]
+        #
+        # # 初始化
+        # dp[0] = True
+        #
+        # # 递推，遍历
+        # for i in range(n):
+        #     for j in range(i + 1, i + nums[i] + 1):
+        #         if j < n and dp[i]:
+        #             if dp[j]:
+        #                 continue
+        #             else:
+        #                 dp[j] = True
+        #         if dp[n-1]:
+        #             return True
+        # return dp[n-1]
 # leetcode submit region end(Prohibit modification and deletion)

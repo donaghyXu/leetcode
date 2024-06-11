@@ -36,12 +36,16 @@ class Solution:
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n)
 
-        # 定义dp[i]数组为 i拆分后的最大乘积
-        dp = [0] * (n + 1)
+        # dp[i]：正整数i可以拆分成的最大乘积
+        dp = [0 for _ in range(n + 1)]
 
+        # 初始化
         dp[2] = 1
+
+        # 递推，遍历
         for i in range(3, n + 1):
-            for j in range(1, i - 1):
-                dp[i] = max(dp[i], j * (i - j), j * dp[i - j])
+            for j in range(1, i):
+                dp[i] = max(dp[i], (i-j) * j, dp[i-j]*j)
         return dp[n]
+
 # leetcode submit region end(Prohibit modification and deletion)

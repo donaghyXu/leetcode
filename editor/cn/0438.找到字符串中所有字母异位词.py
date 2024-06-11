@@ -41,26 +41,28 @@
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         # 滑窗 哈希表
-        # 时间复杂度：O(p)+O(s)
-        # 空间复杂度：
-        hash_cnt = [0] * 26
-        for element in p:
-            hash_cnt[ord(element) - ord('a')] += 1
-
+        # 时间复杂度：O(len(p)+len(s))
+        # 空间复杂度：O(1)
+        s_len = len(s)
         p_len = len(p)
+        if s_len < p_len:
+            return []
+
+        p_hash_dict = [0 for _ in range(26)]
+        for element in p:
+            p_hash_dict[ord(element) - ord('a')] += 1
+
         left = 0
         right = 0
-        res = []
-        s_hash_cnt = [0] * 26
-        while right < len(s):
-            s_hash_cnt[ord(s[right]) - ord('a')] += 1
-            if right < (p_len - 1):
-                right += 1
-                continue
-            if s_hash_cnt == hash_cnt:
-                res.append(left)
-            s_hash_cnt[ord(s[left]) - ord('a')] -= 1
-            left += 1
+        result = []
+        s_hash_dict = [0 for _ in range(26)]
+        while right < s_len:
+            s_hash_dict[ord(s[right]) - ord('a')] += 1
+            while right - left + 1 == p_len:
+                if s_hash_dict == p_hash_dict:
+                    result.append(left)
+                s_hash_dict[ord(s[left]) - ord('a')] -= 1
+                left += 1
             right += 1
-        return res
-# leetcode submit region end(Prohibit modification and deletion)
+        return result
+    # leetcode submit region end(Prohibit modification and deletion)

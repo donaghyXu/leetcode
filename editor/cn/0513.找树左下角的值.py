@@ -44,7 +44,7 @@
 #         self.right = right
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        # 层序遍历 迭代法
+        # 2.层序遍历 迭代法
         # 时间复杂度：O(n)
         # 空间复杂度：O(h)
         queue = deque()
@@ -63,7 +63,8 @@ class Solution:
                     queue.append(node.right)
         return res
 
-    #     # 层序遍历 递归法
+    # def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+    #     # 1.层序遍历 递归法
     #     # 时间复杂度：O(n)
     #     # 空间复杂度：O(h)
     #     res = []

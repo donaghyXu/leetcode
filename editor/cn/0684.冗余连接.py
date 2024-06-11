@@ -54,21 +54,21 @@ class Solution:
             self.father[u] = self.find(self.father[u])
             return self.father[u]
 
-    def is_same(self, u, v):
-        u = self.find(u)
-        v = self.find(v)
-        return u == v
-
     def join(self, u, v):
         u = self.find(u)
         v = self.find(v)
         if u != v:
             self.father[v] = u
 
+    def is_same(self, u, v):
+        u = self.find(u)
+        v = self.find(v)
+        return u == v
+
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
         # 并查集
-        # 时间复杂度：
-        # 空间复杂度：
+        # 时间复杂度：O(len(edges) * logn)
+        # 空间复杂度：O(1)
         for edge in edges:
             if self.is_same(edge[0], edge[1]):
                 return edge

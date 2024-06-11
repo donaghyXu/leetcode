@@ -63,7 +63,27 @@
 from collections import Counter
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        # # 滑动窗口自己实现方法1
+        # 2.滑动窗口优化版
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(n)
+        n = len(fruits)
+        count = Counter()
+        max_result = 0
+        start = 0
+        end = 0
+        while end < n:
+            count[fruits[end]] += 1
+            if len(count) <= 2:
+                max_result = max(max_result, end - start + 1)
+            while len(count) > 2:
+                count[fruits[start]] -= 1
+                if count[fruits[start]] == 0:
+                    count.pop(fruits[start])
+                start += 1
+            end += 1
+        return max_result
+
+        # # 1.滑动窗口自己实现方法1
         # max_total = 0
         # left = 0
         # right = 0
@@ -89,20 +109,4 @@ class Solution:
         #         max_total = max(max_total, right-left+1)
         #     right += 1
         # return max_total
-
-        # 滑动窗口优化版
-        left = 0
-        right = 0
-        max_total = 0
-        count = Counter()
-        while right < len(fruits):
-            count[fruits[right]] += 1
-            while len(count) > 2:
-                count[fruits[left]] -= 1
-                if count[fruits[left]] == 0:
-                    count.pop(fruits[left])
-                left += 1
-            max_total = max(max_total, right - left + 1)
-            right += 1
-        return max_total
 # leetcode submit region end(Prohibit modification and deletion)

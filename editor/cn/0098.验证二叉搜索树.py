@@ -52,18 +52,18 @@ class Solution:
         # 递归 中序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        return self.judge(root)
+        # 思路：二叉搜索树的中序遍历是递增序列
+        return self.dfs(root)
 
-    def judge(self, node):
+    def dfs(self, node):
         if node is None:
             return True
 
-        left = self.judge(node.left)
-        if self.max_value < node.val:
+        left = self.dfs(node.left)
+        if node.val > self.max_value:
             self.max_value = node.val
         else:
             return False
-        right = self.judge(node.right)
-
+        right = self.dfs(node.right)
         return left and right
 # leetcode submit region end(Prohibit modification and deletion)

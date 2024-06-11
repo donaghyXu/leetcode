@@ -75,14 +75,14 @@ class MyQueue:
         if self.queue_out:
             return self.queue_out.pop()
         else:
-            for i in range(len(self.queue_in)):
+            while self.queue_in:
                 self.queue_out.append(self.queue_in.pop())
-        return self.queue_out.pop()
+            return self.queue_out.pop()
 
     def peek(self) -> int:
-        res = self.pop()
-        self.queue_out.append(res)
-        return res
+        value = self.pop()
+        self.queue_out.append(value)
+        return value
 
     def empty(self) -> bool:
         return not (self.queue_in or self.queue_out)

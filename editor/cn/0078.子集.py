@@ -39,8 +39,8 @@ class Solution:
 
     def subsets(self, nums: List[int]) -> List[List[int]]:
         # 回溯
-        # 时间复杂度：
-        # 空间复杂度：
+        # 时间复杂度：O(n * 2^n)
+        # 空间复杂度：O(n)
         self.result.append([])
         self.back_tracking(nums, 0)
         return self.result

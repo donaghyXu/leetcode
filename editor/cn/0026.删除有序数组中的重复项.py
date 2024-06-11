@@ -60,6 +60,9 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
+        # 双指针
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
         left = 0
         right = 1
         while right < len(nums):

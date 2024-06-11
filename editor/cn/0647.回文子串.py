@@ -38,46 +38,44 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        # 动态规划
+        # 2.双指针
         # 时间复杂度：O(s_len * s_len)
-        # 空间复杂度：O(s_len * s_len)
-
-        s_len = len(s)
+        # 空间复杂度：O(1)
         result = 0
+        for i in range(len(s)):
+            result += self.extend(s, i, i)
+            result += self.extend(s, i, i + 1)
+        return result
 
-        # dp[i][j]：区间范围[i,j]的子串是否是回文子串
-        dp = [[False for _ in range(s_len)] for _ in range(s_len)]
-
-        # 递推 遍历
-        for i in range(s_len - 1, -1, -1):
-            for j in range(i, s_len):
-                if s[i] == s[j]:
-                    if (j - i) <= 1:
-                        result += 1
-                        dp[i][j] = True
-                    else:
-                        if dp[i+1][j-1]:
-                            result += 1
-                            dp[i][j] = True
+    def extend(self, s, i, j):
+        n = len(s)
+        result = 0
+        while i >= 0 and j < n and s[i] == s[j]:
+            result += 1
+            i -= 1
+            j += 1
         return result
 
     # def countSubstrings(self, s: str) -> int:
-    #     # 双指针
+    #     # 1.动态规划
     #     # 时间复杂度：O(s_len * s_len)
-    #     # 空间复杂度：O(1)
-    #     result = 0
-    #     for i in range(len(s)):
-    #         result += self.extend(s, i, i)
-    #         result += self.extend(s, i, i + 1)
-    #     return result
+    #     # 空间复杂度：O(s_len * s_len)
     #
-    # def extend(self, s, i, j):
     #     s_len = len(s)
+    #     # dp[i][j]：区间[i,j]范围的子串是否是回文子串
+    #     dp = [[False for _ in range(s_len)] for _ in range(s_len)]
+    #
     #     result = 0
-    #     while i >= 0 and j < s_len and s[i] == s[j]:
-    #         result += 1
-    #         i -= 1
-    #         j += 1
+    #     # 递推，遍历
+    #     for i in range(s_len-1, -1, -1):
+    #         for j in range(i, s_len):
+    #             if s[i] == s[j]:
+    #                 if j - i <= 1:
+    #                     dp[i][j] = True
+    #                 else:
+    #                     dp[i][j] = dp[i+1][j-1]
+    #             if dp[i][j]:
+    #                 result += 1
     #     return result
 # leetcode submit region end(Prohibit modification and deletion)
 

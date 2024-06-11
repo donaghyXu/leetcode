@@ -59,6 +59,7 @@ class Solution:
         # 层序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+
         cur = root
         node = TreeNode(val=val)
         if root is None:

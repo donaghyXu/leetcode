@@ -34,16 +34,16 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def arrangeCoins(self, n: int) -> int:
+        # 二分
+        # 时间复杂度：O(logn)
+        # 空间复杂度：O(1)
         left = 1
-        right = n + 1
-        # if n == 1:
-        #     return 1
-        while left < right:
-            m = left + (right - left) // 2
-            sn = 0.5 * (m * m + m)
-            if n >= sn:
-                left = m + 1
+        right = n
+        while left <= right:
+            mid = left + (right - left) // 2
+            if (mid * mid + mid) / 2 <= n:
+                left = mid + 1
             else:
-                right = m
-        return left - 1
+                right = mid - 1
+        return right
 # leetcode submit region end(Prohibit modification and deletion)

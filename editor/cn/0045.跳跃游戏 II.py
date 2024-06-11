@@ -43,24 +43,51 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def jump(self, nums: List[int]) -> int:
+        # 2.贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
         n = len(nums) - 1
         if n == 0:
             return 0
-        cur_cover = nums[0]
-        next_cover = 0
+
         start = 0
+        # 当前能覆盖的最远范围
+        cur_cover = nums[start]
         cnt = 1
+        # 下一次跳跃能覆盖的最远范围
+        next_cover = 0
+
+        # 在当前步数可以覆盖的范围内不断更新下一次跳跃能覆盖的最远范围
         while start <= cur_cover:
             if cur_cover >= n:
                 return cnt
-            start += 1
+            # 更新下一次跳跃能覆盖的最远范围
             next_cover = max(start + nums[start], next_cover)
             if next_cover >= n:
                 cnt += 1
                 return cnt
+            # 到达当前能覆盖的最远范围，步数+1，更新当前能覆盖的最远范围
             if start == cur_cover:
                 cur_cover = next_cover
                 cnt += 1
-
+            start += 1
         return cnt
+
+        # # 1.动态规划
+        # # 时间复杂度：O(n²)
+        # # 空间复杂度：O(n)
+        #
+        # n = len(nums)
+        # # dp[i]：到达位置i的最小跳跃次数
+        # dp = [10005 for _ in range(n)]
+        #
+        # # 初始化
+        # dp[0] = 0
+        #
+        # # 递推，遍历
+        # for i in range(n):
+        #     for j in range(i + 1, i + nums[i] + 1):
+        #         if j < n:
+        #             dp[j] = min(dp[j], dp[i] + 1)
+        # return dp[n-1]
 # leetcode submit region end(Prohibit modification and deletion)

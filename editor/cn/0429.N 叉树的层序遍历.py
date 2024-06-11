@@ -46,20 +46,20 @@ class Node:
 
 class Solution:
     def levelOrder(self, root: 'Node') -> List[List[int]]:
-        # 层序遍历 bfs
+        # 遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         res = []
         depth = 0
-        self.bfs(root, depth, res)
+        self.dfs(root, depth, res)
         return res
 
-    def bfs(self, node: 'Node', depth: int, res: List[List[int]]):
+    def dfs(self, node, depth, res):
         if node is None:
             return
         if len(res) == depth:
             res.append([])
         res[depth].append(node.val)
         for children in node.children:
-            self.bfs(children, depth + 1, res)
+            self.dfs(children, depth + 1, res)
 # leetcode submit region end(Prohibit modification and deletion)

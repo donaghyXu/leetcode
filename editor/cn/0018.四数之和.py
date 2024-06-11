@@ -41,53 +41,56 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-        # 3. 双指针法 + min_max剪枝
-        # 时间复杂度: O(n^3)
-        # 空间复杂度: O(n)
+        # 双指针法 + min_max剪枝
+        # 时间复杂度: O(n³)
+        # 空间复杂度: O(1)
+        # 思路：通过双指针将四层for循环降为三层，固定前两个数，另外两个数通过双指针查找
 
         res = []
-        nums.sort()
-        num_len = len(nums)
-        if num_len < 4:
+        n = len(nums)
+        if n < 4:
             return res
+        nums.sort()
 
+        # min_max剪枝，最小值比目标值还大，最大值比目标值还小，都不可能找到符合目标值的结果
         min_value = nums[0] + nums[1] + nums[2] + nums[3]
         max_value = nums[-1] + nums[-2] + nums[-3] + nums[-4]
-
         if min_value > target or max_value < target:
             return res
 
-        for i, first in enumerate(nums):
-            if i >= num_len - 3:
-                break
-            # 剪枝条件遗忘,需注意
-            if i > 0 and nums[i] == nums[i - 1]:
+        for i in range(n - 3):
+            # 剪枝，第一个数相同的情况
+            if i > 0 and nums[i] == nums[i-1]:
                 continue
-            for j in range(i + 1, num_len - 2):
-                # 剪枝条件遗忘，需注意
-                if j > (i + 1) and nums[j] == nums[j - 1]:
+
+            for j in range(i + 1, n - 2):
+                # 剪枝，第二个数相同的情况
+                if j > i + 1 and nums[j] == nums[j-1]:
                     continue
-                second = nums[j]
-                left = j + 1
-                right = num_len - 1
-                min_value = first + second + nums[left] + nums[left + 1]
-                max_value = first + second + nums[right] + nums[right - 1]
+
+                # min_max剪枝，最小值比目标值还大，最大值比目标值还小，都不可能找到符合目标值的结果
+                min_value = nums[i] + nums[j] + nums[j+1] + nums[j+2]
+                max_value = nums[i] + nums[j] + nums[-1] + nums[-2]
                 if min_value > target or max_value < target:
                     continue
+
+                left = j + 1
+                right = n - 1
+                target_new = target - nums[i] - nums[j]
                 while left < right:
-                    three_four_sum = target - first - second
-                    if (nums[left] + nums[right]) < three_four_sum:
-                        left += 1
-                    elif (nums[left] + nums[right]) > three_four_sum:
-                        right -= 1
-                    else:
-                        res.append([first, second, nums[left], nums[right]])
-                        # 不判断left和right容易越界
+                    if nums[left] + nums[right] == target_new:
+                        res.append([nums[i], nums[j], nums[left], nums[right]])
+                        # 剪枝，去除第三个数重复的情况
                         while left < right and nums[left] == nums[left + 1]:
                             left += 1
+                        # 剪枝，去除第四个数重复的情况
                         while left < right and nums[right] == nums[right - 1]:
                             right -= 1
-                        right -= 1
                         left += 1
+                        right -= 1
+                    elif nums[left] + nums[right] < target_new:
+                        left += 1
+                    else:
+                        right -= 1
         return res
 # leetcode submit region end(Prohibit modification and deletion)

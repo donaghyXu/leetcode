@@ -50,22 +50,25 @@ class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         # 回溯
         # 时间复杂度：O(n * 2^n)
-        # 空间复杂度：
+        # 空间复杂度：O(n)
         candidates.sort()
         self.back_tracking(target, candidates, 0)
         return self.result
 
     def back_tracking(self, target, candidates, start_index):
+        # 终止条件
         if sum(self.path) == target:
             self.result.append(self.path[:])
             return
+        # 剪枝
+        if sum(self.path) > target:
+            return
 
         for i in range(start_index, len(candidates)):
+            # 同层剪枝
             if i > start_index and candidates[i] == candidates[i-1]:
                 continue
 
-            if sum(self.path) + candidates[i] > target:
-                break
             self.path.append(candidates[i])
             self.back_tracking(target, candidates, i + 1)
             self.path.pop()

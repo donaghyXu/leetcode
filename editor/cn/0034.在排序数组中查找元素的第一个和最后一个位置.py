@@ -41,57 +41,27 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        # flag = -1
-        # start = 0
-        # end = len(nums) - 1
-        # while start <= end:
-        #     mid = start + (end - start) // 2
-        #     if nums[mid] > target:
-        #         end = mid - 1
-        #     elif nums[mid] < target:
-        #         start = mid + 1
-        #     else:
-        #         flag = mid
-        #         break
-        # if flag == -1:
-        #     return [-1, -1]
-        # else:
-        #     index = flag
-        #     min_index = index
-        #     max_index = index
-        #     while min_index >= 0 and nums[min_index] == nums[index]:
-        #         min_index -= 1
-        #     while max_index <= end and nums[max_index] == nums[index]:
-        #         max_index += 1
-        #     return [min_index+1, max_index-1]
-
-        n = len(nums)
-        left_index = self.binary_search_find_left(nums, target)
-        if left_index >= n or nums[left_index] != target:
+        # 二分查找
+        # 时间复杂度：O(logn)
+        # 空间复杂度：O(1)
+        if len(nums) == 0 or target < nums[0] or target > nums[-1]:
             return [-1, -1]
-        right_index = self.binary_search_find_right(nums, target)
-        return [left_index, right_index]
+        # 查找第一个大于等于target的位置
+        left = self.left_binary_search(nums, target)
+        if nums[left] != target:
+            return [-1, -1]
+        right = self.left_binary_search(nums, target + 1) - 1
+        return [left, right]
 
-    def binary_search_find_left(self, nums: List[int], target: int) -> List[int]:
-        start = 0
-        end = len(nums) - 1
-        while start <= end:
-            mid = start + (end - start) // 2
+    # 第一个大于等于target的地方
+    def left_binary_search(self, nums, target):
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            mid = left + (right - left) // 2
             if nums[mid] >= target:
-                end = mid - 1
+                right = mid - 1
             else:
-                start = mid + 1
-        return start
-
-    def binary_search_find_right(self, nums: List[int], target: int) -> List[int]:
-        start = 0
-        end = len(nums) - 1
-        while start <= end:
-            mid = start + (end - start) // 2
-            if nums[mid] <= target:
-                start = mid + 1
-            else:
-                end = mid - 1
-        return end
-
+                left = mid + 1
+        return left
 # leetcode submit region end(Prohibit modification and deletion)

@@ -45,8 +45,8 @@ class Solution:
         if n <= 2:
             return max(nums)
 
-            # dp[i]：偷窃到编号i的房间所能偷的最高金额
-        dp = [0] * (n + 1)
+        # dp[i]：偷窃到编号i的房间所能偷的最高金额
+        dp = [0 for _ in range(n)]
 
         # 初始化
         dp[0] = nums[0]

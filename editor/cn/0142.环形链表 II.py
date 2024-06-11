@@ -69,6 +69,9 @@ class Solution:
         # 双指针
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
+        # 思路：先求两者的相遇点，找到后让慢指针回到起点重新开始，快指针保持与慢指针一样的步伐
+        #      再次相遇即为环的入口
+
         slow = head
         fast = head
         while fast is not None and fast.next is not None:

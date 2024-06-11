@@ -47,17 +47,14 @@ class Solution:
         # 后序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        if root is None:
-            return True
-        return self.get_height(root)[0]
+        return self.judge(root)[1]
 
-    def get_height(self, node):
+    def judge(self, node):
         if node is None:
-            return True, 0
-        left_flag, left = self.get_height(node.left)
-        right_flag, right = self.get_height(node.right)
-        if abs(left - right) <= 1:
-            return True and left_flag and right_flag, max(left, right) + 1
-        else:
-            return False, max(left, right) + 1
+            return 0, True
+
+        left_height, left = self.judge(node.left)
+        right_height, right = self.judge(node.right)
+
+        return max(left_height, right_height) + 1, left and right and abs(left_height - right_height) <= 1
 # leetcode submit region end(Prohibit modification and deletion)

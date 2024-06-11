@@ -53,31 +53,26 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        # 深度优先
+        # 深度优先 回溯
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         if root is None:
             return False
-        res = []
-        return self.dfs(root, res, targetSum)
+        path = []
+        return self.dfs(root, path, targetSum)
 
-    def dfs(self, node, res, target):
-        res.append(node.val)
-
+    def dfs(self, node, path, targetSum):
+        path.append(node.val)
         if node.left is None and node.right is None:
-            total = sum(res)
-            if total == target:
-                return True
-            else:
-                return False
+            return sum(path[:]) == targetSum
 
         if node.left:
-            if self.dfs(node.left, res, target):
+            if self.dfs(node.left, path, targetSum):
                 return True
-            res.pop()
+            path.pop()
         if node.right:
-            if self.dfs(node.right, res, target):
+            if self.dfs(node.right, path, targetSum):
                 return True
-            res.pop()
+            path.pop()
         return False
 # leetcode submit region end(Prohibit modification and deletion)

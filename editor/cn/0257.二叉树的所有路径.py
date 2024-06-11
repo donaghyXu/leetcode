@@ -63,20 +63,4 @@ class Solution:
         if node.right:
             self.dfs(node.right, res, res_final)
             res.pop()
-
-        # # 终止条件
-        # if node.left is None and node.right is None:
-        #     res.append(node.val)
-        #     s = '->'.join(map(str, res))
-        #     res_final.append(s)
-        #     res.pop()
-        #     return
-        #
-        # # 单层处理逻辑
-        # res.append(node.val)
-        # if node.left:
-        #     self.dfs(node.left, res, res_final)
-        # if node.right:
-        #     self.dfs(node.right, res, res_final)
-        # res.pop()
 # leetcode submit region end(Prohibit modification and deletion)

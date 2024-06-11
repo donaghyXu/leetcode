@@ -41,7 +41,27 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        # # 法1
+        # 2.哈希表
+        # 时间复杂度：O(max(len(nums1), len(nums2)))
+        # 空间复杂度：O(max(len(nums1), len(nums2)))
+        nums1_dict = collections.defaultdict(int)
+        nums2_dict = collections.defaultdict(int)
+        for num in nums1:
+            nums1_dict[num] += 1
+        for num in nums2:
+            nums2_dict[num] += 1
+
+        result = []
+        for key, value in nums1_dict.items():
+            if key in nums2_dict:
+                same_num = min(value, nums2_dict[key])
+                for i in range(same_num):
+                    result.append(key)
+        return result
+
+        # 1.内置函数
+        # # 时间复杂度：O(max(len(nums1), len(nums2)))
+        # # 空间复杂度：O(max(len(nums1), len(nums2)))
         # nums1_count = Counter(nums1)
         # nums2_count = Counter(nums2)
         # res_set = set(nums1).intersection(set(nums2))
@@ -50,23 +70,4 @@ class Solution:
         #     cnt = min(nums1_count[element], nums2_count[element])
         #     res.extend([element] * cnt)
         # return res
-
-        nums1_dict = {}
-        nums2_dict = {}
-        for element in nums1:
-            if element in nums1_dict:
-                nums1_dict[element] += 1
-            else:
-                nums1_dict[element] = 1
-        for element in nums2:
-            if element in nums2_dict:
-                nums2_dict[element] += 1
-            else:
-                nums2_dict[element] = 1
-
-        res = []
-        for key in nums1_dict.keys():
-            if key in nums2_dict:
-                res.extend([key] * min(nums1_dict[key], nums2_dict[key]))
-        return res
 # leetcode submit region end(Prohibit modification and deletion)

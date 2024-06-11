@@ -54,17 +54,17 @@ class Solution:
                           '9': ['w', 'x', 'y', 'z']}
 
     def letterCombinations(self, digits: str) -> List[str]:
-        # 回溯：
-        # 时间复杂度：O(3^m * 4^n)
+        # 回溯
+        # 时间复杂度：O(3^m * 4^n)，其中m是对应四个字母的数字个数，n是对应三个字母的数字个数
         # 空间复杂度：O(3^m * 4^n)
         digits_len = len(digits)
         if not digits_len:
             return []
-        self.back_tracking(digits_len, digits, 0)
+        self.back_tracking(digits, 0)
         return self.result
 
-    def back_tracking(self, n, digits, index):
-        if len(self.path) == n:
+    def back_tracking(self, digits, index):
+        if len(self.path) == len(digits):
             self.result.append("".join(self.path))
             return
 
@@ -72,6 +72,6 @@ class Solution:
         digit_list = self.digit_map[digit_key]
         for digit in digit_list:
             self.path.append(digit)
-            self.back_tracking(n, digits, index + 1)
+            self.back_tracking(digits, index + 1)
             self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

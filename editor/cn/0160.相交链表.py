@@ -99,34 +99,39 @@
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         # 模拟 双指针
-        # 时间复杂度：O(n)
+        # 时间复杂度：O(max(len(A), len(B)))
         # 空间复杂度：O(1)
         a_len = 0
-        b_len = 0
-        headA_iter = headA
-        headB_iter = headB
-
-        while headA_iter is not None:
+        curA = headA
+        while curA:
             a_len += 1
-            headA_iter = headA_iter.next
-        while headB_iter is not None:
-            b_len += 1
-            headB_iter = headB_iter.next
+            curA = curA.next
 
-        headA_iter = headA
-        headB_iter = headB
-        while headA_iter is not None or headB_iter is not None:
-            if b_len > a_len:
-                headB_iter = headB_iter.next
-                b_len -= 1
-            elif b_len < a_len:
-                headA_iter = headA_iter.next
-                a_len -= 1
-            else:
-                if headA_iter == headB_iter:
-                    return headA_iter
-                else:
-                    headA_iter = headA_iter.next
-                    headB_iter = headB_iter.next
+        b_len = 0
+        curB = headB
+        while curB:
+            b_len += 1
+            curB = curB.next
+
+        if a_len > b_len:
+            gap = a_len - b_len
+            curA = headA
+            curB = headB
+        else:
+            gap = b_len - a_len
+            curA = headB
+            curB = headA
+
+        cnt = 0
+        while curA and cnt < gap:
+            cnt += 1
+            curA = curA.next
+
+        while curA:
+            if curA == curB:
+                return curA
+            curA = curA.next
+            curB = curB.next
         return None
+
 # leetcode submit region end(Prohibit modification and deletion)

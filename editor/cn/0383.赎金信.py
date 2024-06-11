@@ -40,19 +40,26 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import collections
+
+
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        # 1.哈希表 时间复杂度O(n) 空间复杂度O(1)
-        if len(magazine) < len(ransomNote):
+        # 哈希表
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+
+        if len(ransomNote) > len(magazine):
             return False
 
-        magazine_cnt = [0] * 26
-        for m in magazine:
-            magazine_cnt[ord(m) - ord('a')] += 1
-        for r in ransomNote:
-            if magazine_cnt[ord(r) - ord('a')] == 0:
+        magazine_dict = collections.defaultdict(int)
+        for s in magazine:
+            magazine_dict[s] += 1
+
+        for s in ransomNote:
+            if s not in magazine_dict or magazine_dict[s] <= 0:
                 return False
             else:
-                magazine_cnt[ord(r) - ord('a')] -= 1
+                magazine_dict[s] -= 1
         return True
 # leetcode submit region end(Prohibit modification and deletion)

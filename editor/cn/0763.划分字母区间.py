@@ -37,20 +37,27 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
-        res = []
-        s_dict = {}
+        # 贪心
+        # 时间复杂度：O(n)
+        # 空间复杂度：O(1)
+
         n = len(s)
-        for i in range(n):
-            s_dict[s[i]] = i
-        right = s_dict[s[0]]
-        left = 0
-        for i in range(n):
-            if i < right and s_dict[s[i]] > right:
-                right = s_dict[s[i]]
-            if i == right or i == (n - 1):
-                res.append(right - left + 1)
-                if (i + 1) < n:
-                    left = i + 1
-                    right = s_dict[s[i + 1]]
-        return res
+        hash_dict = {}
+        for i, element in enumerate(s):
+            hash_dict[element] = i
+
+        prev = 0
+        start = 0
+        cur_cover = hash_dict[s[start]]
+        result = []
+        while start <= cur_cover:
+            if hash_dict[s[start]] > cur_cover:
+                cur_cover = hash_dict[s[start]]
+            if start == cur_cover and start + 1 < n:
+                result.append(cur_cover - prev + 1)
+                prev = start + 1
+                cur_cover = hash_dict[s[start + 1]]
+            start += 1
+        result.append(cur_cover - prev + 1)
+        return result
 # leetcode submit region end(Prohibit modification and deletion)

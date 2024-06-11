@@ -47,20 +47,18 @@ class Solution:
         # 时间复杂度：O(len(strs) * mn)
         # 空间复杂度：O(mn)
 
-        # dp[i][j]：最多有i个0和j个1的最大子集的大小
+        # dp[i][j]：最多有i个0和j个1的最大子集长度
         dp = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
 
-        for s in strs:
-            c = collections.Counter(list(s))
-            zero_num = 0
-            one_num = 0
-            if "0" in c:
-                zero_num = c["0"]
-            if "1" in c:
-                one_num = c["1"]
-            for i in range(m, zero_num - 1, -1):
-                for j in range(n, one_num - 1, -1):
-                    dp[i][j] = max(dp[i][j], dp[i - zero_num][j - one_num] + 1)
+        cnt = [[0, 0] for _ in range(len(strs))]
+        for i, s in enumerate(strs):
+            for j in range(len(s)):
+                cnt[i][int(s[j])] += 1
 
+        # 递推，遍历，先物品后背包
+        for zero, one in cnt:
+            for i in range(m, zero - 1, -1):
+                for j in range(n, one - 1, -1):
+                    dp[i][j] = max(dp[i][j], dp[i - zero][j - one] + 1)
         return dp[m][n]
 # leetcode submit region end(Prohibit modification and deletion)

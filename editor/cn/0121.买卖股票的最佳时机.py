@@ -38,28 +38,25 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        # 动态规划
+        # 3.动态规划
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
 
         n = len(prices)
-        # dp[i][0] 第i天不持有股票 dp[i][1]第i天持有股票
+        # dp[i][j]:第i+1天手中持有的最大现金，j=0代表持有股票，j=1代表不持有
         dp = [[0, 0] for _ in range(n)]
 
         # 初始化
-        dp[0][0] = 0
-        dp[0][1] = -prices[0]
+        dp[0][0] = -prices[0]
+        dp[0][1] = 0
 
+        # 递推，遍历
         for i in range(1, n):
-            # 第i天持有股票
-            dp[i][1] = max(dp[i - 1][1], -prices[i])
+            dp[i][0] = max(dp[i - 1][0], -prices[i])
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] + prices[i])
+        return dp[n-1][1]
 
-            # 第i天不持有股票
-            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])
-
-        return dp[n - 1][0]
-
-        # # 贪心
+        # # 2.贪心
         # # 时间复杂度：O(n)
         # # 空间复杂度：O(1)
         # low = 10005
@@ -69,7 +66,7 @@ class Solution:
         #     high = max(high, prices[i] - low)
         # return high
 
-        # # 简单模拟 超时
+        # # 1.简单模拟 超时
         # # 时间复杂度：O(n²)
         # # 空间复杂度：O(1)
         #

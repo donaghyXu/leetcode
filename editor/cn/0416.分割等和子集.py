@@ -32,24 +32,22 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        # 动态规划
+        # 动态规划 相当于求找有没有数能满足left，left-right=0,left+right=sum(nums)
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n)
-        n = len(nums)
-        total_value = sum(nums)
-        if total_value % 2:
+        sum_nums = sum(nums)
+        if sum_nums % 2:
             return False
-        target = int(total_value / 2)
+        target = int(sum_nums / 2)
 
-        # dp[j] 0-i的数放进容量为j的背包的最大总和
-        # j的最大值为target
-        dp = [0] * (target + 1)
+        # dp[i]：背包i所能装满的最大值
+        dp = [0 for _ in range(target + 1)]
 
-        # 递推，遍历
-        for i in range(n):
+        # 递推，遍历，先数后背包
+        for i in range(len(nums)):
             for j in range(target, nums[i] - 1, -1):
                 dp[j] = max(dp[j], dp[j - nums[i]] + nums[i])
-            if dp[target] == target:
-                return True
+                if dp[target] == target:
+                    return True
         return False
 # leetcode submit region end(Prohibit modification and deletion)

@@ -34,17 +34,14 @@ class Solution:
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n)
 
-        # dp[i]：由i个节点组成的二叉搜索树的数量
-        dp = [0] * (n + 1)
+        # dp[i]：由i个节点组成的二叉搜索树有dp[i]种
+        dp = [0 for _ in range(n + 1)]
 
         # 初始化
         dp[0] = 1
         dp[1] = 1
 
-        # 递推公式，遍历
-        # dp[2] = dp[0]*dp[1]+dp[1]*dp[0]
-        # dp[3] = dp[0]*dp[2]+dp[1]*dp[1]+dp[2]*dp[0]
-        # dp[4] = dp[0]*dp[3]+dp[1]*dp[2]+dp[2]*dp[1]+dp[3]*dp[0]
+        # 递推，遍历
         for i in range(2, n + 1):
             for j in range(i):
                 dp[i] += dp[j] * dp[i - j - 1]

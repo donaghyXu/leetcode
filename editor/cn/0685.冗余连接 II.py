@@ -72,11 +72,12 @@ class Solution:
         return True
 
     def get_redundant_edge(self, edges):
-        self.father = [i for i in range(1005)]
-        for i in range(len(edges)):
-            if self.is_same(edges[i][0], edges[i][1]):
-                return edges[i]
-            self.join(edges[i][0], edges[i][1])
+        self.__init__()
+        for edge in edges:
+            if self.is_same(edge[0], edge[1]):
+                return edge
+            else:
+                self.join(edge[0], edge[1])
         return []
 
     def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
@@ -84,12 +85,12 @@ class Solution:
         # 时间复杂度：O(nlogn)
         # 空间复杂度：O(n)
         n = len(edges)
-        indegree = [0] * (n+1)
+        indegree = [0] * (n + 1)
         for edge in edges:
             indegree[edge[1]] += 1
 
         res = []
-        for i in range(n-1, -1, -1):
+        for i in range(n - 1, -1, -1):
             if indegree[edges[i][1]] == 2:
                 res.append(i)
 

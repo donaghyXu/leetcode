@@ -52,33 +52,30 @@ class Solution:
         # 深搜
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n²)
-        x_end = len(board)
-        y_end = len(board[0])
-        visited = [[False for i in range(y_end)] for j in range(x_end)]
-
-        for i in range(x_end):
-            for j in range(y_end):
+        m = len(board)
+        n = len(board[0])
+        visited = [[False for _ in range(n)] for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
                 if board[i][j] == "O" and not visited[i][j]:
                     self.dfs(board, i, j, visited)
                     if self.flag:
                         for x, y in self.modify_res:
-                            board[x][y] = 'X'
+                            board[x][y] = "X"
                     self.flag = True
                     self.modify_res = []
 
     def dfs(self, board, x, y, visited):
-        x_end = len(board)
-        y_end = len(board[0])
-
-        if x < 0 or x >= x_end or y < 0 or y >= y_end or \
-            visited[x][y] or board[x][y] == "X":
+        m = len(board)
+        n = len(board[0])
+        if x < 0 or x >= m or y < 0 or y >= n or \
+                visited[x][y] or board[x][y] == "X":
             return
 
         visited[x][y] = True
-        self.modify_res.append((x, y))
-        if x == 0 or y == 0 or x == (x_end-1) or y == (y_end-1):
+        self.modify_res.append([x, y])
+        if x == 0 or x == m - 1 or y == 0 or y == n - 1:
             self.flag = False
-
         for x_offset, y_offset in self.dir:
-            self.dfs(board, x+x_offset, y+y_offset, visited)
+            self.dfs(board, x + x_offset, y + y_offset, visited)
 # leetcode submit region end(Prohibit modification and deletion)

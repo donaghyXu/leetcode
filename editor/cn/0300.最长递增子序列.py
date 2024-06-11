@@ -53,12 +53,11 @@ class Solution:
         # 空间复杂度：O(n)
 
         n = len(nums)
-
-        # dp[i]: 到位置i及之前的最长递增子序列的最长长度
+        # dp[i]：以下标i结尾的序列的最长严格递增子序列的长度
         dp = [1 for _ in range(n)]
 
         result = 1
-        # 递推 循环
+        # 递推，遍历
         for i in range(1, n):
             for j in range(i):
                 if nums[i] > nums[j]:

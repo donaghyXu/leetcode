@@ -44,7 +44,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
-        # 动态规划
+        # 2.动态规划
         # 时间复杂度：O(s_len*t_len)
         # 空间复杂度：O(s_len*t_len)
 
@@ -55,20 +55,20 @@ class Solution:
         if s_len == 0:
             return True
 
-        # dp[i][j] 到下班i-1和下标j-1的最大公共子序列长度
-        dp = [[0 for _ in range(s_len + 1)] for _ in range(t_len + 1)]
+        # dp[i][j]:到位置i-1的子序列和到位置j-1的子序列相等的长度
+        dp = [[0 for _ in range(t_len+1)] for _ in range(s_len+1)]
 
-        for i in range(1, t_len + 1):
-            for j in range(1, s_len + 1):
-                if t[i - 1] == s[j - 1]:
+        for i in range(1, s_len + 1):
+            for j in range(1, t_len + 1):
+                if s[i - 1] == t[j - 1]:
                     dp[i][j] = dp[i - 1][j - 1] + 1
                 else:
-                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+                    dp[i][j] = dp[i][j - 1]
                 if dp[i][j] == s_len:
                     return True
         return False
 
-        # # 双指针
+        # # 1.双指针
         # # 时间复杂度：O(s_len+t_len)
         # # 空间复杂度：O(1)
         # s_index = 0
