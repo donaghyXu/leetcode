@@ -53,6 +53,9 @@ class Solution:
         # 3.单调栈 优化版 继续优化空间复杂度
         # 时间复杂度：O(n)   len(nums1)=m  len(nums2)=n
         # 空间复杂度：O(m)
+        # 思路：先遍历nums1，记录元素和其下标
+        #      再用单调栈求得nums2中每个元素的下一个更大值
+        #      判断当前元素是否在nums1中，如果是的话根据字典中记录的坐标直接赋值
         res_dict = {}
         stack = []
         result = [-1] * len(nums1)
@@ -71,6 +74,7 @@ class Solution:
         # # 2.单调栈 优化版
         # # 时间复杂度：O(n)   len(nums1)=m  len(nums2)=n
         # # 空间复杂度：O(n)
+        # # 思路：用单调栈求得nums2中每个元素的下一个更大值，保存于字典中，再遍历nums1直接获取对应结果
         # res_dict = {}
         # stack = []
         # for i in range(len(nums2)):
@@ -91,6 +95,7 @@ class Solution:
         # # 1.单调栈
         # # 时间复杂度：O(n)   len(nums1)=m  len(nums2)=n
         # # 空间复杂度：O(n)
+        # # 思路：用单调栈求得nums2中每个元素的下一个更大值，保存于字典中，再遍历nums1直接获取对应结果
         # res = [-1] * 10005
         # stack = []
         # for i in range(len(nums2)):

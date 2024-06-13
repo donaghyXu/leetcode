@@ -54,6 +54,7 @@ class Solution:
 
         level_set = set()
         for i in range(len(nums)):
+            # 同一树层去重，树枝去重(取过的数不再取)
             if nums[i] in level_set or used[i]:
                 continue
             level_set.add(nums[i])

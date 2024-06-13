@@ -42,20 +42,20 @@
 #         self.right = right
 class Solution:
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
-        # 遍历 dfs
+        # 层序遍历递归法
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         res = []
         depth = 0
-        self.dfs(root, depth, res)
+        self.bfs(root, depth, res)
         return [max(x) for x in res]
 
-    def dfs(self, node, depth, res):
+    def bfs(self, node, depth, res):
         if node is None:
             return
         if len(res) == depth:
             res.append([])
         res[depth].append(node.val)
-        self.dfs(node.left, depth + 1, res)
-        self.dfs(node.right, depth + 1, res)
+        self.bfs(node.left, depth + 1, res)
+        self.bfs(node.right, depth + 1, res)
 # leetcode submit region end(Prohibit modification and deletion)

@@ -39,15 +39,16 @@ class Solution:
         # 二分
         # 时间复杂度：O(logn)
         # 空间复杂度：O(1)
-        start = 0
-        end = num
-        while start <= end:
-            mid = start + (end - start) // 2
+
+        left = 0
+        right = num
+        while left <= right:
+            mid = left + (right - left) // 2
             if mid * mid == num:
                 return True
             elif mid * mid < num:
-                start = mid + 1
+                left = mid + 1
             else:
-                end = mid - 1
+                right = mid - 1
         return False
 # leetcode submit region end(Prohibit modification and deletion)

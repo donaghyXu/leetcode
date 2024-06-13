@@ -55,42 +55,43 @@ class Solution:
         # 空间复杂度：O(n)
         level = 0
         result = []
-        self.dfs(root, level, result)
+        self.bfs(root, level, result)
         return [x[-1] for x in result]
 
-    def dfs(self, node, level, result):
+    def bfs(self, node, level, result):
         if node is None:
             return
 
         if len(result) == level:
             result.append([])
         result[level].append(node.val)
-        self.dfs(node.left, level + 1, result)
-        self.dfs(node.right, level + 1, result)
+        self.bfs(node.left, level + 1, result)
+        self.bfs(node.right, level + 1, result)
 
-        # # 1.广度优先，bfs，迭代法
-        # # 时间复杂度：O(n)
-        # # 空间复杂度：O(n)
-        #
-        # if root is None:
-        #     return []
-        #
-        # queue = collections.deque()
-        # queue.append([root])
-        # result = []
-        #
-        # while queue:
-        #     node_list = queue.popleft()
-        #     len_node_list = len(node_list)
-        #     level = []
-        #     for i in range(len_node_list):
-        #         node = node_list[i]
-        #         if node.left:
-        #             level.append(node.left)
-        #         if node.right:
-        #             level.append(node.right)
-        #     if len(level) > 0:
-        #         queue.append(level)
-        #     result.append(node_list[-1].val)
-        # return result
+    # def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    #     # 1.广度优先，bfs，迭代法
+    #     # 时间复杂度：O(n)
+    #     # 空间复杂度：O(n)
+    #
+    #     if root is None:
+    #         return []
+    #
+    #     queue = collections.deque()
+    #     queue.append([root])
+    #     result = []
+    #
+    #     while queue:
+    #         node_list = queue.popleft()
+    #         len_node_list = len(node_list)
+    #         level = []
+    #         for i in range(len_node_list):
+    #             node = node_list[i]
+    #             if node.left:
+    #                 level.append(node.left)
+    #             if node.right:
+    #                 level.append(node.right)
+    #         if len(level) > 0:
+    #             queue.append(level)
+    #         result.append(node_list[-1].val)
+    #     return result
 # leetcode submit region end(Prohibit modification and deletion)

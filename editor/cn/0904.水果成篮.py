@@ -73,13 +73,16 @@ class Solution:
         end = 0
         while end < n:
             count[fruits[end]] += 1
+            # 计算符合水果限制的最大水果数量
             if len(count) <= 2:
                 max_result = max(max_result, end - start + 1)
+            # 超出水果限制，窗口收缩
             while len(count) > 2:
                 count[fruits[start]] -= 1
                 if count[fruits[start]] == 0:
                     count.pop(fruits[start])
                 start += 1
+            # 窗口扩张
             end += 1
         return max_result
 

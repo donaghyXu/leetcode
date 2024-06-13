@@ -37,15 +37,22 @@ class Solution:
         # 贪心
         # 时间复杂度：O(nlogn)
         # 空间复杂度：O(n)
+        # 思路：先按左边界排序，让所有的相邻区间尽可能的重叠在一起
+        #      按照左边界从小到大排序之后，如果 intervals[i][0] <= intervals[i - 1][1]
+        #      即intervals[i]的左边界 <= intervals[i - 1]的右边界，则一定有重叠
+        #      合并区间，即将intervals[i]的右边界作为新的右边界，不断更新
 
         intervals.sort(key=lambda x: x[0])
         result = []
+        # 起始区间的左、右边界
         start = intervals[0][0]
         end = intervals[0][1]
         for i in range(1, len(intervals)):
+            # 更新右边界
             if intervals[i][0] <= end:
                 end = max(intervals[i][1], end)
             else:
+                # 到新的区间，将之前的区间添加到result中
                 result.append([start, end])
                 start = intervals[i][0]
                 end = intervals[i][1]

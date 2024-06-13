@@ -52,11 +52,14 @@ class Solution:
         # 深搜
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n²)
+
         m = len(board)
         n = len(board[0])
+        # 记录节点是否访问过的数组
         visited = [[False for _ in range(n)] for _ in range(m)]
         for i in range(m):
             for j in range(n):
+                # 如果是没有访问过的0，就进入深搜
                 if board[i][j] == "O" and not visited[i][j]:
                     self.dfs(board, i, j, visited)
                     if self.flag:
@@ -74,6 +77,7 @@ class Solution:
 
         visited[x][y] = True
         self.modify_res.append([x, y])
+        # 如果能够访问到边界，说明没有被X包围，flag置false
         if x == 0 or x == m - 1 or y == 0 or y == n - 1:
             self.flag = False
         for x_offset, y_offset in self.dir:

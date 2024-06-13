@@ -56,9 +56,10 @@ class Solution:
         self.flag = True
 
     def closedIsland(self, grid: List[List[int]]) -> int:
-        # 深搜 不能接触到边缘的岛屿即为封闭岛屿
+        # 深搜
         # 时间复杂度：O(n²)
         # 空间复杂度：O(1)
+        # 思路：不能接触到边缘的岛屿即为封闭岛屿，统计这样的岛屿数量
 
         m = len(grid)
         n = len(grid[0])

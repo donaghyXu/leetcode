@@ -53,16 +53,12 @@ class Solution:
         if len(postorder) == 0:
             return None
 
-        mid = postorder[-1]
-        root = TreeNode(val=mid)
+        root_value = postorder[-1]
+        root = TreeNode(val=root_value)
 
-        if len(postorder) == 1:
-            return root
-
-        mid_index = inorder.index(mid)
-        inorder_left = inorder[:mid_index]
-        inorder_right = inorder[mid_index+1:]
-
+        root_index = inorder.index(root_value)
+        inorder_left = inorder[:root_index]
+        inorder_right = inorder[root_index+1:]
         postorder_left = postorder[:len(inorder_left)]
         postorder_right = postorder[len(inorder_left):-1]
 

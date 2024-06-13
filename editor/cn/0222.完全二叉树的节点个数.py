@@ -55,7 +55,7 @@ class Solution:
         self.count = 0
 
     def countNodes(self, root: Optional[TreeNode]) -> int:
-        # 遍历
+        # 前序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
         self.dfs(root)

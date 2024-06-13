@@ -44,6 +44,7 @@ class Solution:
         # 遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+        # 思路：拆成左右子树分别比较
         return self.judge(root.left, root.right)
 
     def judge(self, left, right):

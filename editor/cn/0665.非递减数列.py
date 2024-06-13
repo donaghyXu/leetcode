@@ -49,6 +49,7 @@ class Solution:
         for i in range(1, n):
             if nums[i] < nums[i - 1]:
                 cnt += 1
+                # 如果当前元素比上上个元素还小，则交换这两者，如7，5，3变成3，5，7
                 if i >= 2 and nums[i] < nums[i - 2]:
                     nums[i] = nums[i - 1]
                 else:

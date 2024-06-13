@@ -56,6 +56,7 @@ class Solution:
         # 二分查找
         # 时间复杂度：O(nlogn)
         # 空间复杂度：O(1)
+        # 思路：每次在nums2数组中用二分查找大于nums1当前值的最大值，计算其距离，不断更新
 
         nums1_len = len(nums1)
         nums2_len = len(nums2)

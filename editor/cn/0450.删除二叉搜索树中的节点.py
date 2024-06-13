@@ -75,6 +75,7 @@ class Solution:
         if node is None:
             return None
 
+        # 找到key值
         if node.val == key:
             if node.left is None and node.right is not None:
                 return node.right
@@ -83,6 +84,7 @@ class Solution:
             elif node.left is None and node.right is None:
                 return None
             else:
+                # 左子树和右子树都不为空，那么找到右子树的最左节点，将左子树与其连接，返回右子树
                 cur = node.right
                 while cur.left:
                     cur = cur.left

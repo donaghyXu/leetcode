@@ -51,6 +51,8 @@ class Solution:
         # 数组，贪心
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
+        # 思路：为了方便后续更容易找零，因此优先用大份额的钱找零，小份额的更有灵活性，优先留着
+
         five_count = 0
         ten_count = 0
         twenty_count = 0

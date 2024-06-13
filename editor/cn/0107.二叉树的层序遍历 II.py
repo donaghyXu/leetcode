@@ -44,21 +44,21 @@
 #         self.right = right
 class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
-        # 遍历,dfs
+        # 层序遍历的递归法
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
 
         res = []
-        self.dfs(root, res, 0)
+        self.bfs(root, res, 0)
         return res[::-1]
 
-    def dfs(self, node, res, depth):
+    def bfs(self, node, res, depth):
         if node is None:
             return
 
         if len(res) == depth:
             res.append([])
         res[depth].append(node.val)
-        self.dfs(node.left, res, depth + 1)
-        self.dfs(node.right, res, depth + 1)
+        self.bfs(node.left, res, depth + 1)
+        self.bfs(node.right, res, depth + 1)
 # leetcode submit region end(Prohibit modification and deletion)

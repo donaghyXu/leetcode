@@ -36,31 +36,34 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    def __init__(self):
+        self.path = []
+        self.result = []
+
     def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
-        # 深度优先
+        # 深度优先，回溯
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
-        res = []
-        res_final = []
+
         if root is None:
             return []
-        self.dfs(root, res, res_final)
-        return res_final
+        self.dfs(root)
+        return self.result
 
-    def dfs(self, node, res, res_final):
-        res.append(node.val)
+    def dfs(self, node):
+        self.path.append(node.val)
 
         # 终止条件
         if node.left is None and node.right is None:
-            s = '->'.join(map(str, res))
-            res_final.append(s)
+            s = '->'.join(map(str, self.path))
+            self.result.append(s)
             return
 
         # 单层处理逻辑
         if node.left:
-            self.dfs(node.left, res, res_final)
-            res.pop()
+            self.dfs(node.left)
+            self.path.pop()
         if node.right:
-            self.dfs(node.right, res, res_final)
-            res.pop()
+            self.dfs(node.right)
+            self.path.pop()
 # leetcode submit region end(Prohibit modification and deletion)

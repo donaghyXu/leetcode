@@ -41,6 +41,7 @@ class Solution:
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
 
+        # 记录字母出现的最后的位置
         n = len(s)
         hash_dict = {}
         for i, element in enumerate(s):
@@ -48,11 +49,14 @@ class Solution:
 
         prev = 0
         start = 0
+        # 当前字母所能覆盖的最远范围
         cur_cover = hash_dict[s[start]]
         result = []
         while start <= cur_cover:
+            # 只要当前范围内的字母所能达到的范围比现有范围大，就更新现有范围
             if hash_dict[s[start]] > cur_cover:
                 cur_cover = hash_dict[s[start]]
+            # 开始新的范围
             if start == cur_cover and start + 1 < n:
                 result.append(cur_cover - prev + 1)
                 prev = start + 1

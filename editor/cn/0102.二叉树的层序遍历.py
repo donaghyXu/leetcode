@@ -51,18 +51,18 @@ class Solution:
         # 时间复杂度：O(n)
         # 空间复杂度：O(h)
         result = []
-        self.dfs(root, result, 0)
+        self.bfs(root, result, 0)
         return result
 
-    def dfs(self, node, result, depth):
+    def bfs(self, node, result, depth):
         if node is None:
             return
 
         if len(result) == depth:
             result.append([])
         result[depth].append(node.val)
-        self.dfs(node.left, result, depth + 1)
-        self.dfs(node.right, result, depth + 1)
+        self.bfs(node.left, result, depth + 1)
+        self.bfs(node.right, result, depth + 1)
 
         # # 1. 迭代法
         # # 时间复杂度：O(n)

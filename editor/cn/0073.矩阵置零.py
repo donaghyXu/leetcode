@@ -51,7 +51,7 @@ class Solution:
         """
         # 哈希表
         # 时间复杂度：O(mn)
-        # 空间复杂度：O(max(m,n))
+        # 空间复杂度：O(m+n)
         m = len(matrix)
         n = len(matrix[0])
 

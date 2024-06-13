@@ -44,6 +44,10 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 import heapq
 class MedianFinder:
+    # 大根堆，小根堆
+    # 思路：通过维护两个平衡的大根堆，小根堆，来获取中间值
+    #      如果总数是奇数，即小根堆数量大于大根堆，那么取小根堆的堆顶
+    #      如果总数是偶数，即小根堆数量等于大根堆，那么取小根堆和大根堆的堆顶
     def __init__(self):
         self.heap_min = []
         self.heap_max = []

@@ -53,7 +53,7 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # 深度优先
+        # 后序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         return self.dfs(root, p, q)

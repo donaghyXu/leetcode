@@ -46,6 +46,9 @@ class Solution:
         # 拓扑排序
         # 时间复杂度：O(len(numCourses)+len(prerequisites))
         # 空间复杂度：O(len(numCourses)+len(prerequisites))
+        # 思路：从入度为0的节点开始，利用拓扑排序不断往前搜索
+        #      如果访问的节点总数等于课程数，那么代表可以修完
+
         edges = collections.defaultdict(list)
         indegree = [0] * numCourses
 

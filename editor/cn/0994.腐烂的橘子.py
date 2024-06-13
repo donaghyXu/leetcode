@@ -62,6 +62,8 @@ class Solution:
         # bfs
         # 时间复杂度：O(mn)
         # 空间复杂度：O(mn)
+        # 思路：统计新鲜橘子数量，腐烂橘子通过bfs一圈圈去腐烂周围橘子，每扩大一圈，分钟数+1
+        #      如果最后还有新鲜橘子，那么返回-1
         min_minute = 0
         m = len(grid)
         n = len(grid[0])
@@ -88,6 +90,7 @@ class Solution:
             return -1
         return min_minute
 
+    # 将当前位置周围的橘子腐烂
     def trans(self, grid, x, y, queue):
         m = len(grid)
         n = len(grid[0])

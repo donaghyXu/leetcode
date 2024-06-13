@@ -42,9 +42,9 @@
 #         self.right = right
 class Solution:
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
-        # 深度优先
+        # 前序遍历
         # 时间复杂度：O(n)
-        # 空间复杂度：O(1)
+        # 空间复杂度：O(n)
         if root is None:
             return 0
         left_leaf = []

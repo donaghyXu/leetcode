@@ -58,7 +58,7 @@ class Solution:
         self.result = []
 
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
-        # 深度优先
+        # 深度优先，回溯
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         if root is None:

@@ -53,16 +53,23 @@ class Solution:
         # 排序
         # 时间复杂度：O(nlogn)
         # 空间复杂度：O(n)
+        # 思路：将node与自身的值绑定，将值作为key排序，并重新建立关联
 
         if head is None:
             return None
         link_list = []
         cur = head
+
+        # 将节点与值绑定
         while cur:
             link_list.append((cur.val, cur))
             cur = cur.next
+
+        # 排序
         link_list.sort(key=lambda x: x[0])
         n = len(link_list)
+
+        # 重新建立关联
         for i in range(n - 1):
             link_list[i][1].next = link_list[i + 1][1]
         link_list[n - 1][1].next = None

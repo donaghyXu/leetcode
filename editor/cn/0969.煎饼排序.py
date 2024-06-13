@@ -57,6 +57,8 @@ class Solution:
         # 排序
         # 时间复杂度：O(n²)
         # 空间复杂度：O(1)
+        # 思路：每一轮找到当前范围内的最大值，通过两次翻转将其放入正确位置
+
         result = []
         n = len(arr)
         for i in range(n-1):

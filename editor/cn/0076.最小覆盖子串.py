@@ -68,6 +68,7 @@ class Solution:
         if s_len < t_len:
             return ""
 
+        # 计算各字符出现的数量
         t_dict = collections.defaultdict(int)
         for element in t:
             t_dict[element] += 1

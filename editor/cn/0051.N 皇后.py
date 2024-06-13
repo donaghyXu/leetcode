@@ -39,7 +39,6 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-from typing import List
 class Solution:
     def __init__(self):
         self.result = []
@@ -65,13 +64,14 @@ class Solution:
                 self.back_tracking(board, row + 1)
                 board[row][col] = "."
 
+    # 判断象棋是否可以放在位置(x,y)上
     def is_valid(self, board, x, y):
         # 同列
         for row in range(x):
             if board[row][y] == "Q":
                 return False
 
-        # 同斜线
+        # 135°斜线
         row = x - 1
         col = y - 1
         while row >= 0 and col >= 0:
@@ -80,6 +80,7 @@ class Solution:
             row -= 1
             col -= 1
 
+        # 45°斜线
         row = x - 1
         col = y + 1
         while row >= 0 and col < len(board):

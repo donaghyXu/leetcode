@@ -46,6 +46,7 @@ class Solution:
         # 模拟
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
+        # 思路：将x挪到左边，将数字挪到右边，然后计算
 
         left, right = equation.replace("-", "+-").split("=")
         left_list = left.split("+")

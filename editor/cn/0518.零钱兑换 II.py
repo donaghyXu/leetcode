@@ -65,7 +65,7 @@ class Solution:
         # 初始化
         dp[0] = 1
 
-        # 递推公式 循环
+        # 递推，遍历
         for i in range(len(coins)):
             for j in range(coins[i], amount+1):
                 dp[j] += dp[j-coins[i]]

@@ -47,6 +47,8 @@ class Solution:
         # 2.迭代法
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+        # 思路：利用二叉搜索树的特性，很容易想到二分查找
+
         if p.val > q.val:
             p, q = q, p
         while root:

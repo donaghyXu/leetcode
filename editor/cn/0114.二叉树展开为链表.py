@@ -59,6 +59,7 @@ class Solution:
         # 前序遍历，哈希表
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+        # 思路：前序遍历将节点按顺序存在列表里，再重新建立指向关系
 
         if root is None:
             return None

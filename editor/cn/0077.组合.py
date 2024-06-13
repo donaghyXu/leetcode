@@ -55,6 +55,7 @@ class Solution:
             self.result.append(self.path[:])
             return
 
+        # 剪枝，当剩余数量不足K时，中止
         for i in range(start_index, n + 1 - (k - len(self.path)) + 1):
             self.path.append(i)
             self.back_track(n, k, i + 1)

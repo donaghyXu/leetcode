@@ -37,18 +37,17 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import collections
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         # 哈希表
         # 时间复杂度：O(n*klogk)，n=len(strs)，k=max(len(str))
         # 空间复杂度：O(n)
-        hash_dict = {}
+        # 思路：通过哈希表索引字母异位词，将字母异位词排序后作为key
+        hash_dict = collections.defaultdict(list)
         for word in strs:
             word_sort = "".join(sorted(word))
-            if word_sort in hash_dict:
-                hash_dict[word_sort].append(word)
-            else:
-                hash_dict[word_sort] = [word]
+            hash_dict[word_sort].append(word)
 
         return list(hash_dict.values())
 # leetcode submit region end(Prohibit modification and deletion)

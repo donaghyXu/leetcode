@@ -47,6 +47,7 @@ class Solution:
         # 栈
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n)
+        # 思路：用栈保存，碰撞后大的入栈，小的出栈
 
         stack = []
         flag = False

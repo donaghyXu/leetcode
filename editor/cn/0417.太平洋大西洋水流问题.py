@@ -49,6 +49,8 @@ class Solution:
         # 深搜 优化版本
         # 时间复杂度：O(m*n)  第一次从太平洋出发mn，第二次从大西洋出发mn，遍历结果mn
         # 空间复杂度：O(mn)
+        # 思路：反向思维节省开销，分别从大西洋和太平洋边界处出发，标记能到达的位置，取交集
+
         result = []
         x_end = len(heights)
         y_end = len(heights[0])

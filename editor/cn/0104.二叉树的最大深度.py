@@ -46,7 +46,7 @@ class Solution:
         self.max_depth = 0
 
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        # 遍历 dfs
+        # 前序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         self.dfs(root, 1)

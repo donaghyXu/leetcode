@@ -39,6 +39,8 @@ class Solution:
         # 贪心
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
+        # 思路：看当前位置的前面和后面是否有花，如果没有花就可以种并计数
+
         flowerbed_len = len(flowerbed)
         cnt = 0
 

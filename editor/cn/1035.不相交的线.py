@@ -60,6 +60,7 @@ class Solution:
         # 动态规划
         # 时间复杂度：O(nums1_len*nums2_len)
         # 空间复杂度：O(nums1_len*nums2_len)
+        # 思路：等价于找相同的最大递增子序列
 
         nums1_len = len(nums1)
         nums2_len = len(nums2)

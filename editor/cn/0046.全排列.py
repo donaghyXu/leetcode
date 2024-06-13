@@ -57,6 +57,7 @@ class Solution:
             return
 
         for i in range(len(nums)):
+            # 树枝去重，避免排列中取到重复的数
             if used[i]:
                 continue
             self.path.append(nums[i])

@@ -41,7 +41,7 @@
 #         self.right = right
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        # 遍历 dfs
+        # 后序遍历
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         res = self.dfs(root)

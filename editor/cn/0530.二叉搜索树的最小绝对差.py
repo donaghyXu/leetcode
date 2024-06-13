@@ -47,6 +47,8 @@ class Solution:
         # 中序遍历 递归
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+        # 思路：二叉搜索树中序遍历为有序序列，最小值只可能存在于相邻两个元素的差值之间
+
         res = []
         self.dfs(root, res)
         min_value = float('inf')

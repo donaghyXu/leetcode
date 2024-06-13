@@ -43,14 +43,17 @@ class Solution:
         # 双指针
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
+
         left = 0
         right = 0
         n = len(nums)
+        # 将非0元素挪到前方
         while right < n:
             if nums[right] != 0:
                 nums[left] = nums[right]
                 left += 1
             right += 1
+        # 后面元素置0
         while left < n:
             nums[left] = 0
             left += 1

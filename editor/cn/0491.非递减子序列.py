@@ -49,7 +49,9 @@ class Solution:
 
         level_set = set()
         for i in range(start_index, len(nums)):
+            # 同一树层去重
             if nums[i] not in level_set:
+                # 如果满足递增，进入下一层回溯
                 if len(self.path) == 0 or \
                         (len(self.path) > 0 and nums[i] >= self.path[-1]):
                     level_set.add(nums[i])

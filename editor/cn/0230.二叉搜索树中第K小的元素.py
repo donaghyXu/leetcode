@@ -51,6 +51,8 @@ class Solution:
         # 中序遍历
         # 时间复杂度：O(k)
         # 空间复杂度：O(k)
+        # 思路：二叉搜索树的中序遍历是递增序列
+
         self.dfs(root, k)
         return self.result
 

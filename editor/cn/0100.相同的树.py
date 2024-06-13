@@ -46,7 +46,7 @@
 #         self.right = right
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        # 遍历
+        # 前序遍历
         # 时间复杂度：O(min(m,n))，m为p的节点数，n为q的节点数
         # 空间复杂度：O(min(m,n))
         return self.compare(p, q)

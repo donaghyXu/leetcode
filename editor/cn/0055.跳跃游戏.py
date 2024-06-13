@@ -35,7 +35,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        # 贪心
+        # 2.贪心
         # 时间复杂度：O(n)
         # 空间复杂度：O(1)
 
@@ -67,7 +67,7 @@ class Solution:
             start += 1
         return cur_cover >= n
 
-        # # 动态规划
+        # # 1.动态规划
         # # 时间复杂度：O(n²)
         # # 空间复杂度：O(n)
         #

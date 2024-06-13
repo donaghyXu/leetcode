@@ -61,7 +61,7 @@ class Solution:
         island_area = []
         max_area = -1
 
-        # 统计各个岛屿面积
+        # 统计各个岛屿面积，并为每个岛屿编号
         for i in range(x_end):
             for j in range(y_end):
                 if grid[i][j] and not visited[i][j]:
@@ -77,6 +77,7 @@ class Solution:
                 if not grid[i][j]:
                     cur_area = 1
                     near_island_index = []
+                    # 看当前位置上下左右四个位置的岛屿编号，相同岛屿的面积只计算一次，得到最终面积
                     for x_offset, y_offset in self.grid:
                         next_x = i + x_offset
                         next_y = j + y_offset

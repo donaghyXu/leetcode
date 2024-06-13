@@ -61,10 +61,12 @@ class Solution:
         total_sum = 0
         while right < len(nums):
             total_sum += nums[right]
+            # 当满足总和大于等于target时，窗口缩小
             while total_sum >= target and left <= right:
                 min_length = min(min_length, right - left + 1)
                 total_sum -= nums[left]
                 left += 1
+            # 窗口扩张
             right += 1
         if min_length == float('inf'):
             return 0

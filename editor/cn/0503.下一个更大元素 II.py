@@ -41,6 +41,8 @@ class Solution:
         # 单调栈
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
+        # 思路：循环数组只需要将数组虚拟拷贝在原数组后面即可
+
         n = len(nums)
         res = [-1] * n
         stack = []

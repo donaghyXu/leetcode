@@ -56,6 +56,7 @@ class Solution:
         # 空间复杂度：O(1)
         # 思路：确保出发点开始油一直是够的状态，如果不够，说明对后面的行程来说是负担
         #      从新的节点开始
+
         if sum(gas) < sum(cost):
             return -1
         n = len(gas)

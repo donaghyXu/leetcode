@@ -46,9 +46,11 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def findRadius(self, houses: List[int], heaters: List[int]) -> int:
-        # 双指针
-        # 时间复杂度：O(logn * len(houses) * len(heaters)
+        # 二分查找，双指针
+        # 时间复杂度：O(logn * len(houses) * len(heaters)）
         # 空间复杂度：O(1)
+        # 思路：在可能得半径范围内[0,max_len(house,heater)]内，二分查找，判断是否满足
+
         max_house = max(houses)
         max_heater = max(heaters)
         houses.sort()
@@ -63,6 +65,7 @@ class Solution:
                 left = mid + 1
         return left
 
+    # 判断供暖器的当前加热半径是否能满足房子所需
     def valid(self, houses, heaters, r):
         cnt = 0
         index = 0

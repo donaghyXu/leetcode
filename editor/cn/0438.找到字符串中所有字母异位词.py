@@ -48,6 +48,7 @@ class Solution:
         if s_len < p_len:
             return []
 
+        # 统计p中字母出现次数
         p_hash_dict = [0 for _ in range(26)]
         for element in p:
             p_hash_dict[ord(element) - ord('a')] += 1
@@ -58,11 +59,13 @@ class Solution:
         s_hash_dict = [0 for _ in range(26)]
         while right < s_len:
             s_hash_dict[ord(s[right]) - ord('a')] += 1
+            # 长度满足条件后，窗口缩小
             while right - left + 1 == p_len:
                 if s_hash_dict == p_hash_dict:
                     result.append(left)
                 s_hash_dict[ord(s[left]) - ord('a')] -= 1
                 left += 1
+            # 滑动窗口扩张
             right += 1
         return result
     # leetcode submit region end(Prohibit modification and deletion)

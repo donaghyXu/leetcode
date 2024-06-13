@@ -50,6 +50,7 @@
 class MinStack:
     def __init__(self):
         self.stack = []
+        # 用一个最小栈存放到目前为止最小的元素，与栈内元素一一对应
         self.min_stack = []
 
     def push(self, val: int) -> None:

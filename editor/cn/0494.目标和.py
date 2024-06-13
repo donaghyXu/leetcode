@@ -50,6 +50,9 @@ class Solution:
         # 动态规划
         # 时间复杂度：O(n * target_new)
         # 空间复杂度：O(target_new)
+        # 思路：正数和为left，负数和为right
+        #      通过left + right = sum, left - right = target可以求得left
+        #      转化为背包问题，选数能否装满left
 
         n = len(nums)
         # left + right = sum, left - right = target

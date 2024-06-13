@@ -37,6 +37,8 @@ class Solution:
         # 二分
         # 时间复杂度：O(logn)
         # 空间复杂度：O(1)
+        # 思路：二分查找，根据等差数列求和公式(n²+n)/2求得n行可得的硬币总数来判断
+
         left = 1
         right = n
         while left <= right:

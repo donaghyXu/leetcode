@@ -50,6 +50,8 @@ class Solution:
         # 二分搜索
         # 时间复杂度：O(h)
         # 空间复杂度：O(1)
+        # 思路：根据二叉搜索树有序的特性进行二分查找
+
         while root:
             if root.val == val:
                 return root

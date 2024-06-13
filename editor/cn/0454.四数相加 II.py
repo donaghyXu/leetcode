@@ -44,19 +44,17 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import collections
 class Solution:
     def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
         # 2. 哈希表  减少一次循环遍历
         # 时间复杂度：O(n²)
         # 空间复杂度：O(n²)
-        two_sum_dict1 = {}
+        two_sum_dict1 = collections.defaultdict(int)
         for i in range(len(nums1)):
             for j in range(len(nums2)):
                 total = nums1[i] + nums2[j]
-                if total in two_sum_dict1:
-                    two_sum_dict1[total] += 1
-                else:
-                    two_sum_dict1[total] = 1
+                two_sum_dict1[total] += 1
 
         res = 0
         for i in range(len(nums3)):

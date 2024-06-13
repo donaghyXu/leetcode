@@ -38,6 +38,8 @@ class Solution:
         # 排序
         # 时间复杂度：O(nlogn)
         # 空间复杂度：O(n)
+        # 思路：统计出现频率，按照出现频率排序
+
         key_dict = {}
         for num in nums:
             if num in key_dict:
