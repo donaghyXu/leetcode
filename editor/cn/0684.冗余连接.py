@@ -67,8 +67,8 @@ class Solution:
 
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
         # 并查集
-        # 时间复杂度：O(len(edges) * logn)
-        # 空间复杂度：O(1)
+        # 时间复杂度：O(nlogn)
+        # 空间复杂度：O(n)
         for edge in edges:
             if self.is_same(edge[0], edge[1]):
                 return edge

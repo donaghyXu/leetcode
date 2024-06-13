@@ -53,8 +53,8 @@ class Solution:
 
     def numIslands(self, grid: List[List[str]]) -> int:
         # 深搜
-        # 时间复杂度：O(n²)
-        # 空间复杂度：O(1)
+        # 时间复杂度：O(mn)
+        # 空间复杂度：O(mn)
 
         m = len(grid)
         n = len(grid[0])

@@ -44,6 +44,8 @@ class Solution:
 
         n = len(prices)
         # dp[i]：第i+1天所持有的现金
+        # 0：无操作
+        # 1：第1次持有  2：第1次不持有 3：第2次持有 4：第2次不持有 2k-1：第k次持有 2k：第k次不持有
         dp = [[0 for _ in range(2*k + 1)] for _ in range(n)]
 
         # 初始化
@@ -53,7 +55,10 @@ class Solution:
         # 递推，遍历
         for i in range(1, n):
             for j in range(k):
+                # 第k次持有
                 dp[i][2*j + 1] = max(dp[i - 1][2*j + 1], dp[i - 1][2*j] - prices[i])
+
+                # 第k次不持有
                 dp[i][2*j + 2] = max(dp[i - 1][2*j + 2], dp[i - 1][2*j + 1] + prices[i])
         return dp[n - 1][2 * k]
 # leetcode submit region end(Prohibit modification and deletion)

@@ -51,6 +51,9 @@ class Solution:
         dp[1] = 1
 
         # 递推，遍历
+        # dp[2] = dp[0]*dp[1]+dp[1]*dp[0]
+        # dp[3] = dp[0]*dp[2]+dp[1]*dp[1]+dp[2]*dp[0]
+        # dp[4] = dp[0]*dp[3]+dp[1]*dp[2]+dp[2]*dp[1]+dp[3]*dp[0]
         for i in range(2, n + 1):
             for j in range(i):
                 dp[i] += dp[j] * dp[i - j - 1]

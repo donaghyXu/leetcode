@@ -45,18 +45,26 @@ class Solution:
         # 时间复杂度：O(n)
         # 空间复杂度：O(n)
         # 思路：拆成左右子树分别比较
-        return self.judge(root.left, root.right)
 
-    def judge(self, left, right):
-        # 终止条件
-        if left is None and right is None:
+        if root is None:
             return True
-        elif left is None or right is None:
+        return self.compare(root.left, root.right)
+
+    def compare(self, left, right):
+        # 首先排除空节点的情况
+        if left is None and right is not None:
             return False
+        elif left is not None and right is None:
+            return False
+        elif left is None and right is None:
+            return True
+        # 排除了空节点，再排除数值不相同的情况
         elif left.val != right.val:
             return False
 
-        l = self.judge(left.left, right.right)
-        r = self.judge(left.right, right.left)
-        return l and r
+        # 此时就是：左右节点都不为空，且数值相同的情况
+        # 此时才做递归，做下一层的判断
+        outside = self.compare(left.left, right.right)
+        inside = self.compare(left.right, right.left)
+        return outside and inside
 # leetcode submit region end(Prohibit modification and deletion)
