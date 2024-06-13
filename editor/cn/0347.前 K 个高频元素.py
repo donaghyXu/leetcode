@@ -33,26 +33,54 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+import collections
+import heapq
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # 排序
-        # 时间复杂度：O(nlogn)
+        # 2.大根堆
+        # 时间复杂度：O(nlogk)
         # 空间复杂度：O(n)
-        # 思路：统计出现频率，按照出现频率排序
 
-        key_dict = {}
+        # 统计元素出现频率
+        hash_dict = collections.defaultdict(int)
         for num in nums:
-            if num in key_dict:
-                key_dict[num] += 1
-            else:
-                key_dict[num] = 1
+            hash_dict[num] += 1
 
-        key_dict_items = sorted(key_dict.items(), key=lambda x: -x[1])
+        # 对频率排序
+        # 定义一个小顶堆，大小为k
+        pri_que = []
 
-        res = []
-        for key, value in key_dict_items:
-            res.append(key)
-            if len(res) == k:
-                break
-        return res
+        # 用固定大小为k的小顶堆，扫描所有频率的数值
+        for key, freq in hash_dict.items():
+            heapq.heappush(pri_que, (freq, key))
+            # 如果堆的大小大于了K，则队列弹出当前最小的元素，保证堆的大小一直为k
+            if len(pri_que) > k:
+                heapq.heappop(pri_que)
+
+        # 找出前K个高频元素，因为小顶堆先弹出的是最小的，所以倒序来输出到数组
+        result = [0] * k
+        for i in range(k - 1, -1, -1):
+            result[i] = heapq.heappop(pri_que)[1]
+        return result
+
+        # # 1.排序
+        # # 时间复杂度：O(nlogn)
+        # # 空间复杂度：O(n)
+        # # 思路：统计出现频率，按照出现频率排序
+        #
+        # key_dict = {}
+        # for num in nums:
+        #     if num in key_dict:
+        #         key_dict[num] += 1
+        #     else:
+        #         key_dict[num] = 1
+        #
+        # key_dict_items = sorted(key_dict.items(), key=lambda x: -x[1])
+        #
+        # res = []
+        # for key, value in key_dict_items:
+        #     res.append(key)
+        #     if len(res) == k:
+        #         break
+        # return res
 # leetcode submit region end(Prohibit modification and deletion)
