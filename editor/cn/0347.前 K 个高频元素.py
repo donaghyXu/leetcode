@@ -37,7 +37,7 @@ import collections
 import heapq
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # 2.大根堆
+        # 2.小根堆
         # 时间复杂度：O(nlogk)
         # 空间复杂度：O(n)
 
